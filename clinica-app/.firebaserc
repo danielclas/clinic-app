@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "clinica-app-6f2b7": {
+      "hosting": {
+        "clinica-app": [
+          "clinica-app-6f2b7"
+        ]
+      }
+    }
+  }
+}
