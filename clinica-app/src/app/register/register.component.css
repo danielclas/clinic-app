@@ -17,3 +17,10 @@
   background-color: #EEEEEE;
   color: grey;
 }
+
+.error{
+  background-color: #fce4e4;
+  border: 1px solid #cc0033;
+  outline: none;
+  color: #cc0033;
+}

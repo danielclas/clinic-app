@@ -3,7 +3,9 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { Upload } from '../models/upload';
 import {User, UserType} from '../models/user';
+import { finalize } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +22,9 @@ export class AuthenticationService {
     this.collection = this.firestore.collection('users');
   }
 
-  uploadFile(filename: string, data: any, username: string = ''){
-    console.log('onfileupload', data);
-    this.storage.upload(filename, data);
+  uploadFile(data: Upload, filename: string){
+
+    return this.storage.upload(filename, data.file);
   }
 
   fileRef(filename: string){
@@ -30,20 +32,41 @@ export class AuthenticationService {
   }
   //dynamic user exists
 
-  signUp(email: string, password: string) {
-    this.auth.createUserWithEmailAndPassword(email, password).then(res => {
-      let uid = res.user.uid;
-      let user: User = {
-        uid: uid,
-        email: email,
-        type: UserType.Admin
-      };
+  signUp(user: User, password: string, files?: Upload[]) {
+    this.auth.createUserWithEmailAndPassword(user.email, password).then(
+      res => {
+        user.uid = res.user.uid;
 
-      this.firestore.collection('users').add(user);
+        if(user.type == UserType.Patient){
+          //upload file, then upload file, then addtouserscollection
+          user.pictures = [Date.now().toString()];
+          this.uploadFile(files[0], user.pictures[0]).then(
+            res => {
+              user.pictures.push(Date.now().toString());
+              this.uploadFile(files[1], user.pictures[1]).then(
+                res => {
+                  user.enabled = true;
+                  this.addToUsersCollection(user);
+                }
+              )
+            }
+          )
+        }else{
+          this.addToUsersCollection(user);
+        }
+      },
+      err => console.log(err)
+    ).catch();
+  }
 
-    }).catch(error => {
-      console.log('Something is wrong:', error.message);
-    });
+  addToUsersCollection(user: User){
+    this.firestore.collection('users').add({...user}).then(
+      res => alert("CREADO!")
+    );
+  }
+
+  canSignUp(email: string){
+    return this.auth.fetchSignInMethodsForEmail(email);
   }
 
   getSpecialties(){

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
 
   signUp() {
-    this.auth.signUp(this.email, this.password);
+    // this.auth.signUp(this.email, this.password);
     this.reset();
   }
 
