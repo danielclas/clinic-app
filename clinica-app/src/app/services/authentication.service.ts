@@ -65,7 +65,7 @@ export class AuthenticationService {
     );
   }
 
-  canSignUp(email: string){
+  getSignInMethods(email: string){
     return this.auth.fetchSignInMethodsForEmail(email);
   }
 
@@ -78,10 +78,14 @@ export class AuthenticationService {
   }
 
   signIn(email: string, password: string) {
-    this.auth.signInWithEmailAndPassword(email, password).then(res => {
-      console.log('You are Successfully logged in!', res.user.uid);
-    }).catch(err => {
-      console.log('Something is wrong:', err.message);
+    return this.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  setUser(uid: string){
+    console.log("el que llega: "+uid);
+    this.firestore.collection('users').get().subscribe(ref => {
+      let exists = ref.docs.some(doc => doc.get('uid') == uid+"a");
+      console.log(exists);
     });
   }
 

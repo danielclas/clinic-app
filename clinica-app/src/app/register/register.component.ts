@@ -44,8 +44,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-      // Get return url from route parameters or default to '/'
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
       this.types = Object.values(UserType);
 
       this.auth.getSpecialties().subscribe(ref => {
@@ -103,7 +101,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister(){
-    this.auth.canSignUp(this.email.value).then(
+    this.auth.getSignInMethods(this.email.value).then(
       res => {
         if(res.length == 0) this.signUp();
         else this.informError();
