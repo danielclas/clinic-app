@@ -22,12 +22,19 @@ export class AuthenticationService {
     this.collection = this.firestore.collection('users');
 
     this.currentUser = new User();
-    this.currentUser.email = 'danielclas@outlook.es';
+    this.currentUser.email = 'usuario@cuatro.com';
     this.currentUser.enabled = true;
-    this.currentUser.name = 'Daniel';
-    this.currentUser.surname = 'Clas';
+    this.currentUser.name = 'Usuario';
+    this.currentUser.surname = 'Cuatro';
     this.currentUser.type = UserType.Admin;
+    this.currentUser.pictures = ['1604259264279', '1604259265056'];
+  }
 
+  getUserPictures(){
+    return [
+      this.storage.ref(this.currentUser.pictures[0]).getDownloadURL(),
+      this.storage.ref(this.currentUser.pictures[1]).getDownloadURL()
+    ];
   }
 
   uploadFile(data: Upload, filename: string){

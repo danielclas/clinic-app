@@ -13,10 +13,16 @@ export class UserCardComponent implements OnInit {
   icon: IconDefinition;
   userType: UserType = UserType.Patient;
   typeTranslation: string = 'paciente';
+  profilePictures: string[] = [];
 
   constructor(public auth: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.setUserType();
+    this.getUserPictures();
+  }
+
+  setUserType(){
     this.userType = this.auth.currentUser.type;
 
     if(this.userType == UserType.Admin){
@@ -26,5 +32,11 @@ export class UserCardComponent implements OnInit {
       this.icon = faUserMd;
       this.typeTranslation = 'profesional'
     }
+  }
+
+  getUserPictures(){
+    this.auth.getUserPictures().forEach(
+      sub => sub.subscribe(url => this.profilePictures.push(url))
+    );
   }
 }

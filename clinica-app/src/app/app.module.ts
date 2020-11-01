@@ -18,6 +18,8 @@ import { HomeComponent } from './home/home.component';
 import { CardComponent } from './card/card.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { StaffApprovalComponent } from './staff-approval/staff-approval.component';
+import { AdminAddComponent } from './admin-add/admin-add.component';
+import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { StaffApprovalComponent } from './staff-approval/staff-approval.componen
     CardComponent,
     UserCardComponent,
     StaffApprovalComponent,
+    AdminAddComponent,
+    SpecialtyAddComponent,
   ],
   imports: [
     BrowserModule,
