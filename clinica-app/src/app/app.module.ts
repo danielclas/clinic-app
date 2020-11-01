@@ -15,6 +15,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HomeComponent } from './home/home.component';
+import { CardComponent } from './card/card.component';
+import { UserCardComponent } from './user-card/user-card.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    CardComponent,
+    UserCardComponent,
   ],
   imports: [
     BrowserModule,
