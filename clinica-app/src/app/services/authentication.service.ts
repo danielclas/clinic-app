@@ -82,7 +82,7 @@ export class AuthenticationService {
   }
 
   getSpecialties(){
-    return this.firestore.collection('specialties').get();
+    return this.firestore.collection('specialties');
   }
 
   getCurrentUser(){
@@ -109,6 +109,10 @@ export class AuthenticationService {
     }).get().subscribe(ref => {
       this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true});
     });
+  }
+
+  addSpecialty(label: string){
+    this.firestore.collection('specialties').add({label});
   }
 
   private asignToCurrentUser(ref: QuerySnapshot<DocumentData>, email: string){

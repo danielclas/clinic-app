@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
       this.types = Object.values(UserType);
 
-      this.auth.getSpecialties().subscribe(ref => {
+      this.auth.getSpecialties().get().subscribe(ref => {
         ref.docs.forEach(doc => this.specialties.push(doc.get('label')));
       });
 

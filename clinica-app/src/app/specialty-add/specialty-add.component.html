@@ -1,1 +1,47 @@
-<p>specialty-add works!</p>
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-8">
+        <form [formGroup]="form" class="border rounded shadow-lg border-light px-3 pb-3 m-3 mt-5 bg-white">
+
+          <div class="row">
+            <div class="col d-flex enabled" style="height: 80px;">
+              <div style="margin: auto;">
+                <h4>
+                  Agregar una nueva especialidad
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center align-items-center">
+            <div class="col-9 w-100">
+              <input [ngClass]="specialty.invalid && specialty.touched ? 'error' : ''" formControlName="specialty" class="form-control" placeholder="Especialidad">
+            </div>
+          </div>
+
+
+          <div class="row m-4">
+            <!-- Specialties if type = doctor -->
+            <div class="col-4">
+                <p class="text-left" style="font-weight: bold; font-size: 20px;">Especialidades existentes</p>
+            </div>
+            <div class="col-8">
+              <span *ngFor="let specialty of specialties" style="font-size: 15px;" class="badge badge-pill badge-secondary mx-2 my-1">
+                {{specialty}}
+              </span>
+            </div>
+          </div>
+
+          <!-- Submit button -->
+          <div class="form-group">
+            <button [disabled]="form.invalid" (click)="onAddSpecialty()" class="btn btn-primary btn-block my-3">
+              <span *ngIf="false" class="spinner-border spinner-border-sm mr-1"></span>
+              Agregar especialidad
+              </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

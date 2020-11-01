@@ -19,7 +19,10 @@ export class UserCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.setUserType();
-    this.getUserPictures();
+
+    if(this.userType == UserType.Patient){
+      this.getUserPictures();
+    }
   }
 
   setUserType(){
