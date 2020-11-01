@@ -91,6 +91,19 @@ export class AuthenticationService {
     );
   }
 
+  getAllUsers(){
+    return this.firestore.collection('users');
+  }
+
+  setUserApproval(uid: string){
+
+    this.firestore.collection('users', ref => {
+      return ref.where('uid', '==', uid);
+    }).get().subscribe(ref => {
+      this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true});
+    });
+  }
+
   private asignToCurrentUser(ref: QuerySnapshot<DocumentData>, email: string){
     let user = ref.docs.find(doc => doc.get('email') == email.toLowerCase());
     let temp = new User();

@@ -17,6 +17,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HomeComponent } from './home/home.component';
 import { CardComponent } from './card/card.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import { StaffApprovalComponent } from './staff-approval/staff-approval.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UserCardComponent } from './user-card/user-card.component';
     HomeComponent,
     CardComponent,
     UserCardComponent,
+    StaffApprovalComponent,
   ],
   imports: [
     BrowserModule,
