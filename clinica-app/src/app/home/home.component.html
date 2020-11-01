@@ -1,36 +1,33 @@
 <div class="container">
   <div class="row justify-content-center align-items-center mt-4">
     <div class="col-4">
-      <div class="col">
-        <div class="card shadow-lg" *ngIf="auth.currentUser">
-          <div class="card-header" style="text-align: center;">
-            <h5>
-              {{'¡Bienvenido, ' + auth.currentUser.name + '!'}}
-            </h5>
-          </div>
-          <div class="card-body">
-            <div class="row justify-content-center mb-4">
-              <fa-icon [icon]="icon" [size]="'5x'"></fa-icon>
-            </div>
-            <div class="row justify-content-center">
-              <h4>
-                {{auth.currentUser.name + ' ' + auth.currentUser.surname}}
-              </h4>
-            </div>
-          </div>
-          <div class="card-footer text-muted">
-            {{'Usted está registrado como ' + typeTranslation}}
-          </div>
-        </div>
-      </div>
+      <app-user-card></app-user-card>
     </div>
     <div class="col-8">
-      <div class="row">
-        <div class="col-6">
+      <div class="row p-3">
+        <div class="col-4">
           <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
           </app-card>
         </div>
-        <div class="col-6">
+        <div class="col-4">
+          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
+          </app-card>
+        </div>
+        <div class="col-4">
+          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
+          </app-card>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
+          </app-card>
+        </div>
+        <div class="col-4">
+          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
+          </app-card>
+        </div>
+        <div class="col-4">
           <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
           </app-card>
         </div>

@@ -1,4 +1,7 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { faUserCog, faUserMd, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { UserType } from '../models/user';
 
 @Component({
   selector: 'app-user-card',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserCardComponent implements OnInit {
 
-  constructor() { }
+  icon: IconDefinition;
+  userType: UserType = UserType.Patient;
+  typeTranslation: string = 'paciente';
+
+  constructor(public auth: AuthenticationService) { }
 
   ngOnInit(): void {
-  }
+    this.userType = this.auth.currentUser.type;
 
+    if(this.userType == UserType.Admin){
+      this.icon = faUserCog;
+      this.typeTranslation = 'administrador'
+    }else if(this.userType == UserType.Staff){
+      this.icon = faUserMd;
+      this.typeTranslation = 'profesional'
+    }
+  }
 }

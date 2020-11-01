@@ -1,1 +1,22 @@
-<p>user-card works!</p>
+<div class="col">
+  <div class="card shadow-lg" *ngIf="auth.currentUser">
+    <div class="card-header" style="text-align: center;">
+      <h5>
+        {{'¡Bienvenido, ' + auth.currentUser.name + '!'}}
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row justify-content-center mb-4">
+        <fa-icon [icon]="icon" [size]="'5x'"></fa-icon>
+      </div>
+      <div class="row justify-content-center">
+        <h4>
+          {{auth.currentUser.name + ' ' + auth.currentUser.surname}}
+        </h4>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      {{'Usted está registrado como ' + typeTranslation}}
+    </div>
+  </div>
+</div>
