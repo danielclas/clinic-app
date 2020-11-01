@@ -20,6 +20,8 @@ import { UserCardComponent } from './user-card/user-card.component';
 import { StaffApprovalComponent } from './staff-approval/staff-approval.component';
 import { AdminAddComponent } from './admin-add/admin-add.component';
 import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
+import {AngularBootstrapToastsModule} from 'angular-bootstrap-toasts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
     UserCardComponent,
     StaffApprovalComponent,
     AdminAddComponent,
-    SpecialtyAddComponent,
+    SpecialtyAddComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
     AngularFireModule.initializeApp(environment.firebaseConfig, 'clinica-app'),
     AngularFirestoreModule, // Only required for database features
     AngularFireAuthModule, // Only required for auth features,
-    AngularFireStorageModule // Only required for storage features
+    AngularFireStorageModule, // Only required for storage features
+    AngularBootstrapToastsModule, NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],

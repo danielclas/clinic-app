@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faStethoscope } from '@fortawesome/free-solid-svg-icons';
+import { faStethoscope, faBell } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +9,5 @@ import { faStethoscope } from '@fortawesome/free-solid-svg-icons';
 export class AppComponent {
   title = 'clinica-app';
   icon = faStethoscope;
+  alert = faBell;
 }

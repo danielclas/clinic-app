@@ -14,15 +14,21 @@ export class UserCardComponent implements OnInit {
   userType: UserType = UserType.Patient;
   typeTranslation: string = 'paciente';
   profilePictures: string[] = [];
+  userLoaded = false;
 
   constructor(public auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.setUserType();
+    this.auth.userData.subscribe(res => {
+      setTimeout(() => {
+        this.setUserType();
 
-    if(this.userType == UserType.Patient){
-      this.getUserPictures();
-    }
+        if(this.userType == UserType.Patient){
+          this.getUserPictures();
+        }
+        this.userLoaded = true;
+      }, 1000);
+    });
   }
 
   setUserType(){

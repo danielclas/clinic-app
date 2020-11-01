@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Upload } from '../models/upload';
 import {User, UserType} from '../models/user';
 import { finalize } from "rxjs/operators";
+import { NotifyService } from './notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,10 @@ export class AuthenticationService {
 
   userData: Observable<firebase.User>;
   currentUser: User;
-  collection: AngularFirestoreCollection<User>;
 
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) {
+  constructor(private notify: NotifyService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) {
     this.userData = auth.authState;
-    this.collection = this.firestore.collection('users');
-
-    this.currentUser = new User();
-    this.currentUser.email = 'usuario@cuatro.com';
-    this.currentUser.enabled = true;
-    this.currentUser.name = 'Usuario';
-    this.currentUser.surname = 'Cuatro';
-    this.currentUser.type = UserType.Admin;
-    this.currentUser.pictures = ['1604259264279', '1604259265056'];
+    this.userData.subscribe(res => this.asignToCurrentUser(res.uid));
   }
 
   getUserPictures(){
@@ -90,12 +82,7 @@ export class AuthenticationService {
   }
 
   signIn(email: string, password: string) {
-    return this.auth.signInWithEmailAndPassword(email, password)
-    .then(res => {
-      this.firestore.collection('users').get()
-      .subscribe(ref => this.asignToCurrentUser(ref, email))
-    }
-    );
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   getAllUsers(){
@@ -112,23 +99,30 @@ export class AuthenticationService {
   }
 
   addSpecialty(label: string){
-    this.firestore.collection('specialties').add({label});
+    this.firestore.collection('specialties').add({label}).then(
+      res => {
+        this.notify.notify('Especialidad agregada', 'La especialidad fue agregada con éxito');
+      }
+    );
   }
 
-  private asignToCurrentUser(ref: QuerySnapshot<DocumentData>, email: string){
-    let user = ref.docs.find(doc => doc.get('email') == email.toLowerCase());
-    let temp = new User();
+  private asignToCurrentUser(uid: string){
+    this.firestore.collection('users').get()
+      .subscribe(ref => {
+        let user = ref.docs.find(doc => doc.get('uid') == uid);
+        let temp = new User();
 
-    temp.uid = user.get('uid');
-    temp.name = user.get('name');
-    temp.surname = user.get('surname');
-    temp.type = user.get('type');
-    temp.email = user.get('email');
-    temp.enabled = user.get('enabled');
-    temp.pictures = user.get('pictures');
-    temp.specialties = user.get('specialties');
+        temp.uid = user.get('uid');
+        temp.name = user.get('name');
+        temp.surname = user.get('surname');
+        temp.type = user.get('type');
+        temp.email = user.get('email');
+        temp.enabled = user.get('enabled');
+        temp.pictures = user.get('pictures');
+        temp.specialties = user.get('specialties');
 
-    this.currentUser = temp;
+        this.currentUser = temp;
+      });
   }
 
   /* Sign out */

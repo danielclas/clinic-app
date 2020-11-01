@@ -1,5 +1,5 @@
 <div class="col">
-  <div class="card shadow-lg" *ngIf="auth.currentUser">
+  <div class="card shadow-lg" *ngIf="userLoaded">
     <div class="card-header" style="text-align: center;">
       <h5>
         {{'¡Bienvenido, ' + auth.currentUser.name + '!'}}

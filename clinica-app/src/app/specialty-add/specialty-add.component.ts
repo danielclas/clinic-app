@@ -1,3 +1,4 @@
+import { NotifyService } from './../services/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
@@ -13,6 +14,7 @@ export class SpecialtyAddComponent implements OnInit {
   specialties: string[] = [];
 
   constructor(
+    private notify: NotifyService,
     private auth: AuthenticationService,
     private formBuilder: FormBuilder) { }
 
@@ -27,7 +29,13 @@ export class SpecialtyAddComponent implements OnInit {
   get specialty(){return this.form.get('specialty')}
 
   onAddSpecialty(){
+    if(this.specialties.includes(this.specialty.value)){
+      this.notify.notify('Error agregando especialidad', 'Esa especialidad ya existe');
+      return;
+    }
+
     this.auth.addSpecialty(this.specialty.value);
+    this.form.reset();
   }
 
   getSpecialties(){
