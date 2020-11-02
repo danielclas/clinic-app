@@ -1,6 +1,6 @@
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { faUserCog, faUserMd, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faUserCog, faUserMd, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { UserType } from '../models/user';
 
 @Component({
@@ -10,7 +10,7 @@ import { UserType } from '../models/user';
 })
 export class UserCardComponent implements OnInit {
 
-  icon: IconDefinition;
+  icon: IconDefinition = faUser;
   userType: UserType = UserType.Patient;
   typeTranslation: string = 'paciente';
   profilePictures: string[] = [];

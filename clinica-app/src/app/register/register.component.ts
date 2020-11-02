@@ -1,6 +1,6 @@
 import { NotifyService } from './../services/notify.service';
 import { User, UserType } from './../models/user';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { faEnvelopeSquare, faKey, faPortrait } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,8 @@ import { Upload } from '../models/upload';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  @ViewChild('pillsContainer') container;
 
   emailIcon = faEnvelopeSquare;
   passwordIcon = faKey;
@@ -56,18 +58,15 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         name: ['', [Validators.required, Validators.minLength(3)]],
-        surname: ['', [Validators.required, Validators.minLength(3)]],
-        // file1: [ , Validators.required],
-        // file2: [ , Validators.required]
+        surname: ['', [Validators.required, Validators.minLength(3)]]
       });
+
   }
 
   get email() { return this.form.get('email'); }
   get password() { return this.form.get('password'); }
   get name() { return this.form.get('name'); }
   get surname() { return this.form.get('surname'); }
-  get file1() { return this.form.get('file1'); }
-  get file2() { return this.form.get('file2'); }
 
   navigateToRegister(){
     this.router.navigateByUrl('/register');
@@ -111,6 +110,20 @@ export class RegisterComponent implements OnInit {
     this.loading = false;
     this.form.reset();
     this.selectedSpecialties = [];
+    this.picture1 = undefined;
+    this.picture2 = undefined;
+
+    if(this.container){
+      let pillsContainer = <HTMLElement> this.container.nativeElement;
+      pillsContainer.childNodes.forEach(child => {
+        let element = <HTMLElement> child;
+
+        if(element && element.classList.contains('badge-success')){
+          element.classList.remove('badge-success');
+          element.classList.add('badge-secondary');
+        }
+      });
+    }
   }
 
   onRegister(){

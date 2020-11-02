@@ -30,6 +30,9 @@
               <span *ngFor="let specialty of specialties" style="font-size: 15px;" class="badge badge-pill badge-secondary mx-2 my-1">
                 {{specialty}}
               </span>
+              <div *ngIf="specialties.length == 0" class="d-flex justify-content-center p-2">
+                <span class="spinner-grow text-primary"></span>
+              </div>
             </div>
           </div>
 

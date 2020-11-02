@@ -19,7 +19,11 @@ export class AuthenticationService {
 
   constructor(private notify: NotifyService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) {
     this.userData = auth.authState;
-    this.userData.subscribe(res => this.asignToCurrentUser(res.uid));
+    this.userData.subscribe(res => {
+      console.log(res);
+      if(res && res.uid) this.asignToCurrentUser(res.uid);
+      else this.currentUser = undefined;
+    });
   }
 
   getUserPictures(){
@@ -114,6 +118,7 @@ export class AuthenticationService {
   }
 
   private asignToCurrentUser(uid: string){
+    console.log("Se ejecuta assign to?");
     this.firestore.collection('users').get()
       .subscribe(ref => {
         let user = ref.docs.find(doc => doc.get('uid') == uid);
@@ -132,8 +137,7 @@ export class AuthenticationService {
       });
   }
 
-  /* Sign out */
   SignOut() {
-    this.auth.signOut();
+    return this.auth.signOut();
   }
 }

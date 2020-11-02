@@ -72,13 +72,13 @@
               <label for="picture1" class="btn">
                 <fa-icon [icon]="portraitIcon" [size]="'4x'" [ngClass]="!picture1 ? 'text-secondary' : 'text-success'"></fa-icon>
               </label>
-              <input  formControlName="file1" type="file" name="picture1" id="picture1" style="display: none;" class="form-control-file" (change)="onFileChange($event, 1)">
+              <input  type="file" name="picture1" id="picture1" style="display: none;" class="form-control-file" (change)="onFileChange($event, 1)">
             </div>
             <div class="col-4 center-block text-center">
               <label for="picture2" class="btn">
                 <fa-icon [icon]="portraitIcon" [size]="'4x'" [ngClass]="!picture2 ? 'text-secondary' : 'text-success'"></fa-icon>
               </label>
-              <input  formControlName="file2" type="file" id="picture2" style="display: none;" class="form-control-file" (change)="onFileChange($event, 2)">
+              <input  type="file" id="picture2" style="display: none;" class="form-control-file" (change)="onFileChange($event, 2)">
             </div>
           </div>
 
@@ -87,17 +87,20 @@
             <div class="col-4">
                 <p class="text-left" style="font-weight: bold; font-size: 20px;">Seleccione la(s) especialidade(s)</p>
             </div>
-            <div class="col-8">
+            <div class="col-8" #pillsContainer>
               <span *ngFor="let specialty of specialties" style="font-size: 15px;" (click)="onSpecialtyClicked($event)" class="badge badge-pill badge-secondary mx-2 my-1">
                 {{specialty}}
               </span>
+              <div *ngIf="specialties.length == 0" class="d-flex justify-content-center p-2">
+                <span class="spinner-grow text-primary"></span>
+              </div>
             </div>
           </div>
 
 
           <!-- Sign up button -->
           <div class="form-group">
-            <button [disabled]="form.invalid || loading" (click)="onRegister()" class="btn btn-primary btn-block my-3">
+            <button [disabled]="form.invalid || loading || (userType == 'Usuario' && (!picture1 || !picture2))" (click)="onRegister()" class="btn btn-primary btn-block my-3">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               <span *ngIf="!loading">Registrarse</span>
               </button>
