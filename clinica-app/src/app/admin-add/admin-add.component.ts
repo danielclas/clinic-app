@@ -44,6 +44,7 @@ export class AdminAddComponent implements OnInit {
     user.name = this.name.value;
     user.surname = this.surname.value;
     user.type = UserType.Admin
+    user.enabled = true;
 
     this.auth.signUp(user, this.password.value).then(
       res => {

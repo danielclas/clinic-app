@@ -14,7 +14,8 @@ export class UserCardComponent implements OnInit {
   userType: UserType = UserType.Patient;
   typeTranslation: string = 'paciente';
   profilePictures: string[] = [];
-  userLoaded = false;
+  userLoaded: boolean = false;
+  enabled: boolean = true;
 
   constructor(public auth: AuthenticationService) { }
 
@@ -23,6 +24,7 @@ export class UserCardComponent implements OnInit {
       setTimeout(() => {
         this.setUserType();
 
+        this.enabled = this.auth.currentUser.enabled;
         if(this.userType == UserType.Patient){
           this.getUserPictures();
         }

@@ -1,7 +1,7 @@
 .background{
   background-image: url('../../assets/images/background.jpg');
   background-repeat: no-repeat;
-  min-height: 100vh;
+  min-height: 90vh;
   height: auto;
   margin: 0;
   background-position: center;

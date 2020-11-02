@@ -3,7 +3,7 @@
     <div class="row justify-content-center align-items-center">
       <div class="col-md-4">
         <form [formGroup]="form" class="border rounded shadow-lg border-light p-3 m-3 mt-5 bg-white">
-          <div style="text-align: center;"class="row text-center">
+          <div style="text-align: center;"class="row text-center justify-content-center align-items-center">
             <h4>
               Ingreso
             </h4>
@@ -25,15 +25,18 @@
 
           <!-- Sign in button -->
           <div class="form-group">
-            <button [disabled]="form.invalid" (click)="signIn()" class="btn btn-primary btn-block my-3">
-              Ingresar
+            <button [disabled]="form.invalid || loading" (click)="signIn()" class="btn btn-primary btn-block my-3">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              <span *ngIf="!loading">Ingresar</span>
               </button>
           </div>
 
           <!-- Register -->
-          <p>
-              <a role="button" class="nav-link" (click)="navigateToRegister()">Registrarse</a>
-          </p>
+          <div class="form-group">
+            <button (click)="navigateToRegister()" class="btn btn-success btn-block my-3">
+              Registrarse
+              </button>
+          </div>
         </form>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-card',
@@ -11,9 +12,12 @@ export class CardComponent implements OnInit {
   @Input() label: String;
   @Input() link: String;
 
-  constructor() { }
+  enabled: boolean = false;
+
+  constructor(private auth: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.enabled = this.auth.currentUser.enabled;
   }
 
 }

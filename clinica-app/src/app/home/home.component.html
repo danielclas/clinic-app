@@ -5,31 +5,8 @@
     </div>
     <div class="col-8">
       <div class="row p-3">
-        <div class="col-4"  *ngIf="auth.currentUser.type == 'Admin'">
-          <app-card [link]="'/home/staffapproval'" [description]="'Ver la lista de profesionales pendientes de aprobación'" [label]="'Aprobar profesionales'">
-          </app-card>
-        </div>
-        <div class="col-4" *ngIf="auth.currentUser.type == 'Admin'">
-          <app-card [link]="'/home/adminadd'" [description]="'Agregar un administrador al sistema'" [label]="'Agregar administrador'">
-          </app-card>
-        </div>
-        <div class="col-4" *ngIf="auth.currentUser.type != 'Patient'">
-          <app-card [link]="'/home/specialtyadd'" [description]="'Agregar una especialidad médica'" [label]="'Agregar especialidad'">
-          </app-card>
-        </div>
-      </div>
-      <div class="row p-3" *ngIf="auth.currentUser.type != 'Admin'">
-        <div class="col-4">
-          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
-          </app-card>
-        </div>
-        <div class="col-4">
-          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
-          </app-card>
-        </div>
-        <div class="col-4">
-          <app-card [link]="'/clase1/login'" [description]="'Ejercicio de login'" [label]="'1'">
-          </app-card>
+        <div class="col-4" *ngFor="let item of layout">
+          <app-card [link]="item.link" [description]="item.description" [label]="item.label"></app-card>
         </div>
       </div>
     </div>
