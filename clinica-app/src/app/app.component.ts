@@ -1,5 +1,6 @@
+import { AuthenticationService } from './services/authentication.service';
 import { Component } from '@angular/core';
-import { faStethoscope, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faStethoscope, faBell, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,10 @@ import { faStethoscope, faBell } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
   title = 'clinica-app';
+
   icon = faStethoscope;
   alert = faBell;
+  exit = faDoorOpen;
+
+  constructor(public auth: AuthenticationService){}
 }

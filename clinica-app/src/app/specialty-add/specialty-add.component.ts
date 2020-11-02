@@ -12,6 +12,7 @@ export class SpecialtyAddComponent implements OnInit {
 
   form: FormGroup;
   specialties: string[] = [];
+  loading: boolean = false;
 
   constructor(
     private notify: NotifyService,
@@ -23,22 +24,29 @@ export class SpecialtyAddComponent implements OnInit {
       specialty: ['', [Validators.required, Validators.minLength(4)]]
     });
 
-    this.getSpecialties();
+    this.subscribeToSpecialties();
   }
 
   get specialty(){return this.form.get('specialty')}
 
   onAddSpecialty(){
+
     if(this.specialties.includes(this.specialty.value)){
       this.notify.notify('Error agregando especialidad', 'Esa especialidad ya existe');
       return;
     }
 
-    this.auth.addSpecialty(this.specialty.value);
-    this.form.reset();
+    this.loading = true;
+
+    this.auth.addSpecialty(this.specialty.value).then(
+      res => {
+        this.loading = false;
+        this.form.reset();
+      }
+    );
   }
 
-  getSpecialties(){
+  subscribeToSpecialties(){
     this.auth.getSpecialties().snapshotChanges().subscribe(
       ref => {
         this.specialties = [];

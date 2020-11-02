@@ -10,6 +10,7 @@ import { User } from '../models/user';
 export class StaffApprovalComponent implements OnInit {
 
   users: User[] = [];
+  loading: boolean = false;
   constructor(private auth: AuthenticationService) { }
 
   ngOnInit(): void {
@@ -50,7 +51,15 @@ export class StaffApprovalComponent implements OnInit {
   }
 
   onApprove(user: User){
-    this.auth.setUserApproval(user.uid);
+
+    this.loading = true;
+
+    let name = '<b>' + user.name + ' ' + user.surname +'</b>';
+    this.auth.setUserApproval(user.uid, name).add(
+      res => {
+        this.loading = false;
+      }
+    );
   }
 
 }

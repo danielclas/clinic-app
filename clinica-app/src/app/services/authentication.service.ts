@@ -38,7 +38,7 @@ export class AuthenticationService {
   }
 
   signUp(user: User, password: string, files?: Upload[]) {
-    this.auth.createUserWithEmailAndPassword(user.email, password).then(
+    return this.auth.createUserWithEmailAndPassword(user.email, password).then(
       res => {
         user.uid = res.user.uid;
 
@@ -60,12 +60,15 @@ export class AuthenticationService {
         }
       },
       err => console.log(err)
-    ).catch();
+    );
   }
 
   addToUsersCollection(user: User){
     this.firestore.collection('users').add({...user}).then(
-      res => alert("CREADO!")
+      res => {
+        let name = '<b>' + user.name + ' ' + user.surname +'</b>';
+        this.notify.notify('Usuario agregado', 'El usuario ' + name + ' fue registrado exitosamente');
+      }
     );
   }
 
@@ -89,19 +92,23 @@ export class AuthenticationService {
     return this.firestore.collection('users');
   }
 
-  setUserApproval(uid: string){
+  setUserApproval(uid: string, name: string){
 
-    this.firestore.collection('users', ref => {
+    return this.firestore.collection('users', ref => {
       return ref.where('uid', '==', uid);
     }).get().subscribe(ref => {
-      this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true});
+      this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true}).then(
+        res => {
+          this.notify.notify('Profesional aprobado', 'El profesional '+ name +' fue aprobado con éxito');
+        }
+      );
     });
   }
 
   addSpecialty(label: string){
-    this.firestore.collection('specialties').add({label}).then(
+    return this.firestore.collection('specialties').add({label}).then(
       res => {
-        this.notify.notify('Especialidad agregada', 'La especialidad fue agregada con éxito');
+        this.notify.notify('Especialidad agregada', 'La especialidad <b>' + label + '</b> fue agregada con éxito');
       }
     );
   }

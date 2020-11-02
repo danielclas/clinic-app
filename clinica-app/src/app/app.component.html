@@ -6,9 +6,11 @@
     </b>
   </a>
   <a>
-    <div class="mr-3">
-      <fa-icon [icon]="alert" [size]="'lg'"></fa-icon>
+    <div class="mr-3" *ngIf="auth.currentUser">
+      <fa-icon class="px-3" [icon]="alert" [size]="'lg'"></fa-icon>
+      <fa-icon class="px-3" [icon]="exit" [size]="'lg'"></fa-icon>
     </div>
   </a>
 </nav>
+<angular-bootstrap-toasts-container></angular-bootstrap-toasts-container>
 <router-outlet></router-outlet>

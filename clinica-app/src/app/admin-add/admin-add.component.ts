@@ -1,3 +1,4 @@
+import { NotifyService } from './../services/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from '../models/user';
@@ -14,8 +15,10 @@ export class AdminAddComponent implements OnInit {
   emailIcon = faEnvelopeSquare;
   passwordIcon = faKey;
   form: FormGroup;
+  loading: boolean = false;
 
   constructor(
+    private notify: NotifyService,
     private auth: AuthenticationService,
     private formBuilder: FormBuilder) { }
 
@@ -34,18 +37,25 @@ export class AdminAddComponent implements OnInit {
   get surname() { return this.form.get('surname'); }
 
   signUp(){
+    this.loading = true;
+
     let user: User = new User();
     user.email = this.email.value;
     user.name = this.name.value;
     user.surname = this.surname.value;
     user.type = UserType.Admin
 
-    this.auth.signUp(user, this.password.value);
+    this.auth.signUp(user, this.password.value).then(
+      res => {
+        this.loading = false;
+        this.form.reset();
+      }
+    );
 
   }
 
   informError(){
-    alert('El usuario ya existe!');
+    this.notify.notify('Error registrando usuario', 'Ya existe un usuario con ese correo');
   }
 
   onRegister(){

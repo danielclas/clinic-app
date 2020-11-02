@@ -1,3 +1,4 @@
+import { NotifyService } from './../services/notify.service';
 import { User, UserType } from './../models/user';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +33,7 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
 
   constructor(
+      private notify: NotifyService,
       private route: ActivatedRoute,
       private router: Router,
       private auth: AuthenticationService,
@@ -81,10 +83,13 @@ export class RegisterComponent implements OnInit {
   }
 
   informError(){
-    alert('El usuario ya existe!');
+    this.notify.notify('Error registrando usuario', 'Ya existe un usuario con ese correo');
   }
 
   signUp(){
+
+    this.loading = true;
+
     let user: User = new User();
     user.email = this.email.value;
     user.name = this.name.value;
@@ -94,10 +99,18 @@ export class RegisterComponent implements OnInit {
     if(user.type == UserType.Staff){
       user.specialties = this.selectedSpecialties;
       user.enabled = false;
-      this.auth.signUp(user, this.password.value);
+      this.auth.signUp(user, this.password.value)
+      .then(res => this.onSignUpSuccess());
     }else{
-      this.auth.signUp(user, this.password.value, [this.picture1, this.picture2]);
+      this.auth.signUp(user, this.password.value, [this.picture1, this.picture2])
+      .then(res => this.onSignUpSuccess());
     }
+  }
+
+  private onSignUpSuccess(){
+    this.loading = false;
+    this.form.reset();
+    this.selectedSpecialties = [];
   }
 
   onRegister(){
@@ -109,6 +122,7 @@ export class RegisterComponent implements OnInit {
       err => this.informError()
     );
   }
+
   onSpecialtyClicked(value){
     let element = <HTMLElement> value.srcElement;
     let label =  element.innerHTML.trim();
@@ -117,10 +131,10 @@ export class RegisterComponent implements OnInit {
     if(index == -1){
       this.selectedSpecialties.push(label);
       element.classList.remove('badge-secondary');
-      element.classList.add('badge-primary');
+      element.classList.add('badge-success');
     }else{
       this.selectedSpecialties.splice(index, 1);
-      element.classList.remove('badge-primary');
+      element.classList.remove('badge-success');
       element.classList.add('badge-secondary');
     }
   }
