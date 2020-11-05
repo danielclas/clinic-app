@@ -7,6 +7,7 @@ import { Upload } from '../models/upload';
 import {User, UserType} from '../models/user';
 import { finalize } from "rxjs/operators";
 import { NotifyService } from './notify.service';
+import { EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,13 @@ import { NotifyService } from './notify.service';
 
 export class AuthenticationService {
 
+  userAsigned = new EventEmitter<User>();
   userData: Observable<firebase.User>;
   currentUser: User;
 
   constructor(private notify: NotifyService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) {
     this.userData = auth.authState;
     this.userData.subscribe(res => {
-      console.log(res);
       if(res && res.uid) this.asignToCurrentUser(res.uid);
       else this.currentUser = undefined;
     });
@@ -103,7 +104,7 @@ export class AuthenticationService {
     }).get().subscribe(ref => {
       this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true}).then(
         res => {
-          this.notify.notify('Profesional aprobado', 'El profesional '+ name +' fue aprobado con éxito');
+          this.notify.notify('Profesional aprobado', 'El profesional <b>'+ name +'</b> fue aprobado con éxito');
         }
       );
     });
@@ -118,7 +119,6 @@ export class AuthenticationService {
   }
 
   private asignToCurrentUser(uid: string){
-    console.log("Se ejecuta assign to?");
     this.firestore.collection('users').get()
       .subscribe(ref => {
         let user = ref.docs.find(doc => doc.get('uid') == uid);
@@ -134,6 +134,7 @@ export class AuthenticationService {
         temp.specialties = user.get('specialties');
 
         this.currentUser = temp;
+        this.userAsigned.emit(this.currentUser);
       });
   }
 

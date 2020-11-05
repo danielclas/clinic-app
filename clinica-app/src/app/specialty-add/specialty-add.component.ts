@@ -31,17 +31,20 @@ export class SpecialtyAddComponent implements OnInit {
 
   onAddSpecialty(){
 
-    if(this.specialties.includes(this.specialty.value)){
+    if(this.specialties.some(s => s.toLowerCase() == this.specialty.value.toLowerCase())){
       this.notify.notify('Error agregando especialidad', 'Esa especialidad ya existe');
       return;
     }
 
     this.loading = true;
 
-    this.auth.addSpecialty(this.specialty.value).then(
+    this.auth.addSpecialty(this.specialty.value.toLowerCase()).then(
       res => {
         this.loading = false;
         this.form.reset();
+      },
+      err => {
+        this.notify.notify('Error agregando especialidad', 'Por favor, intente más tarde');
       }
     );
   }

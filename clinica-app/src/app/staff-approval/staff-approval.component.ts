@@ -20,7 +20,7 @@ export class StaffApprovalComponent implements OnInit {
   getPendingApprovalList(){
     this.auth.getAllUsers().snapshotChanges().subscribe(
       ref => {
-        // res.forEach(a => console.log(a.payload.doc.get('type')));
+        this.loading = true;
         this.users = [];
         ref.forEach(
           item => {
@@ -37,6 +37,8 @@ export class StaffApprovalComponent implements OnInit {
             }
           }
         )
+
+        this.loading = false;
       }
     )
   }
@@ -54,7 +56,7 @@ export class StaffApprovalComponent implements OnInit {
 
     this.loading = true;
 
-    let name = '<b>' + user.name + ' ' + user.surname +'</b>';
+    let name = user.name + ' ' + user.surname;
     this.auth.setUserApproval(user.uid, name).add(
       res => {
         this.loading = false;

@@ -15,23 +15,30 @@ export class HomeComponent implements OnInit {
   constructor(public auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.auth.userData.subscribe(
-      res => {
-        setTimeout(() => {
-          switch(this.auth.currentUser.type){
-            case UserType.Admin:
-              this.layout = constants.admin;
-              break;
-            case UserType.Patient:
-              this.layout = constants.patient;
-              break;
-            case UserType.Staff:
-              this.layout = constants.staff;
-              break;
-          }
-        }, 1500);
+    this.auth.userAsigned.subscribe(
+      (user: User) => {
+        this.asignLayout(user);
       }
     )
+
+    if(this.auth.currentUser) this.asignLayout(this.auth.currentUser);
+  }
+
+  asignLayout(user: User){
+
+    if(user && user.type){
+      switch(user.type){
+        case UserType.Admin:
+          this.layout = constants.admin;
+          break;
+        case UserType.Patient:
+          this.layout = constants.patient;
+          break;
+        case UserType.Staff:
+          this.layout = constants.staff;
+          break;
+      }
+    }
   }
 
 }

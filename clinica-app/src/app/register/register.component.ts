@@ -113,6 +113,10 @@ export class RegisterComponent implements OnInit {
     this.picture1 = undefined;
     this.picture2 = undefined;
 
+    this.resetSpecialtiesPills();
+  }
+
+  resetSpecialtiesPills(){
     if(this.container){
       let pillsContainer = <HTMLElement> this.container.nativeElement;
       pillsContainer.childNodes.forEach(child => {
