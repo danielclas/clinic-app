@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'home/staffapproval', component: StaffApprovalComponent},
   {path: 'home/adminadd', component: AdminAddComponent},
-  {path: 'home/specialtyadd', component: SpecialtyAddComponent}
+  {path: 'home/specialtyadd', component: SpecialtyAddComponent},
+  {path: 'home/staffschedule', component: StaffScheduleComponent}
 ];
 
 @NgModule({

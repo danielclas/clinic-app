@@ -132,6 +132,7 @@ export class AuthenticationService {
         temp.enabled = user.get('enabled');
         temp.pictures = user.get('pictures');
         temp.specialties = user.get('specialties');
+        temp.schedule = user.get('schedule');
 
         this.currentUser = temp;
         this.userAsigned.emit(this.currentUser);

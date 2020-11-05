@@ -7,6 +7,7 @@ export class User{
   specialties?: string[];
   pictures?: string[];
   enabled?: boolean;
+  schedule?;
 
   constructor(){}
 }

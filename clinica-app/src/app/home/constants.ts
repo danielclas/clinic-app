@@ -23,7 +23,7 @@ export const staff = [
     'label': 'Agregar especialidad'
   },
   {
-    'link': '/home/staffapproval',
+    'link': '/home/staffschedule',
     'description': 'Ver y modificar los días y horarios de atención',
     'label': 'Configurar horarios de atención'
   },

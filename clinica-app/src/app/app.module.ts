@@ -23,6 +23,7 @@ import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
 import {AngularBootstrapToastsModule} from 'angular-bootstrap-toasts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
+import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     StaffApprovalComponent,
     AdminAddComponent,
     SpecialtyAddComponent,
-    NavbarComponent
+    NavbarComponent,
+    StaffScheduleComponent
   ],
   imports: [
     BrowserModule,
