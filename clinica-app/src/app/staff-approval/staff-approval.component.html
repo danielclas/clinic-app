@@ -31,9 +31,11 @@
                   </button>
                 </li>
               </ul>
-              <h5 *ngIf="users.length == 0 && !loading">
-                No quedan profesionales sin aprobar
-              </h5>
+              <div class="row justify-content-center align-items-center m-5">
+                <h5 *ngIf="users.length == 0 && !loading">
+                  No quedan profesionales sin aprobar
+                </h5>
+              </div>
               <span *ngIf="users.length == 0 && loading" class="spinner-border spinner-border-sm mr-1" style="margin: auto;"></span>
             </div>
           </div>

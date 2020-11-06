@@ -1,7 +1,7 @@
-import { User } from './../models/user';
+import { User } from './../../models/user';
 import { Component, Input, OnInit } from '@angular/core';
-import { UserType } from '../models/user';
-import { AuthenticationService } from '../services/authentication.service';
+import { UserType } from '../../models/user';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-card',

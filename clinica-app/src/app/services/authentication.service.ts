@@ -118,21 +118,6 @@ export class AuthenticationService {
     );
   }
 
-  setStaffSchedule(schedule){
-    return this.firestore.collection('users', ref => {
-      return ref.where('uid', '==', this.currentUser.uid);
-    }).get().subscribe(ref => {
-      this.firestore.collection('users').doc(ref.docs[0].id).update({'schedule':schedule}).then(
-        res => {
-          this.notify.notify('Horarios modificados', 'Sus horarios fueron modificados exitosamente');
-        },
-        err => {
-          this.notify.notify('Error modificando horarios', 'Hubo un error modificando sus horarios. Intente nuevamente.');
-        }
-      );
-    });
-  }
-
   private asignToCurrentUser(uid: string){
     this.firestore.collection('users').get()
       .subscribe(ref => {

@@ -1,3 +1,4 @@
+import { AppointmentsService } from './../services/appointments.service';
 import { Days } from '../models/staffschedule';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +19,7 @@ export class StaffScheduleComponent implements OnInit {
   schedule = {};
   loading: boolean = false;
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(private auth: AuthenticationService, private appointments: AppointmentsService) { }
 
   ngOnInit(): void {
     this.auth.userAsigned.subscribe(
@@ -72,7 +73,7 @@ export class StaffScheduleComponent implements OnInit {
 
     this.loading = true;
 
-    this.auth.setStaffSchedule(this.schedule).add(
+    this.appointments.setStaffSchedule(this.schedule).add(
       ref => {
         this.loading = false;
       }

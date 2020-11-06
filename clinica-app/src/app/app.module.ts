@@ -15,18 +15,18 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HomeComponent } from './home/home.component';
-import { CardComponent } from './card/card.component';
-import { UserCardComponent } from './user-card/user-card.component';
+import { CardComponent } from './layout/card/card.component';
+import { UserCardComponent } from './layout/user-card/user-card.component';
 import { StaffApprovalComponent } from './staff-approval/staff-approval.component';
 import { AdminAddComponent } from './admin-add/admin-add.component';
 import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
 import {AngularBootstrapToastsModule} from 'angular-bootstrap-toasts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
 import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { CardsComponent } from './cards/cards.component';
-import { BackArrowComponent } from './back-arrow/back-arrow.component';
+import { NotFoundComponent } from './layout/not-found/not-found.component';
+import { CardsComponent } from './layout/cards/cards.component';
+import { BackArrowComponent } from './layout/back-arrow/back-arrow.component';
 
 @NgModule({
   declarations: [

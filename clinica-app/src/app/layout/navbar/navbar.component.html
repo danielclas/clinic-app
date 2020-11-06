@@ -1,0 +1,20 @@
+<nav class="navbar border shadow-lg sticky-top navbar-light bg-light header">
+  <a class="navbar-brand ml-3" href="#">
+    <fa-icon [icon]="icon" [size]="'2x'" class="text-primary"></fa-icon>
+    <b>
+      Clinica online
+    </b>
+  </a>
+  <a>
+    <div class="mr-3 d-flex" *ngIf="auth.currentUser">
+      <div class="grow">
+        <fa-icon class="px-3" [icon]="alert" [size]="'lg'"></fa-icon>
+      </div>
+      <div class="grow">
+        <a role="button" class="grow" (click)="onLogOutClicked()">
+          <fa-icon class="px-3" [icon]="exit" [size]="'lg'"></fa-icon>
+        </a>
+      </div>
+    </div>
+  </a>
+</nav>

@@ -1,5 +1,5 @@
-import { CardsComponent } from './cards/cards.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { CardsComponent } from './layout/cards/cards.component';
+import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
 import { AdminAddComponent } from './admin-add/admin-add.component';
 import { StaffApprovalComponent } from './staff-approval/staff-approval.component';

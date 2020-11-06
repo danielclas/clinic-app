@@ -1,8 +1,8 @@
-import { User } from './../models/user';
-import { AuthenticationService } from './../services/authentication.service';
+import { User } from './../../models/user';
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { faUserCog, faUserMd, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { UserType } from '../models/user';
+import { UserType } from '../../models/user';
 
 @Component({
   selector: 'app-user-card',
