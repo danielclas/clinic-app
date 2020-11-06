@@ -14,7 +14,9 @@ export class StaffScheduleComponent implements OnInit {
   days = Days;
   icon: IconDefinition = faCheckCircle;
   selectors = {};
-  schedule;
+  toHours = [];
+  schedule = {};
+  loading: boolean = false;
 
   constructor(private auth: AuthenticationService) { }
 
@@ -28,12 +30,16 @@ export class StaffScheduleComponent implements OnInit {
     if(this.auth.currentUser){
       this.schedule =  this.auth.currentUser.schedule;
     }
+
+    this.toHours = this.printHours('mo');
   }
 
   onActivateClick(day: string, from, to){
 
     if(this.schedule[day]) delete this.schedule[day];
     else this.schedule[day] = [from.value, to.value];
+
+    console.log(this.schedule);
   }
 
   compareHours(hour, from){
@@ -41,18 +47,41 @@ export class StaffScheduleComponent implements OnInit {
     if(!from.value) return true;
 
     let a: number = +(hour.slice(0, hour.indexOf(':')) + hour.slice(hour.indexOf(':')+1));
-    let b: number = +(from.value.slice(0, from.value.indexOf(':')) + from.value.slice(from.value.indexOf(':')+1));
+    let b: number;
+
+    if(from.value){
+      b = +(from.value.slice(0, from.value.indexOf(':')) + from.value.slice(from.value.indexOf(':')+1));
+    }else{
+      b = +(from.slice(0, from.indexOf(':')) + from.slice(from.indexOf(':')+1));
+    }
 
     return a > b;
   }
 
+  onHourSelected(day, from, to){
+    this.toHours = this.printHours('mo');
+
+    if(this.schedule[day]){
+      let temp = this.compareHours(to, from) ? to : this.toHours[this.toHours.indexOf(from) + 1];
+      this.schedule[day][0] = from;
+      this.schedule[day][1] = temp;
+    }
+  }
+
+  onUpdateClick(){
+
+    this.loading = true;
+
+    this.auth.setStaffSchedule(this.schedule).add(
+      ref => {
+        this.loading = false;
+      }
+    )
+  }
+
   printHours(day, from = 8){
     let arr = [];
-    let to = 19;
-
-    if(day.value == 'sa'){
-      to = 14;
-    }
+    let to = day.value == 'sa' ? 14 : 19;
 
     for(let i = from ; i <= to ; i++){
       arr.push(i+':00');
