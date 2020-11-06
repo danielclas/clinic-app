@@ -24,6 +24,9 @@ import {AngularBootstrapToastsModule} from 'angular-bootstrap-toasts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { CardsComponent } from './cards/cards.component';
+import { BackArrowComponent } from './back-arrow/back-arrow.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { StaffScheduleComponent } from './staff-schedule/staff-schedule.componen
     AdminAddComponent,
     SpecialtyAddComponent,
     NavbarComponent,
-    StaffScheduleComponent
+    StaffScheduleComponent,
+    NotFoundComponent,
+    CardsComponent,
+    BackArrowComponent
   ],
   imports: [
     BrowserModule,

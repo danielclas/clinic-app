@@ -1,0 +1,5 @@
+<div class="row p-3" >
+  <div class="col-4" *ngFor="let item of layout">
+    <app-card [link]="item.link" [description]="item.description" [label]="item.label"></app-card>
+  </div>
+</div>
