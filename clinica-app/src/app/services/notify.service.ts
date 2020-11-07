@@ -1,3 +1,4 @@
+import { COLLECTION_NOTIFICATIONS } from './constants';
 import { Notification } from './../models/notification';
 import { AngularBootstrapToastsService } from 'angular-bootstrap-toasts';
 import { Injectable } from '@angular/core';
@@ -5,6 +6,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AuthenticationService } from './authentication.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +26,14 @@ export class NotifyService {
   }
 
   pushNotify(notification: Notification){
-    this.firestore.collection('notifications').add({...notification});
+    this.firestore.collection(COLLECTION_NOTIFICATIONS).add({...notification});
+  }
+
+  getPendingNotifications(){
+    return this.firestore.collection(COLLECTION_NOTIFICATIONS);
+  }
+
+  dismissNotificacion(id: string){
+    this.firestore.collection(COLLECTION_NOTIFICATIONS).doc(id).update({'seen':true});
   }
 }

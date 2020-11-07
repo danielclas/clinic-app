@@ -6,9 +6,18 @@
     </b>
   </a>
   <a>
-    <div class="mr-3 d-flex" *ngIf="auth.currentUser">
-      <div class="grow">
-        <fa-icon class="px-3" [icon]="alert" [size]="'lg'"></fa-icon>
+
+    <div class="mr-5 d-flex" *ngIf="auth.currentUser">
+      <div ngbDropdown [ngClass]="notifications.length != 0 ? ['shake', 'text-danger'] : ''">
+        <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'lg'" ngbDropdownToggle></fa-icon>
+        <div ngbDropdownMenu style="overflow-y: scroll; height:200px; width: 500px; margin: auto;">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of notifications" (click)="onDismissNotification(item)">
+              <a type="button">{{item.message}}</a>
+            </li>
+            <li *ngIf="notifications.length == 0">No hay notificaciones para mostrar</li>
+          </ul>
+        </div>
       </div>
       <div class="grow">
         <a role="button" class="grow" (click)="onLogOutClicked()">

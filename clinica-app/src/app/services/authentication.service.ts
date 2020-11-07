@@ -8,7 +8,7 @@ import {User, UserType} from '../models/user';
 import { finalize } from "rxjs/operators";
 import { NotifyService } from './notify.service';
 import { EventEmitter } from '@angular/core';
-
+import {COLLECTION_SPECIALTIES, COLLECTION_USERS} from './constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -69,7 +69,7 @@ export class AuthenticationService {
   }
 
   addToUsersCollection(user: User){
-    this.firestore.collection('users').add({...user}).then(
+    this.firestore.collection(COLLECTION_USERS).add({...user}).then(
       res => {
         let name = '<b>' + user.name + ' ' + user.surname +'</b>';
         this.notify.toastNotify('Usuario agregado', 'El usuario ' + name + ' fue registrado exitosamente');
@@ -82,7 +82,7 @@ export class AuthenticationService {
   }
 
   getSpecialties(){
-    return this.firestore.collection('specialties');
+    return this.firestore.collection(COLLECTION_SPECIALTIES);
   }
 
   getCurrentUser(){
@@ -94,15 +94,15 @@ export class AuthenticationService {
   }
 
   getAllUsers(){
-    return this.firestore.collection('users');
+    return this.firestore.collection(COLLECTION_USERS);
   }
 
   setUserApproval(uid: string, name: string){
 
-    return this.firestore.collection('users', ref => {
+    return this.firestore.collection(COLLECTION_USERS, ref => {
       return ref.where('uid', '==', uid);
     }).get().subscribe(ref => {
-      this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true}).then(
+      this.firestore.collection(COLLECTION_USERS).doc(ref.docs[0].id).update({'enabled':true}).then(
         res => {
           this.notify.toastNotify('Profesional aprobado', 'El profesional <b>'+ name +'</b> fue aprobado con éxito');
         }
@@ -111,7 +111,7 @@ export class AuthenticationService {
   }
 
   addSpecialty(label: string){
-    return this.firestore.collection('specialties').add({label}).then(
+    return this.firestore.collection(COLLECTION_SPECIALTIES).add({label}).then(
       res => {
         this.notify.toastNotify('Especialidad agregada', 'La especialidad <b>' + label + '</b> fue agregada con éxito');
       }
@@ -119,7 +119,7 @@ export class AuthenticationService {
   }
 
   private asignToCurrentUser(uid: string){
-    this.firestore.collection('users').get()
+    this.firestore.collection(COLLECTION_USERS).get()
       .subscribe(ref => {
         let user = ref.docs.find(doc => doc.get('uid') == uid);
         let temp = new User();
@@ -131,7 +131,7 @@ export class AuthenticationService {
         temp.email = user.get('email');
         temp.enabled = user.get('enabled');
         temp.pictures = user.get('pictures');
-        temp.specialties = user.get('specialties');
+        temp.specialties = user.get(COLLECTION_SPECIALTIES);
         temp.schedule = user.get('schedule');
 
         this.currentUser = temp;

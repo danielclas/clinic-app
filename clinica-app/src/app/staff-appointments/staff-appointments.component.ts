@@ -37,6 +37,7 @@ export class StaffAppointmentsComponent implements OnInit {
                   'status': AppointmentStatus[doc.get('status')],
                   'date': doc.get('date').toDate(),
                   'patient': user.get('name') + ' ' + user.get('surname'),
+                  'patientuid': patient,
                   'uid': doc.id
                 });
             })
@@ -56,7 +57,7 @@ export class StaffAppointmentsComponent implements OnInit {
     this.appoint.updateAppointmentStatus(status, this.selected.uid).then(
       res => {
         this.notify.toastNotify('Estado de turno actualizado', 'El estado del turno fue cambiado a <b>' + status + '</b>');
-        this.notify.pushNotify(new Notification(new Date(), this.selected.patient, message));
+        this.notify.pushNotify(new Notification(new Date(), this.selected.patientuid, message));
       },
       err => {
         this.notify.toastNotify('Error actualizando el turno', 'El estado del turno no pudo ser actualizado');

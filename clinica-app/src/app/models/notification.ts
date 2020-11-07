@@ -3,12 +3,12 @@ export class Notification{
   date: Date;
   target: String;
   message: String;
-  sent: Boolean;
+  seen: Boolean;
 
-  constructor(date, target, message, sent = false){
+  constructor(date, target, message, seen = false){
     this.date = date;
     this.target = target;
     this.message = message;
-    this.sent = sent;
+    this.seen = seen;
   }
 }
