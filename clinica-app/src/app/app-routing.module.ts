@@ -1,4 +1,4 @@
-import { CardsComponent } from './layout/cards/cards.component';
+import { CardsBoardComponent } from './layout/cards-board/cards-board.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
 import { AdminAddComponent } from './admin-add/admin-add.component';
@@ -9,17 +9,19 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
+import { StaffAppointmentsComponent } from './staff-appointments/staff-appointments.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'home', component: HomeComponent, children: [
-    {path: '', component: CardsComponent},
+    {path: '', component: CardsBoardComponent},
     {path: 'staffapproval', component: StaffApprovalComponent},
     {path: 'adminadd', component: AdminAddComponent},
     {path: 'specialtyadd', component: SpecialtyAddComponent},
     {path: 'staffschedule', component: StaffScheduleComponent},
+    {path: 'staffappointments', component: StaffAppointmentsComponent}
   ]},
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotFoundComponent}

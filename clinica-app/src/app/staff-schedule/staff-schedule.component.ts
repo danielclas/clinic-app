@@ -16,6 +16,7 @@ export class StaffScheduleComponent implements OnInit {
   icon: IconDefinition = faCheckCircle;
   selectors = {};
   toHours = [];
+  toHoursSat = [];
   schedule = {};
   loading: boolean = false;
 
@@ -33,6 +34,7 @@ export class StaffScheduleComponent implements OnInit {
     }
 
     this.toHours = this.printHours('mo');
+    this.toHoursSat = this.printHours('sa');
   }
 
   onActivateClick(day: string, from, to){
@@ -61,6 +63,7 @@ export class StaffScheduleComponent implements OnInit {
 
   onHourSelected(day, from, to){
     this.toHours = this.printHours('mo');
+    this.toHours = this.printHours('sa');
 
     if(this.schedule[day]){
       let temp = this.compareHours(to, from) ? to : this.toHours[this.toHours.indexOf(from) + 1];
@@ -73,16 +76,13 @@ export class StaffScheduleComponent implements OnInit {
 
     this.loading = true;
 
-    this.appointments.setStaffSchedule(this.schedule).add(
-      ref => {
-        this.loading = false;
-      }
-    )
+    this.appointments.setStaffSchedule(this.schedule).
+    add(ref => this.loading = false);
   }
 
   printHours(day, from = 8){
     let arr = [];
-    let to = day.value == 'sa' ? 14 : 19;
+    let to = day == 'sa' ? 14 : 19;
 
     for(let i = from ; i <= to ; i++){
       arr.push(i+':00');

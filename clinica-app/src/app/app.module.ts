@@ -25,8 +25,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
-import { CardsComponent } from './layout/cards/cards.component';
 import { BackArrowComponent } from './layout/back-arrow/back-arrow.component';
+import { CardsBoardComponent } from './layout/cards-board/cards-board.component';
+import { StaffAppointmentsComponent } from './staff-appointments/staff-appointments.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +43,9 @@ import { BackArrowComponent } from './layout/back-arrow/back-arrow.component';
     NavbarComponent,
     StaffScheduleComponent,
     NotFoundComponent,
-    CardsComponent,
-    BackArrowComponent
+    BackArrowComponent,
+    CardsBoardComponent,
+    StaffAppointmentsComponent
   ],
   imports: [
     BrowserModule,

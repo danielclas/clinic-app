@@ -28,7 +28,7 @@ export const staff = [
     'label': 'Configurar horarios de atención'
   },
   {
-    'link': '/home/staffapproval',
+    'link': '/home/staffappointments',
     'description': 'Ver turnos pasados, aceptar o rechazar turnos pendientes',
     'label': 'Turnos'
   }

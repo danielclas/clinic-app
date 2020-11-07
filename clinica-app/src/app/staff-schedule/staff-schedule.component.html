@@ -27,11 +27,11 @@
                   </div>
                   <p>Desde</p>
                   <select (change)="onHourSelected(day.value, from.value, to.value)" #from class="form-control" style="width: 15%;">
-                    <option *ngFor="let hour of printHours(day)" [selected]="schedule[day.value] && schedule[day.value][0] == hour">{{hour}}</option>
+                    <option *ngFor="let hour of printHours(day.value)" [selected]="schedule[day.value] && schedule[day.value][0] == hour">{{hour}}</option>
                   </select>
                   <p>Hasta</p>
                   <select (change)="onHourSelected(day.value, from.value, to.value)" #to class="form-control" style="width: 15%;">
-                    <ng-container *ngFor="let hour of toHours" >
+                    <ng-container *ngFor="let hour of (day.value == 'sa' ? toHoursSat : toHours)" >
                       <option *ngIf="compareHours(hour, from)" [selected]="schedule[day.value] && schedule[day.value][1] == hour">{{hour}}</option>
                     </ng-container>
                   </select>

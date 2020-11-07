@@ -4,11 +4,11 @@ import { AuthenticationService } from '../../services/authentication.service';
 import * as constants from './constants';
 
 @Component({
-  selector: 'app-cards',
-  templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.css']
+  selector: 'app-cards-board',
+  templateUrl: './cards-board.component.html',
+  styleUrls: ['./cards-board.component.css']
 })
-export class CardsComponent implements OnInit {
+export class CardsBoardComponent implements OnInit {
 
   layout = [];
 
@@ -39,5 +39,4 @@ export class CardsComponent implements OnInit {
       }
     }
   }
-
 }
