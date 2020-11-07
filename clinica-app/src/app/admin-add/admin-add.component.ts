@@ -56,7 +56,7 @@ export class AdminAddComponent implements OnInit {
   }
 
   informError(){
-    this.notify.notify('Error registrando usuario', 'Ya existe un usuario con ese correo');
+    this.notify.toastNotify('Error registrando usuario', 'Ya existe un usuario con ese correo');
   }
 
   onRegister(){

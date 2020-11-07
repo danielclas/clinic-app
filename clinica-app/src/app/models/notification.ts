@@ -1,9 +1,14 @@
 export class Notification{
 
-  constructor(
-    date: Date,
-    target: string,
-    message: string,
-    sent: boolean = false
-  ){}
+  date: Date;
+  target: String;
+  message: String;
+  sent: Boolean;
+
+  constructor(date, target, message, sent = false){
+    this.date = date;
+    this.target = target;
+    this.message = message;
+    this.sent = sent;
+  }
 }

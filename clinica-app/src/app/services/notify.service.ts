@@ -1,6 +1,10 @@
+import { Notification } from './../models/notification';
 import { AngularBootstrapToastsService } from 'angular-bootstrap-toasts';
 import { Injectable } from '@angular/core';
-
+import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,9 +17,13 @@ export class NotifyService {
     duration: 5000
   }
 
-  constructor(private toast: AngularBootstrapToastsService) { }
+  constructor(private toast: AngularBootstrapToastsService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) { }
 
-  notify(title: string, text: string){
+  toastNotify(title: string, text: string){
     this.toast.showSimpleToast({title, text, ...this.options});
+  }
+
+  pushNotify(notification: Notification){
+    this.firestore.collection('notifications').add({...notification});
   }
 }

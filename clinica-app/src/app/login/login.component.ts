@@ -49,12 +49,12 @@ export class LoginComponent implements OnInit {
               this.loading = false;
             },
             err => {
-              this.notify.notify('Error realizando el login', 'Hubo un error intentando ingresar a su cuenta. Intente más tarde');
+              this.notify.toastNotify('Error realizando el login', 'Hubo un error intentando ingresar a su cuenta. Intente más tarde');
               this.loading = false;
             }
           )
         }else{
-          this.notify.notify('Usuario inexistente', 'No existe un usuario con el correo <b>' + this.email.value + '</b>');
+          this.notify.toastNotify('Usuario inexistente', 'No existe un usuario con el correo <b>' + this.email.value + '</b>');
           this.loading = false;
         }
       }

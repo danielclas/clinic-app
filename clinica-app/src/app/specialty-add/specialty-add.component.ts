@@ -32,7 +32,7 @@ export class SpecialtyAddComponent implements OnInit {
   onAddSpecialty(){
 
     if(this.specialties.some(s => s.toLowerCase() == this.specialty.value.toLowerCase())){
-      this.notify.notify('Error agregando especialidad', 'Esa especialidad ya existe');
+      this.notify.toastNotify('Error agregando especialidad', 'Esa especialidad ya existe');
       return;
     }
 
@@ -44,7 +44,7 @@ export class SpecialtyAddComponent implements OnInit {
         this.form.reset();
       },
       err => {
-        this.notify.notify('Error agregando especialidad', 'Por favor, intente más tarde');
+        this.notify.toastNotify('Error agregando especialidad', 'Por favor, intente más tarde');
       }
     );
   }

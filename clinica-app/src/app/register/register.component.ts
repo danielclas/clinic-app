@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
   }
 
   informError(){
-    this.notify.notify('Error registrando usuario', 'Ya existe un usuario con ese correo');
+    this.notify.toastNotify('Error registrando usuario', 'Ya existe un usuario con ese correo');
   }
 
   signUp(){
@@ -131,6 +131,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister(){
+
+    //If sign-in methods available, email is already registered
     this.auth.getSignInMethods(this.email.value).then(
       res => {
         if(res.length == 0) this.signUp();
@@ -145,6 +147,7 @@ export class RegisterComponent implements OnInit {
     let label =  element.innerHTML.trim();
     let index = this.selectedSpecialties.indexOf(label);
 
+    //Switch pill color
     if(index == -1){
       this.selectedSpecialties.push(label);
       element.classList.remove('badge-secondary');

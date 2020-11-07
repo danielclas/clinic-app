@@ -31,7 +31,13 @@ export class UserCardComponent implements OnInit {
       }
     });
 
-    if(this.auth.currentUser) this.setUserType(this.auth.currentUser);
+    if(this.auth.currentUser){
+      this.setUserType(this.auth.currentUser);
+
+      if(this.userType == UserType.Patient){
+        this.getUserPictures();
+      }
+    }
   }
 
   setUserType(user: User){

@@ -72,7 +72,7 @@ export class AuthenticationService {
     this.firestore.collection('users').add({...user}).then(
       res => {
         let name = '<b>' + user.name + ' ' + user.surname +'</b>';
-        this.notify.notify('Usuario agregado', 'El usuario ' + name + ' fue registrado exitosamente');
+        this.notify.toastNotify('Usuario agregado', 'El usuario ' + name + ' fue registrado exitosamente');
       }
     );
   }
@@ -104,7 +104,7 @@ export class AuthenticationService {
     }).get().subscribe(ref => {
       this.firestore.collection('users').doc(ref.docs[0].id).update({'enabled':true}).then(
         res => {
-          this.notify.notify('Profesional aprobado', 'El profesional <b>'+ name +'</b> fue aprobado con éxito');
+          this.notify.toastNotify('Profesional aprobado', 'El profesional <b>'+ name +'</b> fue aprobado con éxito');
         }
       );
     });
@@ -113,7 +113,7 @@ export class AuthenticationService {
   addSpecialty(label: string){
     return this.firestore.collection('specialties').add({label}).then(
       res => {
-        this.notify.notify('Especialidad agregada', 'La especialidad <b>' + label + '</b> fue agregada con éxito');
+        this.notify.toastNotify('Especialidad agregada', 'La especialidad <b>' + label + '</b> fue agregada con éxito');
       }
     );
   }

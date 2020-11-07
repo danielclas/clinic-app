@@ -1,1 +1,59 @@
-<p>staff-appointments works!</p>
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col">
+        <form class="border rounded shadow-lg border-light px-3 pb-3 mt-1 bg-white">
+
+          <div class="row">
+            <div class="col-1 d-flex">
+              <app-back-arrow></app-back-arrow>
+            </div>
+            <div class="col d-flex enabled" style="height: 80px;">
+              <div style="margin: auto;">
+                <h4>
+                  Ver turnos pendientes
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col">
+              <table class="table table-hover" style="text-align: center;">
+                <thead>
+                  <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
+                    <th scope="row">{{item.patient}}</th>
+                    <td>{{item.date | date}}</td>
+                    <td>{{item.status}}</td>
+                  </tr>
+                  <tr *ngIf="appointments.length == 0">
+                    <th></th>
+                    <td>
+                      <span class="spinner-grow spinner-grow-md mr-1 text-primary"></span>
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="row align-items-center justify-content-center d-flex">
+            <div class="col-8 align-items-center justify-content-center d-flex">
+              <button (click)="onUpdateStatus(status.Accepted)" [disabled]="!selected || selected.status != status.Pending" class="btn btn-success mx-2">Aceptar</button>
+              <button (click)="onUpdateStatus(status.Rejected)" [disabled]="!selected || selected.status != status.Pending" class="btn btn-danger mx-2">Rechazar</button>
+              <button (click)="onUpdateStatus(status.Canceled)" [disabled]="!selected || selected.status == status.Pending" class="btn btn-warning mx-2">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
