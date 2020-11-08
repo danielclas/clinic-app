@@ -28,9 +28,15 @@ export class AppointmentsService {
     });
   }
 
-  getStaffAppointments(staffUid: string){
+  getStaffAppointments(uid: string){
     return this.firestore.collection(COLLECTION_APPOINTMENTS, ref => {
-      return ref.where('professional', '==', staffUid);
+      return ref.where('professional', '==', uid);
+    });
+  }
+
+  getPatientAppointments(uid: string){
+    return this.firestore.collection(COLLECTION_APPOINTMENTS, ref => {
+      return ref.where('patient', '==', uid);
     });
   }
 

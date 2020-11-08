@@ -1,8 +1,8 @@
-import { AppointmentsService } from './../services/appointments.service';
-import { Days } from '../models/staffschedule';
-import { AuthenticationService } from './../services/authentication.service';
+import { AppointmentsService } from './../../services/appointments.service';
+import { Days } from '../../models/staffschedule';
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 import { faCheckCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

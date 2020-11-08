@@ -1,6 +1,6 @@
-import { AuthenticationService } from './../services/authentication.service';
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-staff-approval',

@@ -1,15 +1,16 @@
+import { PatientAppointmentsComponent } from './patient/patient-appointments/patient-appointments.component';
 import { CardsBoardComponent } from './layout/cards-board/cards-board.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
-import { SpecialtyAddComponent } from './specialty-add/specialty-add.component';
-import { AdminAddComponent } from './admin-add/admin-add.component';
-import { StaffApprovalComponent } from './staff-approval/staff-approval.component';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import { SpecialtyAddComponent } from './shared/specialty-add/specialty-add.component';
+import { AdminAddComponent } from './admin/admin-add/admin-add.component';
+import { StaffApprovalComponent } from './admin/staff-approval/staff-approval.component';
+import { HomeComponent } from './shared/home/home.component';
+import { RegisterComponent } from './shared/register/register.component';
+import { LoginComponent } from './shared/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { StaffScheduleComponent } from './staff-schedule/staff-schedule.component';
-import { StaffAppointmentsComponent } from './staff-appointments/staff-appointments.component';
+import { StaffScheduleComponent } from './staff/staff-schedule/staff-schedule.component';
+import { StaffAppointmentsComponent } from './staff/staff-appointments/staff-appointments.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
     {path: 'adminadd', component: AdminAddComponent},
     {path: 'specialtyadd', component: SpecialtyAddComponent},
     {path: 'staffschedule', component: StaffScheduleComponent},
-    {path: 'staffappointments', component: StaffAppointmentsComponent}
+    {path: 'staffappointments', component: StaffAppointmentsComponent},
+    {path: 'patientappointments', component: PatientAppointmentsComponent}
   ]},
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotFoundComponent}

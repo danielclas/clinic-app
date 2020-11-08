@@ -1,9 +1,9 @@
 <div class="col">
   <div class="card shadow-lg" *ngIf="this.auth.currentUser">
     <div class="card-header" style="text-align: center;">
-      <h5>
+      <h6>
         {{'¡Bienvenido, ' + auth.currentUser.name + '!'}}
-      </h5>
+      </h6>
     </div>
     <div class="card-body">
       <div class="row justify-content-center align-items-center mb-4">
@@ -12,10 +12,10 @@
         <fa-icon *ngIf="profilePictures.length == 0" [icon]="icon" [size]="'5x'"></fa-icon>
 
         <div *ngIf="profilePictures.length == 2" class="col-6 p-4">
-          <img [src]="profilePictures[0]" alt="Profile picture" style="width: auto; height: 80px;">
+          <img [src]="profilePictures[0]" alt="Profile picture" style="width: auto; height: 60px;">
         </div>
         <div *ngIf="profilePictures.length == 2" class="col-6">
-          <img [src]="profilePictures[1]" alt="Profile picture" style="width: auto; height: 80px;">
+          <img [src]="profilePictures[1]" alt="Profile picture" style="width: auto; height: 60px;">
         </div>
 
       </div>

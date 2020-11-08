@@ -5,7 +5,7 @@ export class Notification{
   message: String;
   seen: Boolean;
 
-  constructor(date, target, message, seen = false){
+  constructor(date: Date, target: String, message: String, seen = false){
     this.date = date;
     this.target = target;
     this.message = message;

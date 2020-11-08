@@ -1,11 +1,11 @@
-import { NotifyService } from './../services/notify.service';
-import { User, UserType } from './../models/user';
+import { NotifyService } from './../../services/notify.service';
+import { User, UserType } from './../../models/user';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { faEnvelopeSquare, faKey, faPortrait } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Upload } from '../models/upload';
+import { Upload } from '../../models/upload';
 
 @Component({
   selector: 'app-register',

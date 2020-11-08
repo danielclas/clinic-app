@@ -1,0 +1,61 @@
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col">
+        <form class="border rounded shadow-lg border-light px-3 pb-3 mt-1 bg-white">
+
+          <div class="row">
+            <div class="col-1 d-flex">
+              <app-back-arrow></app-back-arrow>
+            </div>
+            <div class="col d-flex enabled" style="height: 80px;">
+              <div style="margin: auto;">
+                <h4>
+                  Próximos turnos
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col">
+              <table *ngIf="appointments.length != 0" class="table table-hover" style="text-align: center;">
+                <thead>
+                  <tr>
+                    <th scope="col">Profesional</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="appointments.length != 0">
+                  <tr *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
+                    <th scope="row">{{item.professional}}</th>
+                    <td>{{item.date | date}}</td>
+                    <td>{{item.status}}</td>
+                  </tr>
+                </tbody>
+                <div class="justify-content-center">
+                  <span *ngIf="loading && appointments.length == 0" class="spinner-grow spinner-grow-md mr-1 text-primary"></span>
+                </div>
+              </table>
+              <div *ngIf="appointments.length == 0 && !loading" class="row justify-content-center align-items-center m-5">
+                <h5>
+                  No tiene turnos para mostrar dentro de los próximos 15 días
+                </h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-center justify-content-center d-flex">
+            <div *ngIf="appointments.length != 0" class="col-8 align-items-center justify-content-center d-flex">
+              <button (click)="onUpdateStatus(status.Canceled)" [disabled]="!selected || selected.status == status.Canceled" class="btn btn-danger mx-2">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                <span *ngIf="!loading">Cancelar turno</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

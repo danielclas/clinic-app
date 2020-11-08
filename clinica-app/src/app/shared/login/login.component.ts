@@ -1,5 +1,5 @@
-import { NotifyService } from './../services/notify.service';
-import { AuthenticationService } from './../services/authentication.service';
+import { NotifyService } from './../../services/notify.service';
+import { AuthenticationService } from './../../services/authentication.service';
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';

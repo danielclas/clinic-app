@@ -1,7 +1,7 @@
-import { NotifyService } from './../services/notify.service';
+import { NotifyService } from './../../services/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-specialty-add',
@@ -45,6 +45,7 @@ export class SpecialtyAddComponent implements OnInit {
       },
       err => {
         this.notify.toastNotify('Error agregando especialidad', 'Por favor, intente más tarde');
+        this.loading = false;
       }
     );
   }

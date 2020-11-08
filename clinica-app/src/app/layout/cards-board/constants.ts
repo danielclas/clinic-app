@@ -44,14 +44,9 @@ export const patient = [
     'label': 'Solicitar un turno'
   },
   {
-    'link': '/home/staffapproval',
+    'link': '/home/patientappointments',
     'description': 'Ver solo los turnos hasta 15 días desde la fecha',
     'label': 'Ver turnos pedientes'
-  },
-  {
-    'link': '/home/staffapproval',
-    'description': 'Ver turnos pasados, aceptar o rechazar turnos pendientes',
-    'label': 'Ver reseñas'
   }
 
 ]
