@@ -29,6 +29,7 @@ import { BackArrowComponent } from './layout/back-arrow/back-arrow.component';
 import { CardsBoardComponent } from './layout/cards-board/cards-board.component';
 import { StaffAppointmentsComponent } from './staff/staff-appointments/staff-appointments.component';
 import { PatientAppointmentsComponent } from './patient/patient-appointments/patient-appointments.component';
+import { NewAppointmentComponent } from './patient/new-appointment/new-appointment.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { PatientAppointmentsComponent } from './patient/patient-appointments/pat
     BackArrowComponent,
     CardsBoardComponent,
     StaffAppointmentsComponent,
-    PatientAppointmentsComponent
+    PatientAppointmentsComponent,
+    NewAppointmentComponent
   ],
   imports: [
     BrowserModule,

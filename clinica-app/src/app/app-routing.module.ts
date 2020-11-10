@@ -1,3 +1,4 @@
+import { NewAppointmentComponent } from './patient/new-appointment/new-appointment.component';
 import { PatientAppointmentsComponent } from './patient/patient-appointments/patient-appointments.component';
 import { CardsBoardComponent } from './layout/cards-board/cards-board.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
@@ -23,7 +24,8 @@ const routes: Routes = [
     {path: 'specialtyadd', component: SpecialtyAddComponent},
     {path: 'staffschedule', component: StaffScheduleComponent},
     {path: 'staffappointments', component: StaffAppointmentsComponent},
-    {path: 'patientappointments', component: PatientAppointmentsComponent}
+    {path: 'patientappointments', component: PatientAppointmentsComponent},
+    {path: 'newappointment', component: NewAppointmentComponent}
   ]},
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotFoundComponent}

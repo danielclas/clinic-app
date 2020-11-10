@@ -39,7 +39,7 @@ export const staff = [
 
 export const patient = [
   {
-    'link': '/home/specialtyadd',
+    'link': '/home/newappointment',
     'description': 'Solicitar un nuevo turno con un profesional',
     'label': 'Solicitar un turno'
   },
