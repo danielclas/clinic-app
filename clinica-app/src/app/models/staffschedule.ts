@@ -15,10 +15,10 @@ export class WorkingDay{
 }
 
 export const Days = [
-  {value: 'mo', viewValue: 'Lunes', on: false},
-  {value: 'tu', viewValue: 'Martes', on: false},
-  {value: 'we', viewValue: 'Miercoles', on: false},
-  {value: 'th', viewValue: 'Jueves', on: false},
-  {value: 'fr', viewValue: 'Viernes', on: false},
-  {value: 'sa', viewValue: 'Sabado', on: false}
+  {number: 1, value: 'mo', viewValue: 'Lunes', on: false},
+  {number: 2, value: 'tu', viewValue: 'Martes', on: false},
+  {number: 3, value: 'we', viewValue: 'Miercoles', on: false},
+  {number: 4, value: 'th', viewValue: 'Jueves', on: false},
+  {number: 5, value: 'fr', viewValue: 'Viernes', on: false},
+  {number: 6, value: 'sa', viewValue: 'Sabado', on: false}
 ]

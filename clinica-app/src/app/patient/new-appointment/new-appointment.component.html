@@ -1,4 +1,95 @@
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col">
+        <form [formGroup]="form" class="border rounded shadow-lg border-light px-4 pb-3 mt-1 bg-white">
 
-<select class="form-control" style="width: 15%;">
-  <option *ngFor="let label of specialties">{{label}}</option>
-</select>
+          <div class="row">
+            <div class="col-1 d-flex">
+              <app-back-arrow></app-back-arrow>
+            </div>
+            <div class="col d-flex enabled" style="height: 80px;">
+              <div style="margin: auto;">
+                <h4>
+                  Solicitar un turno
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <!-- Staff's name -->
+              <div class="col px-2 py-4">
+                <label for="name">Apellido del profesional</label>
+                <input type="text" (keyup)="search()" formControlName="staff" class="form-control" placeholder="Profesional">
+              </div>
+
+              <!-- Specialties -->
+              <div class="col px-2 py-4">
+                <label for="specialty">Especialidad</label>
+                <select name="specialty" (change)="onSpecialtySelected(select)" #select formControlName="specialty" class="form-control">
+                  <option selected> </option>
+                  <option *ngFor="let label of specialties">{{label}}</option>
+                </select>
+              </div>
+
+              <!-- Working days -->
+              <div class="col px-2 py-4">
+                  <label for="">Días de la semana</label>
+                  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                      <button (click)="onDayClicked(day)" *ngFor="let day of days" type="button" [ngClass]="day.on ? 'btn-primary' : 'btn-light'" class="btn">{{day.value[0] | uppercase}}</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-8">
+              <div class="row mt-2 align-items-center justify-content-center">
+                <h5>Resultado de la búsqueda</h5>
+              </div>
+
+              <!-- Search results -->
+              <div class="row mt-2 align-items-center justify-content-center">
+                <h6 *ngIf="!doctors || doctors.length == 0">No hay resultados para mostrar</h6>
+                <ul class="list-group px-2" style="overflow-y: scroll; overflow-x: hidden; max-height: 300px;">
+                  <a role="button">
+                    <li (click)="onDoctorSelected(doctor)" *ngFor="let doctor of doctors" class="list-group-item" [ngClass]="doctorSelected == doctor ? 'active' : ''">
+                        <b>{{doctor.name}} {{doctor.surname}}</b>
+                        <br>
+                        <p> Especialidades: {{doctor.specialties}} </p>
+                    </li>
+                  </a>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="row" *ngIf="doctorSelected">
+            <div class="col-4 p-4 align-self-start">
+              <ngb-datepicker #dp [displayMonths]="1" [minDate]="today" [maxDate]="max" (dateSelect)="dateSelected($event)" (navigate)="date = $event.next"></ngb-datepicker>
+            </div>
+            <div class="col-8 p-4" *ngIf="selectedDate">
+              <div class="row justify-content-center">
+                <div class="col aling-items-center">
+                  <h5>Seleccione un horario</h5>
+                  <div *ngIf="showHours && hours && hours.length>0"><app-hours-table (hourClicked)="onSlotClicked($event)" [hours]="hours"></app-hours-table></div>
+                  <div *ngIf="showHours">
+                    <button [disabled]="!selectedSlot" class="btn btn-success" (click)="onRegister()">
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                      <span *ngIf="!loading"> Registrar turno </span>
+                    </button>
+                  </div>
+                  <h6 class="p-3" *ngIf="!showHours">No hay turnos disponibles para el día seleccionado</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

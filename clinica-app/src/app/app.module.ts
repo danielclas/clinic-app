@@ -30,6 +30,7 @@ import { CardsBoardComponent } from './layout/cards-board/cards-board.component'
 import { StaffAppointmentsComponent } from './staff/staff-appointments/staff-appointments.component';
 import { PatientAppointmentsComponent } from './patient/patient-appointments/patient-appointments.component';
 import { NewAppointmentComponent } from './patient/new-appointment/new-appointment.component';
+import { HoursTableComponent } from './layout/hours-table/hours-table.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { NewAppointmentComponent } from './patient/new-appointment/new-appointme
     CardsBoardComponent,
     StaffAppointmentsComponent,
     PatientAppointmentsComponent,
-    NewAppointmentComponent
+    NewAppointmentComponent,
+    HoursTableComponent
   ],
   imports: [
     BrowserModule,

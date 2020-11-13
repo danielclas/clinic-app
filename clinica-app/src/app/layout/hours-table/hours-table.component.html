@@ -1,0 +1,11 @@
+<table class="table table-bordered">
+  <tbody>
+    <tr *ngFor="let row of tableHours">
+      <td *ngFor="let hour of row" [ngClass]="hour == selectedHour ? 'table-success' : hour.available ? '' : 'table-secondary'" (click)="onHourClicked(hour)">
+        <a role="button">
+          {{hour.time}}
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

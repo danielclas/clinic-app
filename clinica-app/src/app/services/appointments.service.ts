@@ -1,3 +1,4 @@
+import { UserType } from './../models/user';
 import { AppointmentStatus } from './../models/appointments';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -50,5 +51,12 @@ export class AppointmentsService {
     }).get();
   }
 
+  getStaffMembers(){
+    return this.firestore.collection(COLLECTION_USERS).ref.where('type', '==', UserType.Staff).where('enabled', '==', true);
+  }
+
+  newAppointment(item){
+    return this.firestore.collection(COLLECTION_APPOINTMENTS).add({...item});
+  }
 
 }
