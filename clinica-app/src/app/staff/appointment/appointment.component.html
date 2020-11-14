@@ -4,17 +4,32 @@
       <div class="col">
         <form [formGroup]="form" class="border rounded shadow-lg border-light px-3 pb-3 mt-1 bg-white">
           <fa-icon [icon]="icon" [size]="'2x'" #el class="cross mr-4 mt-2" style="position:absolute;right:0;cursor: pointer;"></fa-icon>
-          <h3>Reseña del paciente</h3>
-          <textarea></textarea>
-          <h3>Completar encuesta</h3>
-          <br>
-          <h3>Datos adicionales</h3>
-          <label for="first">Dato</label>
-          <input type="text" name="first">
-          <label for="first">Dato</label>
-          <input type="text" name="first">
-          <label for="first">Dato</label>
-          <input type="text" name="first">
+
+          <div class="row justify-content-center p-4">
+            <h4>
+              Atender un turno
+            </h4>
+          </div>
+
+          <div class="row mb-3 mt-1 p-2">
+            <h5>Reseña del paciente</h5>
+            <textarea maxlength="200" formControlName="review"></textarea>
+          </div>
+
+          <div class="row my-3 p-2">
+            <h5>Completar encuesta</h5>
+            <textarea maxlength="200"></textarea>
+          </div>
+
+          <h5>Datos adicionales</h5>
+
+          <div class="row px-2 my-3" *ngFor="let input of ['first', 'second', 'third']">
+            <div class="col-1"><p class="label">Dato: </p></div>
+            <div class="col-3"><input type="text" [formControlName]="input + 'Key'" class="form-control"></div>
+            <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
+            <div class="col-5"><input type="text" [formControlName]="input + 'Value'" class="form-control"></div>
+          </div>
+
         </form>
       </div>
     </div>

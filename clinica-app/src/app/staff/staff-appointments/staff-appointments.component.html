@@ -29,9 +29,9 @@
                 </thead>
                 <tbody>
                   <tr style="cursor: pointer;" *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
-                    <th scope="row">{{item.patient}}</th>
+                    <td>{{item.patient}}</td>
                     <td>{{item.date | date}}</td>
-                    <td>{{item.status}}</td>
+                    <td><b>{{item.status}}</b></td>
                   </tr>
                 </tbody>
               </table>

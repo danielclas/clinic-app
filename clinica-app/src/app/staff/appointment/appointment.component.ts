@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NotifyService } from 'src/app/services/notify.service';
 import { faTimesCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -21,5 +21,14 @@ export class AppointmentComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      review: [''],
+      firstKey: [''],
+      firstValue: [''],
+      secondKey: [''],
+      secondValue: [''],
+      thirdKey: [''],
+      thirdValue: [''],
+    })
   }
 }
