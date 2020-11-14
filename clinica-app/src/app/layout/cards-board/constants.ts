@@ -34,7 +34,7 @@ export const staff = [
   },
   {
     'link': '/home/attendappointment',
-    'description': 'Atender a un paciente, agregar una reseña y completar la encuesta (sólo para turnos del día de la fecha)',
+    'description': 'Atender a un paciente, agregar una reseña y completar la encuesta',
     'label': 'Atender paciente'
   }
 ];

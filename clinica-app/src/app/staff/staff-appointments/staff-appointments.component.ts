@@ -44,7 +44,6 @@ export class StaffAppointmentsComponent implements OnInit {
           }
         )
 
-        this.appointments = this.appointments.sort((a,b) => a.date > b.date ? -1 : a.date < b.date ? 1 : 0);
         this.loading = false;
       }
     )
@@ -67,9 +66,6 @@ export class StaffAppointmentsComponent implements OnInit {
   }
 
   onRowSelected(selected){
-
-    if(selected.isPast) return;
-
     if(selected == this.selected) this.selected = undefined;
     else this.selected = selected;
   }

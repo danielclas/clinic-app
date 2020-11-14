@@ -34,6 +34,7 @@ import { HoursTableComponent } from './layout/hours-table/hours-table.component'
 import { FilterPipe } from './filter.pipe';
 import { PastAppointmentsComponent } from './patient/past-appointments/past-appointments.component';
 import { AttendAppointmentComponent } from './staff/attend-appointment/attend-appointment.component';
+import { AppointmentComponent } from './staff/appointment/appointment.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AttendAppointmentComponent } from './staff/attend-appointment/attend-ap
     HoursTableComponent,
     FilterPipe,
     PastAppointmentsComponent,
-    AttendAppointmentComponent
+    AttendAppointmentComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,
