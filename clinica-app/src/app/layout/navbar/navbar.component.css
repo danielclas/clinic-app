@@ -2,12 +2,13 @@
   min-height: 10vh;
 }
 
-.grow { transition: all .2s ease-in-out; }
+.grow { transition: all .1s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
 
 .shake {
-  animation: shake-animation 4s ease infinite;
+  animation: shake-animation 2s ease infinite;
   transform-origin: 50% 50%;
+  transform: scale(1.1);
 }
 
 @keyframes shake-animation {

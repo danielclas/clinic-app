@@ -31,6 +31,9 @@ import { StaffAppointmentsComponent } from './staff/staff-appointments/staff-app
 import { PatientAppointmentsComponent } from './patient/patient-appointments/patient-appointments.component';
 import { NewAppointmentComponent } from './patient/new-appointment/new-appointment.component';
 import { HoursTableComponent } from './layout/hours-table/hours-table.component';
+import { FilterPipe } from './filter.pipe';
+import { PastAppointmentsComponent } from './patient/past-appointments/past-appointments.component';
+import { AttendAppointmentComponent } from './staff/attend-appointment/attend-appointment.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { HoursTableComponent } from './layout/hours-table/hours-table.component'
     StaffAppointmentsComponent,
     PatientAppointmentsComponent,
     NewAppointmentComponent,
-    HoursTableComponent
+    HoursTableComponent,
+    FilterPipe,
+    PastAppointmentsComponent,
+    AttendAppointmentComponent
   ],
   imports: [
     BrowserModule,

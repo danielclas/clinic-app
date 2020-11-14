@@ -1,0 +1,18 @@
+.anchor{
+  color: black;
+  background-color: white;
+  transition: all 0.25s ease-in-out;
+  width: 25%;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.anchor:hover{
+  color: white;
+  background-color: #0275d8;
+}
+
+.selected{
+  color: white;
+}

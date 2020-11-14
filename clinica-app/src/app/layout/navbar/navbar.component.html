@@ -10,13 +10,15 @@
     <div class="mr-5 d-flex" *ngIf="auth.currentUser">
       <div ngbDropdown [ngClass]="notifications.length != 0 ? ['shake', 'text-danger'] : ''">
         <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'lg'" ngbDropdownToggle></fa-icon>
-        <div ngbDropdownMenu style="overflow-y: scroll; height:200px; width: 500px; margin: auto;">
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll; height:200px; width: 400px; margin: auto;">
           <ul class="list-group">
-            <li class="list-group-item" *ngFor="let item of notifications" (click)="onDismissNotification(item)">
+            <li ngbDropdownItem  class="list-group-item" *ngFor="let item of notifications" (click)="onDismissNotification(item)">
               <a type="button">{{item.message}}</a>
             </li>
-            <li *ngIf="notifications.length == 0">No hay notificaciones para mostrar</li>
           </ul>
+          <div class="row justify-content-center">
+            <h5 class="p-4" style="text-align: center;" *ngIf="notifications.length == 0">No hay notificaciones para mostrar</h5>
+          </div>
         </div>
       </div>
       <div class="grow">

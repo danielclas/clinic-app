@@ -9,7 +9,8 @@
       <div class="row justify-content-center align-items-center mb-4">
 
         <!-- If user not type 'Patient', profile pictures is empty -->
-        <fa-icon *ngIf="profilePictures.length == 0" [icon]="icon" [size]="'5x'"></fa-icon>
+        <fa-icon *ngIf="profilePictures.length == 0 && !loading" [icon]="icon" [size]="'5x'"></fa-icon>
+        <span *ngIf="loading" class="spinner-grow spinner-grow-md mr-1 text-primary"></span>
 
         <div *ngIf="profilePictures.length == 2" class="col-6 p-4">
           <img [src]="profilePictures[0]" alt="Profile picture" style="width: auto; height: 60px;">

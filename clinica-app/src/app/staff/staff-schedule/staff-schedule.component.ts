@@ -25,11 +25,13 @@ export class StaffScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.auth.userAsigned.subscribe(
       (user: User) => {
-        this.schedule = this.auth.currentUser.schedule;
+        if(this.auth.currentUser.schedule){
+          this.schedule = this.auth.currentUser.schedule;
+        }
       }
     )
 
-    if(this.auth.currentUser){
+    if(this.auth.currentUser && this.auth.currentUser.schedule){
       this.schedule =  this.auth.currentUser.schedule;
     }
 

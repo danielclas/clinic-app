@@ -2,7 +2,7 @@ import { AppointmentStatus } from './../../models/appointments';
 import { Schedule } from './../../models/staffschedule';
 import { AppointmentsService } from './../../services/appointments.service';
 import { NotifyService } from './../../services/notify.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Days } from '../../models/staffschedule';
@@ -14,6 +14,8 @@ import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./new-appointment.component.css']
 })
 export class NewAppointmentComponent implements OnInit {
+
+  @ViewChild('select') select;
 
   form: FormGroup;
 
@@ -36,6 +38,8 @@ export class NewAppointmentComponent implements OnInit {
   selectedDate;
 
   loading = false;
+  loadingHours = false;
+  loadingDoctors = false;
 
   selectedSlot;
   constructor(private apps: AppointmentsService, private auth: AuthenticationService, private formBuilder: FormBuilder, private notify: NotifyService) { }
@@ -50,7 +54,8 @@ export class NewAppointmentComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       staff: [''],
-      specialty: ['']
+      specialty: [''],
+      day: ['']
     });
 
     let date = new Date();
@@ -106,7 +111,7 @@ export class NewAppointmentComponent implements OnInit {
 
     this.loading = true;
     this.apps.newAppointment(obj).then(res => {
-      this.notify.toastNotify('Registro exitiso','El turno fue registrado exitosamente. Puede verlo en su lista de turnos futuros.');
+      this.notify.toastNotify('Registro exitoso','El turno fue registrado exitosamente. Puede verlo en su lista de turnos futuros.');
       this.loading = false;
       this.selectedDate = undefined;
       this.selectedSlot = undefined;
@@ -119,6 +124,7 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   search(){
+    this.loadingDoctors = true;
     this.apps.getStaffMembers().get().then(ref => {
       let temp = [];
       ref.docs.forEach(doc => {
@@ -137,27 +143,46 @@ export class NewAppointmentComponent implements OnInit {
       });
 
       this.doctors = temp;
+      this.loadingDoctors = false;
     });
+  }
+
+  printDays(schedule){
+    let s = '';
+
+    for(let d of this.days){
+      if(schedule[d.value]){
+        let k = d.viewValue;
+        s+=' ' + k + ' |';
+      }
+    }
+
+    return s.substring(0,s.length-2);
   }
 
   onDayClicked(day){
     day.on = !day.on;
+    if(day.on){
+      this.selectedDays.push(day.value);
+    }else{
+      let arr = [];
 
-    let temp = [];
-    this.doctors.forEach(d => {
-      if(day.on){
-        if(d.schedule[day.value]){
+      this.selectedDays.forEach(d => {
+        if(d != day.value) arr.push(d);
+      });
 
-        }
-      }else{
-
-      }
-    })
+      this.selectedDays = arr;
+    }
   }
 
   onDoctorSelected(doctor){
-    if(this.doctorSelected == doctor){ this.doctorSelected = undefined; this.selectedDate = undefined;}
-    else this.doctorSelected = doctor;
+    if(this.doctorSelected == doctor){
+      this.doctorSelected = undefined;
+      this.selectedDate = undefined;
+    }else{
+      this.doctorSelected = doctor;
+      this.selectedDate = undefined;
+    }
   }
 
   onSpecialtySelected(select){
@@ -165,6 +190,8 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   dateSelected(date: NgbDate){
+
+    this.loadingHours = true;
 
     let a = new Date();
     a.setDate(date.day);
@@ -216,6 +243,7 @@ export class NewAppointmentComponent implements OnInit {
         }
 
         this.hours = arr;
+        this.loadingHours = false;
       }
     );
   }

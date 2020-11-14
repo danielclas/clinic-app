@@ -16,6 +16,7 @@ export class UserCardComponent implements OnInit {
   typeTranslation: string = 'paciente';
   profilePictures: string[] = [];
   enabled: boolean = true;
+  loading = true;
 
   constructor(public auth: AuthenticationService) { }
 
@@ -47,16 +48,21 @@ export class UserCardComponent implements OnInit {
     if(this.userType == UserType.Admin){
       this.icon = faUserCog;
       this.typeTranslation = 'administrador';
+      this.loading = false;
     }else if(this.userType == UserType.Staff){
       this.icon = faUserMd;
       this.typeTranslation = 'profesional';
       this.enabled = user.enabled;
+      this.loading = false;
     }
   }
 
   getUserPictures(){
     this.auth.getUserPictures().forEach(
-      sub => sub.subscribe(url => this.profilePictures.push(url))
+      sub => sub.subscribe(url => {
+        this.profilePictures.push(url)
+        this.loading = this.profilePictures.length != 2;
+      })
     );
   }
 }

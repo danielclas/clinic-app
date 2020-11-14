@@ -13,39 +13,38 @@ import { NotifyService } from '../../services/notify.service';
 export class StaffAppointmentsComponent implements OnInit {
 
   status = AppointmentStatus;
-  appointments = [];
+  appointments: any[];
   selected;
   loading = false;
   constructor(private notify: NotifyService, private appoint: AppointmentsService, private auth: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.appoint.getStaffAppointments(this.auth.currentUser.uid)
     .snapshotChanges().subscribe(
       ref => {
-        this.loading = true;
         this.appointments = [];
         ref.forEach(
           item => {
             let doc = item.payload.doc;
             let patient = doc.get('patient');
 
-            if(doc.get('date').toDate() > Date.now()){
-              this.appoint.getPatientInfo(patient).subscribe(
-                res => {
-
-                  let user = res.docs[0];
-                  this.appointments.push({
-                    'status': doc.get('status'),
-                    'date': doc.get('date').toDate(),
-                    'patient': user.get('name') + ' ' + user.get('surname'),
-                    'patientuid': patient,
-                    'uid': doc.id
-                  });
-              });
-            }
+            this.appoint.getPatientInfo(patient).subscribe(
+              res => {
+                let user = res.docs[0];
+                this.appointments.push({
+                  'status': doc.get('status'),
+                  'date': doc.get('date').toDate(),
+                  'isPast': Date.now() > doc.get('date').toDate(),
+                  'patient': user.get('name') + ' ' + user.get('surname'),
+                  'patientuid': patient,
+                  'uid': doc.id
+                });
+            });
           }
         )
 
+        this.appointments = this.appointments.sort((a,b) => a.date > b.date ? -1 : a.date < b.date ? 1 : 0);
         this.loading = false;
       }
     )
@@ -68,6 +67,8 @@ export class StaffAppointmentsComponent implements OnInit {
   }
 
   onRowSelected(selected){
+
+    if(selected.isPast) return;
 
     if(selected == this.selected) this.selected = undefined;
     else this.selected = selected;

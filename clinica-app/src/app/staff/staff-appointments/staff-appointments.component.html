@@ -11,15 +11,15 @@
             <div class="col d-flex enabled" style="height: 80px;">
               <div style="margin: auto;">
                 <h4>
-                  Ver turnos pendientes
+                  Ver turnos
                 </h4>
               </div>
             </div>
           </div>
 
           <div class="row justify-content-center">
-            <div class="col">
-              <table class="table table-hover" style="text-align: center;">
+            <div class="col align-items-center">
+              <table *ngIf="appointments && appointments.length > 0" class="table table-hover" style="text-align: center;">
                 <thead>
                   <tr>
                     <th scope="col">Paciente</th>
@@ -28,24 +28,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
+                  <tr *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : item.isPast ? 'table-secondary' :  ''">
                     <th scope="row">{{item.patient}}</th>
                     <td>{{item.date | date}}</td>
                     <td>{{item.status}}</td>
-                  </tr>
-                  <tr *ngIf="appointments.length == 0">
-                    <th></th>
-                    <td>
-                      <span class="spinner-grow spinner-grow-md mr-1 text-primary"></span>
-                    </td>
-                    <td></td>
+                    {{item.isPast}}
                   </tr>
                 </tbody>
               </table>
+              <div class="row justify-content-center">
+                <span *ngIf="loading" class="spinner-grow spinner-grow-sm p-5 text-primary"></span>
+                <h5 *ngIf="appointments && appointments.length == 0" class="p-5" >Usted no tiene turnos pendientes para mostrar</h5>
+              </div>
             </div>
           </div>
 
-          <div class="row align-items-center justify-content-center d-flex">
+          <div *ngIf="appointments && appointments.length > 0" class="row align-items-center justify-content-center d-flex">
             <div class="col-8 align-items-center justify-content-center d-flex">
               <button (click)="onUpdateStatus(status.Accepted)" [disabled]="!selected || selected.status != status.Pending" class="btn btn-success mx-2">Aceptar</button>
               <button (click)="onUpdateStatus(status.Rejected)" [disabled]="!selected || selected.status != status.Pending" class="btn btn-danger mx-2">Rechazar</button>

@@ -20,7 +20,7 @@ export class HoursTableComponent implements OnInit {
   }
 
   onHourClicked($event){
-
+    console.log($event);
     if($event == this.selectedHour){
       this.selectedHour = undefined;
       return;

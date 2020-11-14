@@ -1,3 +1,5 @@
+import { AttendAppointmentComponent } from './staff/attend-appointment/attend-appointment.component';
+import { PastAppointmentsComponent } from './patient/past-appointments/past-appointments.component';
 import { NewAppointmentComponent } from './patient/new-appointment/new-appointment.component';
 import { PatientAppointmentsComponent } from './patient/patient-appointments/patient-appointments.component';
 import { CardsBoardComponent } from './layout/cards-board/cards-board.component';
@@ -25,7 +27,9 @@ const routes: Routes = [
     {path: 'staffschedule', component: StaffScheduleComponent},
     {path: 'staffappointments', component: StaffAppointmentsComponent},
     {path: 'patientappointments', component: PatientAppointmentsComponent},
-    {path: 'newappointment', component: NewAppointmentComponent}
+    {path: 'newappointment', component: NewAppointmentComponent},
+    {path: 'pastappointments', component: PastAppointmentsComponent},
+    {path: 'attendappointment', component: AttendAppointmentComponent}
   ]},
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotFoundComponent}

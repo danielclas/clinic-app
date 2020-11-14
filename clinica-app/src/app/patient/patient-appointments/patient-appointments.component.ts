@@ -19,10 +19,10 @@ export class PatientAppointmentsComponent implements OnInit {
   constructor(private notify: NotifyService, private auth: AuthenticationService, private appoint: AppointmentsService) { }
 
   ngOnInit(): void {
+    this.loading = true;
     this.appoint.getPatientAppointments(this.auth.currentUser.uid)
     .snapshotChanges().subscribe(
       ref => {
-        this.loading = true;
         this.appointments = [];
         ref.forEach(
           item => {

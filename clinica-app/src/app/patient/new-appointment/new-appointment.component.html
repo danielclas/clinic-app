@@ -22,7 +22,7 @@
               <!-- Staff's name -->
               <div class="col px-2 py-4">
                 <label for="name">Apellido del profesional</label>
-                <input type="text" (keyup)="search()" formControlName="staff" class="form-control" placeholder="Profesional">
+                <input type="text" #filter formControlName="staff" class="form-control" placeholder="Profesional">
               </div>
 
               <!-- Specialties -->
@@ -36,12 +36,11 @@
 
               <!-- Working days -->
               <div class="col px-2 py-4">
-                  <label for="">Días de la semana</label>
-                  <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                      <button (click)="onDayClicked(day)" *ngFor="let day of days" type="button" [ngClass]="day.on ? 'btn-primary' : 'btn-light'" class="btn">{{day.value[0] | uppercase}}</button>
-                    </div>
-                  </div>
+                <label for="day">Día de la semana</label>
+                <select name="day" #day formControlName="day" class="form-control">
+                  <option selected></option>
+                  <option *ngFor="let day of days" >{{day.viewValue}}</option>
+                </select>
               </div>
             </div>
 
@@ -52,13 +51,15 @@
 
               <!-- Search results -->
               <div class="row mt-2 align-items-center justify-content-center">
-                <h6 *ngIf="!doctors || doctors.length == 0">No hay resultados para mostrar</h6>
-                <ul class="list-group px-2" style="overflow-y: scroll; overflow-x: hidden; max-height: 300px;">
+                <h6 *ngIf="(!doctors || doctors.length == 0) && !loadingDoctors">No hay resultados para mostrar</h6>
+                <span *ngIf="loadingDoctors" class="spinner-border spinner-border-md p-5 mr-1"></span>
+                <ul class="list-group px-2 w-100" style="overflow-y: scroll; overflow-x: hidden; max-height: 300px;">
                   <a role="button">
-                    <li (click)="onDoctorSelected(doctor)" *ngFor="let doctor of doctors" class="list-group-item" [ngClass]="doctorSelected == doctor ? 'active' : ''">
+                    <li (click)="onDoctorSelected(doctor)" *ngFor="let doctor of doctors | filter:filter.value:select.value:day.value" class="list-group-item" [ngClass]="doctorSelected == doctor ? 'active' : ''">
                         <b>{{doctor.name}} {{doctor.surname}}</b>
                         <br>
                         <p> Especialidades: {{doctor.specialties}} </p>
+                        Días disponibles: <span>{{printDays(doctor.schedule)}}</span>
                     </li>
                   </a>
                 </ul>
@@ -76,14 +77,19 @@
               <div class="row justify-content-center">
                 <div class="col aling-items-center">
                   <h5>Seleccione un horario</h5>
-                  <div *ngIf="showHours && hours && hours.length>0"><app-hours-table (hourClicked)="onSlotClicked($event)" [hours]="hours"></app-hours-table></div>
+                  <div *ngIf="showHours && hours && hours.length>0">
+                    <app-hours-table *ngIf="!loadingHours" (hourClicked)="onSlotClicked($event)" [hours]="hours"></app-hours-table>
+                  </div>
+                  <div class="row justify-content-center">
+                    <span *ngIf="loadingHours" class="spinner-grow spinner-grow-md m-3 p-5 text-primary"></span>
+                  </div>
                   <div *ngIf="showHours">
-                    <button [disabled]="!selectedSlot" class="btn btn-success" (click)="onRegister()">
+                    <button [disabled]="!selectedSlot" *ngIf="!loadingHours" class="btn btn-success" (click)="onRegister()">
                       <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                       <span *ngIf="!loading"> Registrar turno </span>
                     </button>
                   </div>
-                  <h6 class="p-3" *ngIf="!showHours">No hay turnos disponibles para el día seleccionado</h6>
+                  <h6 class="p-4 mt-3" *ngIf="!showHours && !loadingHours">No hay turnos disponibles para el día seleccionado</h6>
                 </div>
               </div>
             </div>

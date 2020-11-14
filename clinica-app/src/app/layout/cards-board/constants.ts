@@ -30,7 +30,12 @@ export const staff = [
   {
     'link': '/home/staffappointments',
     'description': 'Ver turnos pasados, aceptar o rechazar turnos pendientes',
-    'label': 'Turnos'
+    'label': 'Ver turnos'
+  },
+  {
+    'link': '/home/attendappointment',
+    'description': 'Atender a un paciente, agregar una reseña y completar la encuesta (sólo para turnos del día de la fecha)',
+    'label': 'Atender paciente'
   }
 ];
 
@@ -47,6 +52,11 @@ export const patient = [
     'link': '/home/patientappointments',
     'description': 'Ver solo los turnos hasta 15 días desde la fecha',
     'label': 'Ver turnos pedientes'
+  },
+  {
+    'link': '/home/pastappointments',
+    'description': 'Ver todos los turnos anteriores al día de la fecha',
+    'label': 'Ver turnos pasados'
   }
 
 ]
