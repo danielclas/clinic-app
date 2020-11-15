@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnimateGallery } from 'src/app/animations';
 import { User, UserType } from '../../models/user';
 import { AuthenticationService } from '../../services/authentication.service';
 import * as constants from './constants';
@@ -8,6 +9,7 @@ import * as constants from './constants';
   templateUrl: './cards-board.component.html',
   styleUrls: ['./cards-board.component.css']
 })
+
 export class CardsBoardComponent implements OnInit {
 
   layout = [];

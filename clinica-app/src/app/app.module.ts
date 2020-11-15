@@ -35,6 +35,7 @@ import { FilterPipe } from './filter.pipe';
 import { PastAppointmentsComponent } from './patient/past-appointments/past-appointments.component';
 import { AttendAppointmentComponent } from './staff/attend-appointment/attend-appointment.component';
 import { AppointmentComponent } from './staff/appointment/appointment.component';
+import { AppointmentDetailsComponent } from './shared/appointment-details/appointment-details.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { AppointmentComponent } from './staff/appointment/appointment.component'
     FilterPipe,
     PastAppointmentsComponent,
     AttendAppointmentComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    AppointmentDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,11 @@
+import { AppointmentDetailsComponent } from '../../shared/appointment-details/appointment-details.component';
 import { Notification } from './../../models/notification';
 import { AppointmentStatus } from './../../models/appointments';
 import { AuthenticationService } from './../../services/authentication.service';
 import { AppointmentsService } from './../../services/appointments.service';
 import { Component, OnInit } from '@angular/core';
 import { NotifyService } from '../../services/notify.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-staff-appointments',
@@ -16,7 +18,12 @@ export class StaffAppointmentsComponent implements OnInit {
   appointments: any[];
   selected;
   loading = false;
-  constructor(private notify: NotifyService, private appoint: AppointmentsService, private auth: AuthenticationService) { }
+  constructor(
+    private notify: NotifyService,
+    private appoint: AppointmentsService,
+    private auth: AuthenticationService,
+    private modal: NgbModal
+    ) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -68,6 +75,11 @@ export class StaffAppointmentsComponent implements OnInit {
   onRowSelected(selected){
     if(selected == this.selected) this.selected = undefined;
     else this.selected = selected;
+  }
+
+  viewDetails(){
+    let ref = this.modal.open(AppointmentDetailsComponent, {size: 'lg', centered: true, scrollable: true});
+    ref.componentInstance.appointmentUID = this.selected.uid;
   }
 
 }

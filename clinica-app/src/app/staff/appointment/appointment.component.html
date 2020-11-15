@@ -2,34 +2,86 @@
   <div class="container">
     <div class="row justify-content-center align-items-center">
       <div class="col">
-        <form [formGroup]="form" class="border rounded shadow-lg border-light px-3 pb-3 mt-1 bg-white">
-          <fa-icon [icon]="icon" [size]="'2x'" #el class="cross mr-4 mt-2" style="position:absolute;right:0;cursor: pointer;"></fa-icon>
+        <form [formGroup]="form" (change)="onFormChange()" class="border rounded shadow-lg border-light px-3 pb-3 mt-1 bg-white">
+          <fa-icon [icon]="icon" (click)="close()" [size]="'2x'" #el class="mr-4 pr-4 pt-4" style="position:absolute;right:0;cursor: pointer;"></fa-icon>
 
-          <div class="row justify-content-center p-4">
+          <div class="row justify-content-center px-4 pt-4 pb-2">
             <h4>
               Atender un turno
             </h4>
           </div>
 
+          <!-- Review -->
           <div class="row mb-3 mt-1 p-2">
-            <h5>Reseña del paciente</h5>
-            <textarea maxlength="200" formControlName="review"></textarea>
+            <h5>Reseña del paciente <span style="color: lightgray; font-size: 15px;"> {{review.value.length+'/200'}}</span></h5>
+            <textarea maxlength="200" formControlName="review" #review></textarea>
           </div>
 
-          <div class="row my-3 p-2">
-            <h5>Completar encuesta</h5>
-            <textarea maxlength="200"></textarea>
+          <hr>
+          <h5 class="my-3">Encuesta sobre el paciente</h5>
+          <div class="row">
+            <p class="label pl-3" style="font-size: large;">Del 1 al 10, ¿qué tan frecuente es el paciente en sus visitas?</p>
+          </div>
+          <div class="row">
+            <ngb-rating formControlName="frequency" class="pl-3 pb-3" [(rate)]="frequency"></ngb-rating>
+          </div>
+          <div class="row">
+            <p class="label pl-3" style="font-size: large;">Del 1 al 10, ¿qué tan puntual es el paciente?</p>
+          </div>
+          <div class="row">
+            <ngb-rating class="pl-3" formControlName="puntuality" [(rate)]="puntuality"></ngb-rating>
           </div>
 
-          <h5>Datos adicionales</h5>
+          <!-- Generic data -->
+          <hr>
+          <h5 class="my-3">Datos del paciente</h5>
+          <div class="row px-2 my-3">
+            <div class="col-2"><p class="label">Edad: </p></div>
+            <div class="col-3"><input type="number" [formControlName]="'age'" class="form-control" [ngClass]="age.invalid && age.touched ? 'error' : ''"></div>
+          </div>
 
-          <div class="row px-2 my-3" *ngFor="let input of ['first', 'second', 'third']">
+          <div class="row px-2 my-3">
+            <div class="col-2"><p class="label">Presión: </p></div>
+            <div class="col-3"><input type="number" [formControlName]="'bloodPressure'" class="form-control" [ngClass]="bloodPressure.invalid && bloodPressure.touched ? 'error' : ''"></div>
+          </div>
+
+          <div class="row px-2 my-3">
+            <div class="col-2"><p class="label">Temperatura: </p></div>
+            <div class="col-3"><input type="number" [formControlName]="'bodyTemp'" class="form-control" [ngClass]="bodyTemp.invalid && bodyTemp.touched ? 'error' : ''"></div>
+          </div>
+
+
+          <!-- Additional data -->
+          <hr>
+          <h5 class="my-3">Datos adicionales</h5>
+          <div class="row px-2 my-3">
             <div class="col-1"><p class="label">Dato: </p></div>
-            <div class="col-3"><input type="text" [formControlName]="input + 'Key'" class="form-control"></div>
+            <div class="col-3"><input type="text" [formControlName]="'firstKey'" class="form-control" [ngClass]="firstKey.invalid && firstValue.touched ? 'error' : ''"></div>
             <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
-            <div class="col-5"><input type="text" [formControlName]="input + 'Value'" class="form-control"></div>
+            <div class="col-5"><input type="text" [formControlName]="'firstValue'" class="form-control" [ngClass]="firstValue.invalid && firstKey.touched ? 'error' : ''"></div>
           </div>
 
+          <div class="row px-2 my-3">
+            <div class="col-1"><p class="label">Dato: </p></div>
+            <div class="col-3"><input type="text" [formControlName]="'secondKey'" class="form-control" [ngClass]="secondKey.invalid && secondValue.touched ? 'error' : ''"></div>
+            <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
+            <div class="col-5"><input type="text" [formControlName]="'secondValue'" class="form-control" [ngClass]="secondValue.invalid && secondKey.touched ? 'error' : ''"></div>
+          </div>
+
+          <div class="row px-2 my-3">
+            <div class="col-1"><p class="label">Dato: </p></div>
+            <div class="col-3"><input type="text" [formControlName]="'thirdKey'" class="form-control" [ngClass]="thirdKey.invalid && thirdValue.touched ? 'error' : ''"></div>
+            <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
+            <div class="col-5"><input type="text" [formControlName]="'thirdValue'" class="form-control" [ngClass]="thirdValue.invalid && thirdKey.touched ? 'error' : ''"></div>
+          </div>
+
+          <!-- Register -->
+          <div class="row justify-content-center">
+            <button (click)="update()" [disabled]="form.invalid || loading" class="btn btn-success my-3 px-3 btn-lg">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              <span *ngIf="!loading">Finalizar turno</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>

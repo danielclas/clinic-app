@@ -12,7 +12,12 @@ import {COLLECTION_APPOINTMENTS, COLLECTION_USERS} from './constants';
 })
 export class AppointmentsService {
 
-  constructor(private userAuth: AuthenticationService, private notify: NotifyService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) { }
+  constructor(
+    private userAuth: AuthenticationService,
+    private notify: NotifyService,
+    private auth: AngularFireAuth,
+    private firestore: AngularFirestore,
+    private storage: AngularFireStorage) { }
 
   setStaffSchedule(schedule){
     return this.firestore.collection(COLLECTION_USERS, ref => {
@@ -57,6 +62,14 @@ export class AppointmentsService {
 
   newAppointment(item){
     return this.firestore.collection(COLLECTION_APPOINTMENTS).add({...item});
+  }
+
+  updateAppointment(obj, uid){
+    return this.firestore.collection(COLLECTION_APPOINTMENTS).doc(uid).update({...obj});
+  }
+
+  getAppointmentDetails(uid: string){
+    return this.firestore.collection(COLLECTION_APPOINTMENTS).doc(uid).get();
   }
 
 }

@@ -2,11 +2,14 @@ import { NotifyService } from './../../services/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
+import { AnimateGallery } from 'src/app/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-specialty-add',
   templateUrl: './specialty-add.component.html',
   styleUrls: ['./specialty-add.component.css']
+
 })
 export class SpecialtyAddComponent implements OnInit {
 

@@ -60,6 +60,7 @@ export class AttendAppointmentComponent implements OnInit {
   }
 
   open(){
-    this.modal.open(AppointmentComponent, {size: 'lg', centered: true, backdrop:'static'});
+    let ref = this.modal.open(AppointmentComponent, {size: 'lg', centered: true, backdrop:'static', scrollable: true});
+    ref.componentInstance.appointmentUID = this.selected.uid;
   }
 }

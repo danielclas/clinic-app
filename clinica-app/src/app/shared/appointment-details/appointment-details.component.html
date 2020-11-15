@@ -1,0 +1,51 @@
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col align-items-center">
+        <div class="border rounded shadow-lg border-light px-3 pb-3 mt-1 bg-white">
+
+          <div *ngIf="loading" class="d-flex justify-content-center align-items-center" style="height: 500px; width: auto;">
+            <span class="spinner-border text-primary spinner-border-lg"></span>
+          </div>
+
+          <span *ngIf="!loading">
+            <div class="col d-flex enabled" style="height: 80px;">
+              <div style="margin: auto;">
+                <h4>
+                  Detalles del turno
+                </h4>
+              </div>
+            </div>
+
+
+            <h5>Fecha del turno </h5>
+            <p>{{date | date:'short'}}</p>
+            <hr>
+
+            <h5>Reseña </h5>
+            <p>{{review}}</p>
+            <hr>
+
+            <h5>Paciente </h5>
+            <p>{{patient}}</p>
+            <hr>
+
+            <h5>Encuesta</h5>
+            <p *ngIf="poll">Del 1 al 10, ¿qué tan frecuente es el paciente en sus visitas? <b> {{poll[0]/10}} </b></p>
+            <p *ngIf="poll">Del 1 al 10, ¿qué tan puntual es el paciente? <b> {{poll[1]/10}} </b></p>
+            <hr>
+
+            <h5>Comentario del doctor</h5>
+            <p> {{doctorComment ? doctorComment : 'No hay un comentario sobre este turno'}} </p>
+            <hr>
+
+            <h5>Comentario del paciente</h5>
+            <p> {{patientComment ? patientComment : 'No hay un comentario sobre este turno'}} </p>
+            <hr>
+          </span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
