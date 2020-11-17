@@ -34,11 +34,14 @@
     "angular-fontawesome": "^1.0.0",
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.5.3",
+    "file-save": "^0.2.0",
+    "file-saver": "^2.0.2",
     "firebase": "^7.13.1",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.20",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",
+    "xlsx": "^0.16.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

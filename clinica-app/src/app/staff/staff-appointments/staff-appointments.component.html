@@ -30,7 +30,7 @@
                 <tbody>
                   <tr style="cursor: pointer;" *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
                     <td>{{item.patient}}</td>
-                    <td>{{item.date | date}}</td>
+                    <td>{{item.date | date:'short'}}</td>
                     <td><b>{{item.status}}</b></td>
                   </tr>
                 </tbody>

@@ -1,0 +1,51 @@
+<div class="background">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col">
+        <form [formGroup]="form" class="border rounded shadow-lg border-light px-4 pb-3 mt-1 bg-white">
+
+          <div class="row">
+            <div class="col-1 d-flex">
+              <app-back-arrow></app-back-arrow>
+            </div>
+            <div class="col d-flex enabled" style="height: 80px;">
+              <div style="margin: auto;">
+                <h4>
+                  Informes
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reports downloads -->
+          <div class="row my-3">
+            <div class="col-6">
+              <button [disabled]="loadingFirst || loadingSecond" (click)="downloadReport('log')" class="btn btn-primary btn-block">
+                <span *ngIf="loadingFirst" class="spinner-border spinner-border-sm mr-1"></span>
+                <span *ngIf="!loadingFirst"> Reporte de logeos </span>
+              </button>
+            </div>
+            <div class="col-6">
+              <button [disabled]="loadingFirst || loadingSecond" (click)="downloadReport('sp')" class="btn btn-primary btn-block">
+                <span *ngIf="loadingSecond" class="spinner-border spinner-border-sm mr-1"></span>
+                <span *ngIf="!loadingSecond"> Reporte de especialidades </span>
+              </button>
+            </div>
+            <p class="text-secondary p-2 my-2 ml-2">Presione en cualquier las opciones para descargar reporetes en Excel y PDF</p>
+          </div>
+          <hr>
+
+          <div class="row">
+            <div class="col align-items-start" style="height: 80px;">
+                <h5>
+                  Búsqueda de información
+                </h5>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

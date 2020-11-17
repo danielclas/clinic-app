@@ -1,3 +1,4 @@
+import { ReportsComponent } from './shared/reports/reports.component';
 import { AttendAppointmentComponent } from './staff/attend-appointment/attend-appointment.component';
 import { PastAppointmentsComponent } from './patient/past-appointments/past-appointments.component';
 import { NewAppointmentComponent } from './patient/new-appointment/new-appointment.component';
@@ -29,7 +30,8 @@ const routes: Routes = [
     {path: 'patientappointments', component: PatientAppointmentsComponent},
     {path: 'newappointment', component: NewAppointmentComponent},
     {path: 'pastappointments', component: PastAppointmentsComponent},
-    {path: 'attendappointment', component: AttendAppointmentComponent}
+    {path: 'attendappointment', component: AttendAppointmentComponent},
+    {path: 'reports', component: ReportsComponent}
   ]},
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotFoundComponent}

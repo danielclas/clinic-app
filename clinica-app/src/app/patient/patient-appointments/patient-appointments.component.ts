@@ -29,10 +29,8 @@ export class PatientAppointmentsComponent implements OnInit {
             let doc = item.payload.doc;
             let professional = doc.get('professional');
             let include = [this.status.Done, this.status.Rejected].some(a => a == doc.get('status'));
-            let date = new Date();
-            date.setDate(date.getDate() + 15);
 
-            if(!include && doc.get('date').toDate() > Date.now() && doc.get('date').toDate() < date){
+            if(!include && doc.get('date').toDate() > Date.now()){
               this.appoint.getPatientInfo(professional).subscribe(
                 res => {
 
@@ -41,7 +39,7 @@ export class PatientAppointmentsComponent implements OnInit {
                     'status': doc.get('status'),
                     'date': doc.get('date').toDate(),
                     'professional': user.get('name') + ' ' + user.get('surname'),
-                    'staffuid': professional,
+                    'staffuid': user.get('uid'),
                     'uid': doc.id
                   });
               });
@@ -70,14 +68,13 @@ export class PatientAppointmentsComponent implements OnInit {
         this.loading = false;
         this.notify.toastNotify('Estado de turno actualizado', 'El estado del turno fue cambiado a <b>' + status + '</b>');
         this.notify.pushNotify(new Notification(new Date(), this.selected.staffuid, message));
+        this.selected = undefined;
       },
       () => {
         this.loading = false;
         this.notify.toastNotify('Error actualizando el turno', 'El estado del turno no pudo ser actualizado');
       }
     );
-
-    this.selected = undefined;
   }
 
 }

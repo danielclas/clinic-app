@@ -50,7 +50,6 @@ export class StaffAppointmentsComponent implements OnInit {
             });
           }
         )
-
         this.loading = false;
       }
     )

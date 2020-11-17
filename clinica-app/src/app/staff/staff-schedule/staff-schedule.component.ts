@@ -65,7 +65,6 @@ export class StaffScheduleComponent implements OnInit {
 
   onHourSelected(day, from, to){
     this.toHours = this.printHours('mo');
-    this.toHours = this.printHours('sa');
 
     if(this.schedule[day]){
       let temp = this.compareHours(to, from) ? to : this.toHours[this.toHours.indexOf(from) + 1];
@@ -84,7 +83,7 @@ export class StaffScheduleComponent implements OnInit {
 
   printHours(day, from = 8){
     let arr = [];
-    let to = day == 'sa' ? 14 : 19;
+    let to = 19;
 
     for(let i = from ; i <= to ; i++){
       arr.push(i+':00');

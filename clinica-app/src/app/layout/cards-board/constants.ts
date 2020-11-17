@@ -14,6 +14,11 @@ export const admin = [
     'description': 'Agregar una especialidad médica',
     'label': 'Agregar especialidad'
   },
+  {
+    'link': '/home/reports',
+    'description': 'Generar informes de los turnos y actividades. Buscar información de los turnos.',
+    'label': 'Informes'
+  }
 ];
 
 export const staff = [
@@ -36,11 +41,14 @@ export const staff = [
     'link': '/home/attendappointment',
     'description': 'Atender a un paciente, agregar una reseña y completar la encuesta',
     'label': 'Atender paciente'
+  },
+  {
+    'link': '/home/reports',
+    'description': 'Generar informes de los turnos y actividades. Buscar información de los turnos.',
+    'label': 'Informes'
   }
 ];
 
-
-//Solicitar un turno, cancelar turno pendiente, ver turnos futuros, ver reseñas
 
 export const patient = [
   {
@@ -50,7 +58,7 @@ export const patient = [
   },
   {
     'link': '/home/patientappointments',
-    'description': 'Ver solo los turnos hasta 15 días desde la fecha',
+    'description': 'Ver todos los turnos pendientes',
     'label': 'Ver turnos pedientes'
   },
   {

@@ -16,6 +16,9 @@ export class LoginComponent implements OnInit {
   submitted = false;
   form: FormGroup;
 
+  users = ['admin@test.com', 'doctor@cinco.com', 'paciente@prueba.com'];
+  index = 0;
+
   constructor(
       private notify: NotifyService,
       private formBuilder: FormBuilder,
@@ -62,5 +65,11 @@ export class LoginComponent implements OnInit {
 
   navigateToRegister(){
     this.router.navigateByUrl('/register');
+  }
+
+  autocomplete(){
+    this.index = this.index == 2 ? 0 : this.index + 1,
+    this.email.setValue(this.users[this.index])
+    this.password.setValue('123456');
   }
 }

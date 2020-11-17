@@ -28,7 +28,7 @@
                   </tr>
                 </thead>
                 <tbody *ngIf="appointments.length != 0">
-                  <tr *ngFor="let item of appointments" [ngClass]="selected && selected == item ? 'table-primary' : ''">
+                  <tr *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
                     <th scope="row">{{item.professional}}</th>
                     <td>{{item.date | date}}</td>
                     <td>{{item.status}}</td>
@@ -41,6 +41,15 @@
                 </h5>
                 <span *ngIf="loading" class="spinner-grow spinner-grow-md mr-1 text-primary"></span>
               </div>
+            </div>
+          </div>
+
+
+
+          <div *ngIf="appointments && appointments.length > 0" class="row align-items-center justify-content-center d-flex">
+            <div class="col-8 align-items-center justify-content-center d-flex">
+              <button (click)="viewDetails()" [disabled]="!selected || selected.status != status.Done" class="btn btn-success mx-2">Ver detalle</button>
+              <button (click)="putReview()" [disabled]="!selected || selected.status != status.Done || selected.patientReview" class="btn btn-primary mx-2">Dejar reseña</button>
             </div>
           </div>
         </form>

@@ -14,12 +14,13 @@ export class AppointmentDetailsComponent implements OnInit {
   @Input() appointmentUID;
 
   date;
+  data;
   review;
   poll;
   patient;
   doctor;
-  doctorComment;
   patientComment;
+  props = [];
   types = UserType;
   loading = false;
 
@@ -37,12 +38,18 @@ export class AppointmentDetailsComponent implements OnInit {
 
         this.date = data.date.toDate();
         this.review = data.review;
-        this.poll = [data.poll['frequency'], data.poll['puntuality']];
 
-        this.patientComment = data.patientComment;
-        this.doctorComment = data.doctorComment;
+        if(this.auth.currentUser.type == this.types.Patient){
+          this.poll = [data.poll['frequency'], data.poll['puntuality']];
+        }else{
+          this.poll = data.patientReview ? [...data.patientReview.poll] : null;
+        }
 
-        console.log(this.poll);
+        this.patientComment = data.patientReview ? data.patientReview.review : null;
+        this.data = data.data;
+
+        for(let prop in data) this.props.push(prop);
+
         this.ap.getPatientInfo(data.patient).subscribe(
           res => {
             let doc = res.docs[0];

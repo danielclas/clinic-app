@@ -36,6 +36,9 @@ import { PastAppointmentsComponent } from './patient/past-appointments/past-appo
 import { AttendAppointmentComponent } from './staff/attend-appointment/attend-appointment.component';
 import { AppointmentComponent } from './staff/appointment/appointment.component';
 import { AppointmentDetailsComponent } from './shared/appointment-details/appointment-details.component';
+import { DataPipe } from './data.pipe';
+import { PatientReviewComponent } from './patient/patient-review/patient-review.component';
+import { ReportsComponent } from './shared/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { AppointmentDetailsComponent } from './shared/appointment-details/appoin
     PastAppointmentsComponent,
     AttendAppointmentComponent,
     AppointmentComponent,
-    AppointmentDetailsComponent
+    AppointmentDetailsComponent,
+    DataPipe,
+    PatientReviewComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,

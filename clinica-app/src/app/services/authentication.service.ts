@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreCollection, DocumentData, QuerySnapshot } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { Upload } from '../models/upload';
 import {User, UserType} from '../models/user';
-import { finalize } from "rxjs/operators";
 import { NotifyService } from './notify.service';
 import { EventEmitter } from '@angular/core';
-import {COLLECTION_SPECIALTIES, COLLECTION_USERS} from './constants';
+import {COLLECTION_LOGS, COLLECTION_SPECIALTIES, COLLECTION_USERS} from './constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -118,6 +117,30 @@ export class AuthenticationService {
     );
   }
 
+  logSignUp(uid: string){
+    return this.firestore.collection(COLLECTION_LOGS, ref => {
+      return ref.where('user', '==', uid);
+    }).get().subscribe(
+      res => {
+
+        if(res.docs.length == 0){
+          this.firestore.collection(COLLECTION_LOGS).add({
+            'user':uid,
+            'entries':[new Date()]
+          })
+        }else{
+          let doc = res.docs[0];
+          let arr = doc.get('entries');
+          let name = this.currentUser.name + ' ' + this.currentUser.surname;
+
+          arr.push(new Date());
+
+          this.firestore.collection(COLLECTION_LOGS).doc(doc.id).update({'entries':arr, 'userName':name});
+        }
+      }
+    )
+  }
+
   private asignToCurrentUser(uid: string){
     this.firestore.collection(COLLECTION_USERS).get()
       .subscribe(ref => {
@@ -136,6 +159,10 @@ export class AuthenticationService {
 
         this.currentUser = temp;
         this.userAsigned.emit(this.currentUser);
+
+        if(this.currentUser.type == UserType.Staff){
+          this.logSignUp(this.currentUser.uid);
+        }
       });
   }
 

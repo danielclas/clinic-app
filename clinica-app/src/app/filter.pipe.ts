@@ -10,9 +10,11 @@ export class FilterPipe implements PipeTransform {
 
     if(value.length == 0 || (!name && !specialty && !day)) return value;
 
+    console.log(day);
     if(day){
       day = Days.find(d => d.viewValue == day).value;
     }
+
 
     return value.filter(
       (item) => {
@@ -24,7 +26,7 @@ export class FilterPipe implements PipeTransform {
           return false;
         }
 
-        if(day && !item['schedule'][day] != undefined){
+        if(day && !item['schedule'][day]){
           return false;
         }
 

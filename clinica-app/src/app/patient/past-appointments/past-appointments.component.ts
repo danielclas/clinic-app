@@ -1,8 +1,11 @@
+import { PatientReviewComponent } from './../patient-review/patient-review.component';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentStatus } from 'src/app/models/appointments';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NotifyService } from 'src/app/services/notify.service';
+import { AppointmentDetailsComponent } from 'src/app/shared/appointment-details/appointment-details.component';
 
 @Component({
   selector: 'app-past-appointments',
@@ -15,7 +18,11 @@ export class PastAppointmentsComponent implements OnInit {
   appointments = [];
   selected;
   loading = true;
-  constructor(private notify: NotifyService, private auth: AuthenticationService, private appoint: AppointmentsService) { }
+  constructor(
+    private notify: NotifyService,
+    private auth: AuthenticationService,
+    private appoint: AppointmentsService,
+    private modal: NgbModal) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -39,7 +46,8 @@ export class PastAppointmentsComponent implements OnInit {
                     'date': doc.get('date').toDate(),
                     'professional': user.get('name') + ' ' + user.get('surname'),
                     'staffuid': professional,
-                    'uid': doc.id
+                    'uid': doc.id,
+                    'patientReview': doc.get('patientReview')
                   });
               });
             }
@@ -49,6 +57,21 @@ export class PastAppointmentsComponent implements OnInit {
         this.loading = false;
       }
     )
+  }
+
+  onRowSelected(row){
+    if(row == this.selected) this.selected = null;
+    else this.selected = row;
+  }
+
+  viewDetails(){
+    let ref = this.modal.open(AppointmentDetailsComponent, {size: 'lg', centered: true, scrollable: true});
+    ref.componentInstance.appointmentUID = this.selected.uid;
+  }
+
+  putReview(){
+    let ref = this.modal.open(PatientReviewComponent, {size: 'lg', centered: true, scrollable: true});
+    ref.componentInstance.appointmentUID = this.selected.uid;
   }
 
 }
