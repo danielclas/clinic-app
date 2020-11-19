@@ -9,5 +9,13 @@ Trabajo práctico para la materia Laboratorio IV de UTN Avellaneda.
 - Paciente
 - Administrados
 
+## Repositorios
+- Usuarios
+- Especialidades
+- Logs
+- Notificaciones
+- Turnos
+- Actividad
+
 ## Cómo correr
     ng serve

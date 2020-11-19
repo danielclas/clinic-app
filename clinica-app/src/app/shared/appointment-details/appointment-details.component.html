@@ -30,20 +30,20 @@
             <p>{{patient}}</p>
             <hr>
 
-            <span *ngIf="auth.currentUser.type == types.Staff">
+            <span *ngIf="auth.currentUser.type == types.Staff || auth.currentUser.type == types.Admin">
               <h5>Datos clínicos</h5>
                 {{data | data:props}}
               <hr>
             </span>
 
-            <span *ngIf="auth.currentUser.type == types.Patient">
+            <span *ngIf="auth.currentUser.type == types.Patient || auth.currentUser.type == types.Admin">
               <h5>Encuesta del doctor</h5>
               <p *ngIf="poll">Del 1 al 10, ¿qué tan frecuente es el paciente en sus visitas? <b> {{poll[0] > 10 ? poll[0]/10 : poll[0]}} </b></p>
               <p *ngIf="poll">Del 1 al 10, ¿qué tan puntual es el paciente? <b> {{poll[1] > 10 ? poll[1]/10 : poll[1]}} </b></p>
               <hr>
             </span>
 
-            <span *ngIf="auth.currentUser.type == types.Staff">
+            <span *ngIf="auth.currentUser.type == types.Staff || auth.currentUser.type == types.Admin">
               <h5>Encuesta del paciente</h5>
               <p *ngIf="poll">Del 1 al 10, ¿qué puntaje le daría a la comunicación del doctor? <b> {{poll[0] > 10 ? poll[0]/10 : poll[0]}} </b></p>
               <p *ngIf="poll">Del 1 al 10, ¿qué tan puntual es el doctor? <b> {{poll[1] > 10 ? poll[1]/10 : poll[1]}} </b></p>
