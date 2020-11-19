@@ -18,9 +18,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let ap of appointments | filter:filter.value" class="anchor" (click)="viewDetails(ap)">
-        <td>{{ap.patient.name + ' ' + ap.patient.surname}}</td>
-        <td>{{ap.professional.name + ' ' + ap.professional.surname}}</td>
-        <td>{{ap.professional.specialties}}</td>
+        <td *ngIf="ap.patient">{{ap.patient.name + ' ' + ap.patient.surname}}</td>
+        <td *ngIf="ap.professional">{{ap.professional.name + ' ' + ap.professional.surname}}</td>
+        <td *ngIf="ap.professional">{{ap.professional.specialties}}</td>
         <td>{{ap.date.toDate() | date:'shortDate'}}</td>
         <td>{{ap.data | data}}</td>
       </tr>
