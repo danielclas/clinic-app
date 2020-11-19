@@ -145,19 +145,7 @@ export class AuthenticationService {
     this.firestore.collection(COLLECTION_USERS).get()
       .subscribe(ref => {
         let user = ref.docs.find(doc => doc.get('uid') == uid);
-        let temp = new User();
-
-        temp.uid = user.get('uid');
-        temp.name = user.get('name');
-        temp.surname = user.get('surname');
-        temp.type = user.get('type');
-        temp.email = user.get('email');
-        temp.enabled = user.get('enabled');
-        temp.pictures = user.get('pictures');
-        temp.specialties = user.get(COLLECTION_SPECIALTIES);
-        temp.schedule = user.get('schedule');
-
-        this.currentUser = temp;
+        this.currentUser = user.data() as User;
         this.userAsigned.emit(this.currentUser);
 
         if(this.currentUser.type == UserType.Staff){

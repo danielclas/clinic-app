@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(values: any[], name: string, specialty: string, day: any): unknown {
+  transform(values: any[], name: string, specialty?: string, day?: any): unknown {
 
     if(values.length == 0 || (!name && !specialty && !day)) return values;
     if(name && !specialty && !day) return this.singleFilter(values, name);

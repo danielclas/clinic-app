@@ -118,17 +118,9 @@ export class AppointmentComponent implements OnInit {
 
     this.loading = true;
 
-    if(this.firstKey.value){
-      data[this.firstKey.value] = this.firstValue.value;
-    }
-
-    if(this.secondKey.value){
-      data[this.secondKey.value] = this.secondValue.value;
-    }
-
-    if(this.thirdKey.value){
-      data[this.thirdKey.value] = this.thirdValue.value;
-    }
+    if(this.firstKey.value) data[this.firstKey.value] = this.firstValue.value;
+    if(this.secondKey.value) data[this.secondKey.value] = this.secondValue.value;
+    if(this.thirdKey.value) data[this.thirdKey.value] = this.thirdValue.value;
 
     obj['data'] = {...data};
     obj['poll'] = {...poll};

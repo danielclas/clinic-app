@@ -19,7 +19,11 @@ export class NotifyService {
     duration: 5000
   }
 
-  constructor(private toast: AngularBootstrapToastsService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) { }
+  constructor(
+    private toast: AngularBootstrapToastsService,
+    private auth: AngularFireAuth,
+    private firestore: AngularFirestore,
+    private storage: AngularFireStorage) { }
 
   toastNotify(title: string, text: string){
     this.toast.showSimpleToast({title, text, ...this.options});

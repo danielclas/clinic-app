@@ -54,14 +54,12 @@
                 <h6 *ngIf="(!doctors || doctors.length == 0) && !loadingDoctors">No hay resultados para mostrar</h6>
                 <span *ngIf="loadingDoctors" class="spinner-border spinner-border-md p-5 mr-1"></span>
                 <ul class="list-group px-2 w-100" style="overflow-y: scroll; overflow-x: hidden; max-height: 300px;">
-                  <a role="button">
-                    <li (click)="onDoctorSelected(doctor)" *ngFor="let doctor of doctors | filter:filter.value:select.value:day.value" class="list-group-item" [ngClass]="doctorSelected == doctor ? 'active' : ''">
-                        <b>{{doctor.name}} {{doctor.surname}}</b>
-                        <br>
-                        <p> Especialidades: {{doctor.specialties}} </p>
-                        Días disponibles: <span>{{printDays(doctor.schedule)}}</span>
-                    </li>
-                  </a>
+                  <li (click)="onDoctorSelected(doctor)" *ngFor="let doctor of doctors | filter:filter.value:select.value:day.value" class="list-group-item anchor" [ngClass]="doctorSelected == doctor ? 'active' : ''">
+                      <b>{{doctor.name}} {{doctor.surname}}</b>
+                      <br>
+                      <p> Especialidades: {{doctor.specialties}} </p>
+                      Días disponibles: <span>{{printDays(doctor.schedule)}}</span>
+                  </li>
                 </ul>
               </div>
             </div>

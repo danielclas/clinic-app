@@ -35,9 +35,6 @@ export class AppointmentSearchComponent implements OnInit, OnChanges {
     this.loading = true;
 
     this.apps.getAllAppointments().valueChanges({idField: 'id'})
-    .subscribe(vals => this.appointments = [...vals] as Appointment[]);
-
-    this.apps.getAllAppointments().valueChanges({idField: 'id'})
     .subscribe(vals => {
       this.appointments = [...vals] as Appointment[];
       this.appointments = this.appointments.filter(ap => ap.status == AppointmentStatus.Done);

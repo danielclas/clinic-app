@@ -19,6 +19,7 @@ export class UserCardComponent implements OnInit {
   profilePictures: string[] = [];
   enabled: boolean = true;
   loading = true;
+  types = UserType;
 
   constructor(public auth: AuthenticationService) { }
 

@@ -27,13 +27,7 @@ export class StaffApprovalComponent implements OnInit {
             let doc = item.payload.doc;
 
             if(doc.get('type') == 'Staff' && !doc.get('enabled')){
-              let user = new User();
-              user.uid = doc.get('uid');
-              user.name = doc.get('name');
-              user.surname = doc.get('surname');
-              user.specialties = doc.get('specialties');
-
-              this.users.push(user);
+              this.users.push(doc.data() as User);
             }
           }
         )

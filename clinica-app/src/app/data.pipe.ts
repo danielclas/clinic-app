@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DataPipe implements PipeTransform {
 
-  transform(data: {}, props: any[]) {
+  transform(data: {}, props?: any[]) {
 
     let s = '';
 

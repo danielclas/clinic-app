@@ -1,14 +1,3 @@
-<!-- <table class="table table-bordered">
-  <tbody>
-    <tr *ngFor="let row of tableHours">
-      <td *ngFor="let hour of row" [ngClass]="hour == selectedHour ? 'table-success' : hour.available ? '' : 'table-secondary'" (click)="onHourClicked(hour)">
-        <a role="button">
-          {{hour.time}}
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table> -->
 <div style="display: flex; flex-direction: row; flex-wrap: wrap;" class="p-3 m-2">
   <div [ngClass]="hour == selectedHour ? ['bg-primary', 'selected']: hour.available ? '' : 'bg-secondary'" (click)="onHourClicked(hour)" *ngFor="let hour of hours" class="border anchor">
     {{hour.time}}

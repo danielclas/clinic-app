@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(
       private notify: NotifyService,
       private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
       private router: Router,
       private auth: AuthenticationService
   ) {
@@ -36,11 +35,11 @@ export class LoginComponent implements OnInit {
   get password() { return this.form.get('password'); }
 
   ngOnInit() {
-
-      this.form = this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
-      });
+    this.auth.SignOut();
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
   signIn() {

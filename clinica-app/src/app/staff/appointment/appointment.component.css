@@ -19,3 +19,7 @@ textarea{
   color: #cc0033;
 }
 
+.container{
+  max-height: 500px;
+  overflow-y: scroll;
+}

@@ -32,7 +32,7 @@ export class ReportsService {
     return this.firestore.collection(COLLECTION_ACTIVITY).get();
   }
 
-  private saveAsExcelFile(buffer: any, name: string): void {
+  saveAsExcelFile(buffer: any, name: string): void {
       let data = new Blob([buffer], {type: EXCEL_TYPE});
       saveAs(data, name + '.xlsx');
   }

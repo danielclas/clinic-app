@@ -1,5 +1,5 @@
 import { AnimateGallery } from './../../animations';
-import { AppointmentStatus } from './../../models/appointments';
+import { Appointment, AppointmentStatus } from './../../models/appointments';
 import { Schedule } from './../../models/staffschedule';
 import { AppointmentsService } from './../../services/appointments.service';
 import { NotifyService } from './../../services/notify.service';
@@ -8,6 +8,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Days } from '../../models/staffschedule';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-new-appointment',
@@ -133,14 +134,7 @@ export class NewAppointmentComponent implements OnInit {
 
 
         if(doc.get('schedule')){
-          let obj = {
-            'uid': doc.get('uid'),
-            'name': doc.get('name') + ' ' + doc.get('surname'),
-            'specialties': doc.get('specialties'),
-            'schedule': doc.get('schedule'),
-          }
-
-          temp.push(obj);
+          temp.push(doc.data() as User);
         }
       });
 
@@ -210,12 +204,12 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   getAvailableHours(){
-    this.apps.getStaffAppointments(this.doctorSelected.uid).snapshotChanges().subscribe(
-      ref => {
+    this.apps.getStaffAppointments(this.doctorSelected.uid).valueChanges().subscribe(
+      (ref: Appointment[]) => {
         let temp = [];
 
         ref.forEach(doc => {
-          let date = doc.payload.doc.get('date').toDate();
+          let date = doc.date.toDate();
           let month = date.getMonth();
           let day = date.getDay();
 
