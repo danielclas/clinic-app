@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { PatientReviewComponent } from './../patient-review/patient-review.component';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +11,8 @@ import { AppointmentDetailsComponent } from 'src/app/shared/appointment-details/
 @Component({
   selector: 'app-past-appointments',
   templateUrl: './past-appointments.component.html',
-  styleUrls: ['./past-appointments.component.css']
+  styleUrls: ['./past-appointments.component.css'],
+  animations: [AnimateGallery]
 })
 export class PastAppointmentsComponent implements OnInit {
 

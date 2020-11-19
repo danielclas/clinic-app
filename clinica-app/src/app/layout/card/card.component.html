@@ -1,9 +1,9 @@
-<div class="card shadow-lg m-2">
+<div class="card shadow-lg m-2" [@animateGallery]="state">
   <div class="card-header"><b> {{label}} </b></div>
   <div class="card-body">
       <p>
         {{description}}
       </p>
-      <button routerLink={{link}} [disabled]="disabled" class="btn btn-primary btn-sm">Navegar</button>
+      <button (click)="navigate()" [disabled]="disabled" class="btn btn-primary btn-sm">Navegar</button>
   </div>
 </div>

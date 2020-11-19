@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
 import { User, UserType } from './../../models/user';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -10,7 +11,8 @@ import { Upload } from '../../models/upload';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  animations: [AnimateGallery]
 })
 export class RegisterComponent implements OnInit {
 
@@ -40,12 +42,7 @@ export class RegisterComponent implements OnInit {
       private router: Router,
       private auth: AuthenticationService,
       private formBuilder: FormBuilder
-  ) {
-      // redirect to home if already logged in
-      // if (this.authenticationService.currentUserValue) {
-      //     this.router.navigate(['/']);
-      // }
-  }
+  )  { }
 
   ngOnInit() {
       this.types = Object.values(UserType);

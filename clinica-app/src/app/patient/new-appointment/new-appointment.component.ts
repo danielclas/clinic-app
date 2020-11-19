@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { AppointmentStatus } from './../../models/appointments';
 import { Schedule } from './../../models/staffschedule';
 import { AppointmentsService } from './../../services/appointments.service';
@@ -11,7 +12,8 @@ import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-new-appointment',
   templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.css']
+  styleUrls: ['./new-appointment.component.css'],
+  animations: [AnimateGallery]
 })
 export class NewAppointmentComponent implements OnInit {
 
@@ -113,13 +115,13 @@ export class NewAppointmentComponent implements OnInit {
     this.apps.newAppointment(obj).then(res => {
       this.notify.toastNotify('Registro exitoso','El turno fue registrado exitosamente. Puede verlo en su lista de turnos futuros.');
       this.loading = false;
-      this.selectedDate = undefined;
       this.selectedSlot = undefined;
+      this.getAvailableHours();
     }, err => {
       this.notify.toastNotify('Error registrando turno','Hubo un error registrando el turno. In');
       this.loading = false;
-      this.selectedDate = undefined;
       this.selectedSlot = undefined;
+      this.getAvailableHours();
     });
   }
 
@@ -176,13 +178,8 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onDoctorSelected(doctor){
-    if(this.doctorSelected == doctor){
-      this.doctorSelected = undefined;
-      this.selectedDate = undefined;
-    }else{
-      this.doctorSelected = doctor;
-      this.selectedDate = undefined;
-    }
+    this.doctorSelected = this.doctorSelected == doctor ? null : doctor;
+    this.selectedDate = null;
   }
 
   onSpecialtySelected(select){
@@ -213,12 +210,12 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   getAvailableHours(){
-    this.apps.getStaffAppointments(this.doctorSelected.uid).get().subscribe(
+    this.apps.getStaffAppointments(this.doctorSelected.uid).snapshotChanges().subscribe(
       ref => {
         let temp = [];
 
         ref.forEach(doc => {
-          let date = doc.get('date').toDate();
+          let date = doc.payload.doc.get('date').toDate();
           let month = date.getMonth();
           let day = date.getDay();
 

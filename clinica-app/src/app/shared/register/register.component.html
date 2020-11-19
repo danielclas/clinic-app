@@ -1,18 +1,18 @@
 <div class="background">
   <div class="container">
-    <div class="row justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center"  [@animateGallery]="'fadeIn'">
       <div class="col-md-8">
-        <form [formGroup]="form" class="border rounded shadow-lg border-light px-3 pb-3 m-3 mt-5 bg-white">
+        <form [formGroup]="form" class="border rounded shadow-lg border-light px-3 pb-3 mt-4 bg-white">
 
           <div class="row pb-3">
-            <div class="col-6 d-flex" (click)="userType = 'Usuario'" [ngClass]="userType == 'Usuario' ? 'enabled' : 'disabled'" style="height: 100px;">
+            <div class="col-6 d-flex" (click)="userType = 'Usuario'" [ngClass]="userType == 'Usuario' ? 'enabled' : 'disabled'" style="height: 90px;">
               <div style="margin: auto;">
                 <h4>
                   Registrarse como usuario
                 </h4>
               </div>
             </div>
-            <div class="col-6 d-flex" (click)="userType = 'Profesional'" [ngClass]="userType == 'Profesional' ? 'enabled' : 'disabled'" style="height: 100px;">
+            <div class="col-6 d-flex" (click)="userType = 'Profesional'" [ngClass]="userType == 'Profesional' ? 'enabled' : 'disabled'" style="height: 90px;">
               <div style="margin: auto;">
                 <h4>
                   Registrarse como profesional

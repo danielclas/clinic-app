@@ -1,12 +1,15 @@
+import { AnimateGallery } from './../../animations';
 import { User } from './../../models/user';
 import { Component, Input, OnInit } from '@angular/core';
 import { UserType } from '../../models/user';
 import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.css']
+  styleUrls: ['./card.component.css'],
+  animations: [AnimateGallery]
 })
 export class CardComponent implements OnInit {
 
@@ -15,8 +18,12 @@ export class CardComponent implements OnInit {
   @Input() link: String;
 
   disabled: boolean = false;
+  state = '';
 
-  constructor(private auth: AuthenticationService) { }
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.auth.userAsigned.subscribe(
@@ -28,7 +35,12 @@ export class CardComponent implements OnInit {
     if(this.auth.currentUser){
       this.disabled = this.auth.currentUser.type == UserType.Staff ? !this.auth.currentUser.enabled : false;
     }
-
   }
 
+  navigate(){
+    this.state = 'buzz';
+    setTimeout(() => {
+      this.router.navigateByUrl(this.link as string);
+    }, 500);
+  }
 }

@@ -1,4 +1,4 @@
-<div class="row" >
+<div class="row" [@animateGallery]="'fadeIn'">
   <div class="col-4" *ngFor="let item of layout">
     <app-card [link]="item.link" [description]="item.description" [label]="item.label"></app-card>
   </div>

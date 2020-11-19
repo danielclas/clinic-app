@@ -7,7 +7,8 @@ import * as constants from './constants';
 @Component({
   selector: 'app-cards-board',
   templateUrl: './cards-board.component.html',
-  styleUrls: ['./cards-board.component.css']
+  styleUrls: ['./cards-board.component.css'],
+  animations: [AnimateGallery]
 })
 
 export class CardsBoardComponent implements OnInit {

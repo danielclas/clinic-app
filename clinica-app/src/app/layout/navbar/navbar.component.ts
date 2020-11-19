@@ -1,21 +1,25 @@
+import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { faStethoscope, faBell, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { faStethoscope, faBell, faDoorOpen, IconDefinition, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  animations: [AnimateGallery]
 })
 
 export class NavbarComponent implements OnInit {
 
-  icon = faStethoscope;
+  cross: IconDefinition = faTimesCircle;
+  icon: IconDefinition = faStethoscope;
   alert = faBell;
   exit = faDoorOpen;
   notifications = [];
+  state = '';
 
   constructor(private notify: NotifyService, public auth: AuthenticationService, private router: Router){}
 
@@ -42,11 +46,19 @@ export class NavbarComponent implements OnInit {
   }
 
   onDismissNotification(item){
-    this.notify.dismissNotificacion(item.id);
+    this.state = 'fadeOut';
+    setTimeout(() => {
+      this.notify.dismissNotificacion(item.id);
+    }, 500);
   }
 
   onLogOutClicked(){
     this.auth.SignOut().then(res => this.router.navigateByUrl('/login'));
   }
 
+  onBellClick(bell: HTMLElement){
+    if(bell.classList.contains('shake')){
+      bell.classList.remove('shake');
+    }
+  }
 }

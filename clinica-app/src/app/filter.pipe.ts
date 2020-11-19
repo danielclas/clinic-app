@@ -6,17 +6,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value: any[], name: string, specialty: string, day: any): unknown {
+  transform(values: any[], name: string, specialty: string, day: any): unknown {
 
-    if(value.length == 0 || (!name && !specialty && !day)) return value;
+    if(values.length == 0 || (!name && !specialty && !day)) return values;
+    if(name && !specialty && !day) return this.singleFilter(values, name);
 
-    console.log(day);
     if(day){
       day = Days.find(d => d.viewValue == day).value;
     }
 
 
-    return value.filter(
+    return values.filter(
       (item) => {
         if(name && !item['name'].toLowerCase().includes(name.toLowerCase())){
           return false;
@@ -32,6 +32,13 @@ export class FilterPipe implements PipeTransform {
 
         return true;
       }
+    )
+  }
+
+  singleFilter(values: any[], search: string){
+
+    return values.filter(
+      item => { return JSON.stringify(item).toLowerCase().includes(search.toLowerCase());  }
     )
   }
 

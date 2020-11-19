@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserCardComponent } from 'src/app/layout/user-card/user-card.component';
@@ -10,7 +11,8 @@ import { AppointmentComponent } from '../appointment/appointment.component';
 @Component({
   selector: 'app-attend-appointment',
   templateUrl: './attend-appointment.component.html',
-  styleUrls: ['./attend-appointment.component.css']
+  styleUrls: ['./attend-appointment.component.css'],
+  animations: [AnimateGallery]
 })
 export class AttendAppointmentComponent implements OnInit {
 

@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { AppointmentDetailsComponent } from '../../shared/appointment-details/appointment-details.component';
 import { Notification } from './../../models/notification';
 import { AppointmentStatus } from './../../models/appointments';
@@ -10,7 +11,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-staff-appointments',
   templateUrl: './staff-appointments.component.html',
-  styleUrls: ['./staff-appointments.component.css']
+  styleUrls: ['./staff-appointments.component.css'],
+  animations: [AnimateGallery]
 })
 export class StaffAppointmentsComponent implements OnInit {
 

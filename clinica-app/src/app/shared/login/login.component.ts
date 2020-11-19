@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -7,7 +8,8 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [AnimateGallery]
 })
 
 export class LoginComponent implements OnInit {
@@ -15,6 +17,8 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   form: FormGroup;
+  state = 'fadeIn';
+  containerState = '';
 
   users = ['admin@test.com', 'doctor@cinco.com', 'paciente@prueba.com'];
   index = 0;
@@ -47,7 +51,11 @@ export class LoginComponent implements OnInit {
         if(res.length > 0){
           this.auth.signIn(this.email.value, this.password.value).then(
             res => {
-              this.router.navigateByUrl('/home');
+              this.state = 'fadeOut';
+              setTimeout(() => {
+                this.router.navigateByUrl('/home');
+              }, 500);
+
               this.loading = false;
             },
             err => {
@@ -64,7 +72,10 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToRegister(){
-    this.router.navigateByUrl('/register');
+    this.containerState = 'fadeOut';
+    setTimeout(() => {
+      this.router.navigateByUrl('/register');
+    }, 500);
   }
 
   autocomplete(){

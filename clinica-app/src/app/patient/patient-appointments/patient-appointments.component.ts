@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { Notification } from './../../models/notification';
 import { NotifyService } from './../../services/notify.service';
 import { AppointmentsService } from './../../services/appointments.service';
@@ -8,7 +9,8 @@ import { AppointmentStatus } from 'src/app/models/appointments';
 @Component({
   selector: 'app-patient-appointments',
   templateUrl: './patient-appointments.component.html',
-  styleUrls: ['./patient-appointments.component.css']
+  styleUrls: ['./patient-appointments.component.css'],
+  animations: [AnimateGallery]
 })
 export class PatientAppointmentsComponent implements OnInit {
 

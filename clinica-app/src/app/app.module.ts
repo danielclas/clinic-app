@@ -39,6 +39,7 @@ import { AppointmentDetailsComponent } from './shared/appointment-details/appoin
 import { DataPipe } from './data.pipe';
 import { PatientReviewComponent } from './patient/patient-review/patient-review.component';
 import { ReportsComponent } from './shared/reports/reports.component';
+import { AppointmentSearchComponent } from './shared/appointment-search/appointment-search.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ReportsComponent } from './shared/reports/reports.component';
     AppointmentDetailsComponent,
     DataPipe,
     PatientReviewComponent,
-    ReportsComponent
+    ReportsComponent,
+    AppointmentSearchComponent
   ],
   imports: [
     BrowserModule,

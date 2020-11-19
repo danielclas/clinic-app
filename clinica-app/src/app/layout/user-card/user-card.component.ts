@@ -1,3 +1,4 @@
+import { AnimateGallery } from './../../animations';
 import { User } from './../../models/user';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -7,7 +8,8 @@ import { UserType } from '../../models/user';
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.css']
+  styleUrls: ['./user-card.component.css'],
+  animations: [AnimateGallery]
 })
 export class UserCardComponent implements OnInit {
 

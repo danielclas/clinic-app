@@ -1,0 +1,7 @@
+.background{
+  background-image: url('../../../assets/images/home-background.png');
+  background-repeat: repeat;
+  height: auto;
+  min-height: 90vh;
+  margin: 0;
+}

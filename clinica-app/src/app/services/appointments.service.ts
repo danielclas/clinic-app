@@ -77,6 +77,10 @@ export class AppointmentsService {
     return this.firestore.collection(COLLECTION_APPOINTMENTS).doc(uid).get();
   }
 
+  getAllAppointments(){
+    return this.firestore.collection(COLLECTION_APPOINTMENTS);
+  }
+
   //Called every time an appointment is completed (changed to status 'Done')
   logSpecialtyActivity(obj, uid){
     let arr = this.userAuth.currentUser.specialties;

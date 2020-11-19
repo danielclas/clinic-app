@@ -8,12 +8,15 @@
   <a>
 
     <div class="mr-5 d-flex" *ngIf="auth.currentUser">
-      <div ngbDropdown [ngClass]="notifications.length != 0 ? ['shake', 'text-danger'] : ''">
+      <div ngbDropdown  #bell (click)="onBellClick(bell)" [ngClass]="notifications.length != 0 ? ['text-danger','shake'] : ''">
         <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'lg'" ngbDropdownToggle></fa-icon>
-        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll; height:200px; width: 400px; margin: auto;">
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
           <ul class="list-group">
-            <li ngbDropdownItem  class="list-group-item" *ngFor="let item of notifications" (click)="onDismissNotification(item)">
-              <a type="button">{{item.message}}</a>
+            <li [@animateGallery]="state" ngbDropdownItem  class="list-group-item" *ngFor="let item of notifications">
+              <div style="width: 200px; height: auto;">
+                <fa-icon type="button" [icon]="cross" [size]="'sm'" (click)="onDismissNotification(item)"></fa-icon>
+                {{item.message}}
+              </div>
             </li>
           </ul>
           <div class="row justify-content-center">

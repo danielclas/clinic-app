@@ -4,11 +4,13 @@ import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { faCheckCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { AnimateGallery } from 'src/app/animations';
 
 @Component({
   selector: 'app-staff-schedule',
   templateUrl: './staff-schedule.component.html',
-  styleUrls: ['./staff-schedule.component.css']
+  styleUrls: ['./staff-schedule.component.css'],
+  animations: [AnimateGallery]
 })
 export class StaffScheduleComponent implements OnInit {
 

@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { NotifyService } from 'src/app/services/notify.service';
+import { AnimateGallery } from 'src/app/animations';
 
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.css']
+  styleUrls: ['./reports.component.css'],
+  animations: [AnimateGallery]
 })
 export class ReportsComponent implements OnInit {
 
