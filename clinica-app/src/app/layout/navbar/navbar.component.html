@@ -7,7 +7,7 @@
   </a>
   <a>
 
-    <div class="mr-5 d-flex" *ngIf="auth.currentUser && auth.currentUser.enabled">
+    <div class="mr-5 d-flex" *ngIf="auth.currentUser && auth.currentUser.name">
       <div ngbDropdown  #bell (click)="onBellClick(bell)" [ngClass]="notifications.length != 0 ? ['text-danger','shake'] : ''">
         <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'lg'" ngbDropdownToggle></fa-icon>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
