@@ -61,3 +61,18 @@
     </div>
   </div>
 </div>
+
+<div class="container" id="content" #content>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let key of keys" scope="col">{{key}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of values">
+        <td *ngFor="let k of keys">{{v[k]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

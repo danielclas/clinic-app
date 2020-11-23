@@ -1,5 +1,5 @@
 import { ReportsService } from './../../services/reports.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -7,6 +7,7 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { AnimateGallery } from 'src/app/animations';
 import { Appointment } from 'src/app/models/appointments';
 import {Days} from 'src/app/models/staffschedule';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-reports',
@@ -16,6 +17,11 @@ import {Days} from 'src/app/models/staffschedule';
 })
 export class ReportsComponent implements OnInit {
 
+  @ViewChild('content') content: ElementRef;
+
+  keys: string[];
+  values: any[];
+
   form: FormGroup;
   loadingFirst = false;
   loadingSecond = false;
@@ -23,9 +29,7 @@ export class ReportsComponent implements OnInit {
 
   constructor(
     private apps: AppointmentsService,
-    private auth: AuthenticationService,
     private formBuilder: FormBuilder,
-    private notify: NotifyService,
     private reports: ReportsService) { }
 
 
@@ -33,6 +37,24 @@ export class ReportsComponent implements OnInit {
     this.form = this.formBuilder.group({
       staff: ['']
     });
+  }
+
+  exportAsPDF(filename: string){
+
+    let doc = new jsPDF('p', 'pt', 'letter');
+    let html = this.content.nativeElement;
+    let handler = {
+      '#editor' : function(element, renderer) {
+          return true;
+      }
+    };
+
+    doc.fromHTML(html, 30, 50, {
+      'width' : 170,
+      'elementHandlers': handler
+    });
+
+    doc.save(filename + '.pdf');
   }
 
   downloadReport(type: string) {
@@ -60,7 +82,14 @@ export class ReportsComponent implements OnInit {
             });
           });
 
-          this.reports.exportAsExcelFile(data, 'Reportes Especialidades ' + new Date().toDateString());
+          this.keys = ['Especialidad','Turnos registrados'];
+          this.values = data;
+
+          let filename = 'Reportes Especialidades ' + new Date().toDateString();
+
+          this.reports.exportAsExcelFile(data, filename);
+          this.exportAsPDF(filename);
+
           this.loadingSecond = false;
         }
       )
@@ -84,7 +113,14 @@ export class ReportsComponent implements OnInit {
             }
           )
 
-          this.reports.exportAsExcelFile(data, 'Reportes Logeo ' + new Date().toDateString());
+          this.keys = ['Usuario','Fecha de logeo'];
+          this.values = data;
+
+          let filename = 'Reportes Logeo ' + new Date().toDateString();
+
+          this.reports.exportAsExcelFile(data, filename);
+          this.exportAsPDF(filename);
+
           this.loadingFirst = false;
         }
       )
@@ -119,7 +155,14 @@ export class ReportsComponent implements OnInit {
             });
           });
 
-          this.reports.exportAsExcelFile(data, 'Reportes Día de semana ' + new Date().toDateString());
+          this.keys = ['Día de la semana', 'Turnos registrados'];
+          this.values = data;
+
+          let filename = 'Reportes Día de semana ' + new Date().toDateString();
+
+          this.reports.exportAsExcelFile(data, filename);
+          this.exportAsPDF(filename);
+
           this.loadingThird = false;
         }
       )
