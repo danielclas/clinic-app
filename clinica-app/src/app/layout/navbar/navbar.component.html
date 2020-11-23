@@ -5,14 +5,14 @@
       Clinica online
     </b>
   </a>
-  <a>
 
+  <a>
     <div class="mr-5 d-flex" *ngIf="auth.currentUser && auth.currentUser.name">
       <div ngbDropdown  #bell (click)="onBellClick(bell)" [ngClass]="notifications.length != 0 ? ['text-danger','shake'] : ''">
         <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'lg'" ngbDropdownToggle></fa-icon>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
           <ul class="list-group"  style="max-height: 300px; overflow-y: scroll;">
-            <li [@animateGallery]="state" ngbDropdownItem  class="list-group-item" *ngFor="let item of notifications">
+            <li ngbDropdownItem  class="list-group-item" *ngFor="let item of notifications">
               <div>
                 <fa-icon type="button" [icon]="cross" [size]="'sm'" (click)="onDismissNotification(item)"></fa-icon>
                 {{item.message}}

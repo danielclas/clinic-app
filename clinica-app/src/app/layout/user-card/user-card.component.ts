@@ -46,16 +46,16 @@ export class UserCardComponent implements OnInit {
 
   setUserType(user: User){
     this.userType = user.type;
-    this.enabled = user.type != UserType.Staff;
+    this.enabled = user.enabled;
 
     if(this.userType == UserType.Admin){
       this.icon = faUserCog;
       this.typeTranslation = 'administrador';
       this.loading = false;
+      this.enabled = true;
     }else if(this.userType == UserType.Staff){
       this.icon = faUserMd;
       this.typeTranslation = 'profesional';
-      this.enabled = user.enabled;
       this.loading = false;
     }
   }

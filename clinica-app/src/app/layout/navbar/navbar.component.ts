@@ -1,10 +1,10 @@
+import { Notification } from './../../models/notification';
 import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faStethoscope, faBell, faDoorOpen, IconDefinition, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from '../../services/authentication.service';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -18,8 +18,7 @@ export class NavbarComponent implements OnInit {
   icon: IconDefinition = faStethoscope;
   alert = faBell;
   exit = faDoorOpen;
-  notifications = [];
-  state = '';
+  notifications: Notification[] = [];
 
   constructor(private notify: NotifyService, public auth: AuthenticationService, private router: Router){}
 
@@ -30,26 +29,17 @@ export class NavbarComponent implements OnInit {
   }
 
   getNotifications(){
-    this.notify.getPendingNotifications().snapshotChanges()
-    .subscribe(
-      docs => {
-        this.notifications = [];
-        docs.forEach(d => {
-          let doc = d.payload.doc;
-
-          if(!doc.get('seen') && doc.get('target') == this.auth.currentUser.uid){
-            this.notifications.push({'id':doc.id, 'message':doc.get('message')});
-          }
-        });
+    this.notify.getPendingNotifications().valueChanges({idField: 'id'}).subscribe(
+      res => {
+        this.notifications = [...res] as unknown as Notification[];
+        this.notifications = this.notifications.filter(n => !n.seen && n.target == this.auth.currentUser.uid);
       }
     )
   }
 
   onDismissNotification(item){
-    this.state = 'fadeOut';
-    setTimeout(() => {
-      this.notify.dismissNotificacion(item.id);
-    }, 500);
+    this.notify.dismissNotificacion(item.id);
+    this.getNotifications();
   }
 
   onLogOutClicked(){

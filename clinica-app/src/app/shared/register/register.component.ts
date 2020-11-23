@@ -91,10 +91,11 @@ export class RegisterComponent implements OnInit {
     user.name = this.name.value;
     user.surname = this.surname.value;
     user.type = this.userType == 'Usuario' ? UserType.Patient : UserType.Staff;
+    user.enabled = this.userType == 'Admin';
 
+    console.log("Enabled? ", user.enabled);
     if(user.type == UserType.Staff){
       user.specialties = this.selectedSpecialties;
-      user.enabled = false;
       this.auth.signUp(user, this.password.value)
       .then(res => this.onSignUpSuccess());
     }else{

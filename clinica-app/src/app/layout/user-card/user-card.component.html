@@ -26,11 +26,16 @@
         </h4>
       </div>
       <div class="row justify-content-center">
-        <h6 *ngIf="!enabled && auth.currentUser.type == types.Staff" class="text-danger" style="text-align: center;">
+        <h6 *ngIf="!enabled && userType == types.Staff" class="text-danger" style="text-align: center;">
           Usted aún no ha sido aprobado por un administrador
         </h6>
-        <h6 *ngIf="enabled && auth.currentUser.type == types.Staff" class="text-success" style="text-align: center;">
-          Usted ha sido aprobado por un administrador
+
+        <h6 *ngIf="!enabled && userType == types.Patient" class="text-danger" style="text-align: center;">
+          Usted aún no ha verificado su correo
+        </h6>
+
+        <h6 *ngIf="enabled && userType != types.Admin" class="text-success" style="text-align: center;">
+          Usted se encuentra habilitado para utilizar el sitio
         </h6>
       </div>
     </div>

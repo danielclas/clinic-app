@@ -1,3 +1,4 @@
+import { patient } from './../layout/cards-board/constants';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -21,7 +22,7 @@ export class AuthenticationService {
   constructor(private notify: NotifyService, private auth: AngularFireAuth, private firestore: AngularFirestore, private storage: AngularFireStorage) {
     this.userData = auth.authState;
     this.userData.subscribe(res => {
-      if(res && res.uid) this.asignToCurrentUser(res.uid);
+      if(res && res.uid) this.asignToCurrentUser(res);
       else this.currentUser = undefined;
     });
   }
@@ -47,13 +48,14 @@ export class AuthenticationService {
         user.uid = res.user.uid;
 
         if(user.type == UserType.Patient){
+          res.user.sendEmailVerification();
+
           user.pictures = [Date.now().toString()];
           this.uploadFile(files[0], user.pictures[0]).then(
             res => {
               user.pictures.push(Date.now().toString());
               this.uploadFile(files[1], user.pictures[1]).then(
                 res => {
-                  user.enabled = true;
                   this.addToUsersCollection(user);
                 }
               )
@@ -96,14 +98,16 @@ export class AuthenticationService {
     return this.firestore.collection(COLLECTION_USERS);
   }
 
-  setUserApproval(uid: string, name: string){
+  setUserApproval(uid: string, name?: string){
 
     return this.firestore.collection(COLLECTION_USERS, ref => {
       return ref.where('uid', '==', uid);
     }).get().subscribe(ref => {
       this.firestore.collection(COLLECTION_USERS).doc(ref.docs[0].id).update({'enabled':true}).then(
         res => {
-          this.notify.toastNotify('Profesional aprobado', 'El profesional <b>'+ name +'</b> fue aprobado con éxito');
+          if(name){
+            this.notify.toastNotify('Profesional aprobado', 'El profesional <b>'+ name +'</b> fue aprobado con éxito');
+          }
         }
       );
     });
@@ -117,7 +121,7 @@ export class AuthenticationService {
     );
   }
 
-  logSignUp(uid: string){
+  logSignIn(uid: string){
     return this.firestore.collection(COLLECTION_LOGS, ref => {
       return ref.where('user', '==', uid);
     }).get().subscribe(
@@ -141,15 +145,26 @@ export class AuthenticationService {
     )
   }
 
-  private asignToCurrentUser(uid: string){
+  private asignToCurrentUser(res){
     this.firestore.collection(COLLECTION_USERS).get()
       .subscribe(ref => {
-        let user = ref.docs.find(doc => doc.get('uid') == uid);
-        this.currentUser = user.data() as User;
-        this.userAsigned.emit(this.currentUser);
+        let user = ref.docs.find(doc => doc.get('uid') == res.uid);
 
-        if(this.currentUser.type == UserType.Staff){
-          this.logSignUp(this.currentUser.uid);
+        if(user){
+          this.currentUser = user.data() as User;
+
+          if(this.currentUser.type == UserType.Patient){
+            if(!this.currentUser.enabled && res.emailVerified){
+                this.setUserApproval(res.uid);
+                this.currentUser.enabled = true;
+            }
+          }
+
+          if(this.currentUser.type == UserType.Staff){
+            this.logSignIn(this.currentUser.uid);
+          }
+
+          this.userAsigned.emit(this.currentUser);
         }
       });
   }

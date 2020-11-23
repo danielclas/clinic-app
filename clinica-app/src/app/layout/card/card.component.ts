@@ -28,12 +28,12 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     this.auth.userAsigned.subscribe(
       (user: User) => {
-        this.disabled = user.type == UserType.Staff ? !user.enabled : false;
+        this.disabled = user.type == UserType.Staff || user.type == UserType.Patient ? !user.enabled : false;
       }
     )
 
     if(this.auth.currentUser){
-      this.disabled = this.auth.currentUser.type == UserType.Staff ? !this.auth.currentUser.enabled : false;
+      this.disabled = this.auth.currentUser.type == UserType.Staff || this.auth.currentUser.type == UserType.Patient  ? !this.auth.currentUser.enabled : false;
     }
   }
 

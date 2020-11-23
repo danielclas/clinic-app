@@ -67,7 +67,7 @@ export class AppointmentsService {
   updateAppointment(obj, uid){
 
     if(obj.status && obj.status == AppointmentStatus.Done){
-      this.logSpecialtyActivity(obj, uid);
+      this.logSpecialtyActivity();
     }
 
     return this.firestore.collection(COLLECTION_APPOINTMENTS).doc(uid).update({...obj});
@@ -82,10 +82,9 @@ export class AppointmentsService {
   }
 
   //Called every time an appointment is completed (changed to status 'Done')
-  logSpecialtyActivity(obj, uid){
-    let arr = this.userAuth.currentUser.specialties;
+  logSpecialtyActivity(){
 
-    for(let specialty of arr){
+    for(let specialty of this.userAuth.currentUser.specialties){
       this.firestore.collection(COLLECTION_ACTIVITY, ref => {
         return ref.where('label', '==', specialty);
       }).get().subscribe(
