@@ -147,6 +147,16 @@ export class NewAppointmentComponent implements OnInit {
     });
   }
 
+  stepTo(step: number){
+    if(step == 1){
+      this.stepper.to(1);
+    }else if(step == 2 && this.specialtySelected){
+      this.stepper.to(2)
+    }else if(step == 3 && this.doctorSelected){
+      this.stepper.to(3);
+    }
+  }
+
   printDays(schedule){
     let s = '';
 

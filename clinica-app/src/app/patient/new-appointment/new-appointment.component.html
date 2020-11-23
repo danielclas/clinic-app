@@ -24,21 +24,21 @@
               <div #stepper class="bs-stepper">
                 <div class="bs-stepper-header" role="tablist">
                   <div class="step" data-target="#specialty">
-                    <button type="button" class="step-trigger" role="tab">
+                    <button type="button" class="step-trigger" role="tab" (click)="stepTo(1)">
                       <span class="bs-stepper-circle">1</span>
                       <span class="bs-stepper-label">Especialidad</span>
                     </button>
                   </div>
                   <div class="line"></div>
                   <div class="step" data-target="#professional">
-                    <button type="button" class="step-trigger" role="tab">
+                    <button type="button" class="step-trigger" role="tab" (click)="stepTo(2)">
                       <span class="bs-stepper-circle">2</span>
                       <span class="bs-stepper-label">Profesional</span>
                     </button>
                   </div>
                   <div class="line"></div>
                   <div class="step" data-target="#datetime">
-                    <button type="button" class="step-trigger" role="tab">
+                    <button type="button" class="step-trigger" role="tab" (click)="stepTo(3)">
                       <span class="bs-stepper-circle">3</span>
                       <span class="bs-stepper-label">Día y horario</span>
                     </button>
@@ -107,16 +107,16 @@
                       </div>
                       <div class="col-8 p-4" *ngIf="selectedDate">
                         <div class="row justify-content-center">
-                          <div class="col aling-items-center">
-                            <h5>Seleccione un horario</h5>
+                          <div class="col aling-items-center p-4 mx-2">
+                            <h5 style="text-align: center;">Seleccione un horario</h5>
                             <div *ngIf="showHours && hours && hours.length>0">
                               <app-hours-table *ngIf="!loadingHours" (hourClicked)="onSlotClicked($event)" [hours]="hours"></app-hours-table>
                             </div>
                             <div class="row justify-content-center">
                               <span *ngIf="loadingHours" class="spinner-grow spinner-grow-md m-3 p-5 text-primary"></span>
                             </div>
-                            <div *ngIf="showHours">
-                              <button [disabled]="!selectedSlot" *ngIf="!loadingHours" class="btn btn-success" (click)="onRegister()">
+                            <div *ngIf="showHours" class="row justify-content-center">
+                              <button [disabled]="!selectedSlot" *ngIf="!loadingHours" class="btn btn-success align-self-center" (click)="onRegister()">
                                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                 <span *ngIf="!loading"> Registrar turno </span>
                               </button>
