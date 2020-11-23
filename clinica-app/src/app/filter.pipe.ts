@@ -2,44 +2,24 @@ import {Days} from './models/staffschedule';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  pure: false
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(values: any[], name: string, specialty?: string, day?: any): unknown {
+  transform(values: any[], search: string, prop?: string): unknown {
 
-    if(values.length == 0 || (!name && !specialty && !day)) return values;
-    if(name && !specialty && !day) return this.singleFilter(values, name);
+    if(values.length == 0 || !search) return values;
 
-    if(day){
-      day = Days.find(d => d.viewValue == day).value;
-    }
+    return values.filter(val => {
+      if(prop) return  JSON.stringify(val[prop]).toLowerCase().includes(search);
 
-
-    return values.filter(
-      (item) => {
-        if(name && !item['name'].toLowerCase().includes(name.toLowerCase())){
-          return false;
-        }
-
-        if(specialty && !item['specialties'].includes(specialty)){
-          return false;
-        }
-
-        if(day && !item['schedule'][day]){
-          return false;
-        }
-
+      if(!prop && JSON.stringify(val).toLowerCase().includes(search)){
         return true;
       }
-    )
-  }
 
-  singleFilter(values: any[], search: string){
-
-    return values.filter(
-      item => { return JSON.stringify(item).toLowerCase().includes(search.toLowerCase());  }
-    )
+      return JSON.stringify(val).toLowerCase().includes(search);
+    })
   }
 
 }

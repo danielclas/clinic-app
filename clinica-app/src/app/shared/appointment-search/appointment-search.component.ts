@@ -36,13 +36,13 @@ export class AppointmentSearchComponent implements OnInit, OnChanges {
 
     this.apps.getAllAppointments().valueChanges({idField: 'id'})
     .subscribe(vals => {
-      this.appointments = [...vals] as Appointment[];
-      this.appointments = this.appointments.filter(ap => ap.status == AppointmentStatus.Done);
+      let temp = [...vals] as Appointment[];
+      temp = temp.filter(ap => ap.status == AppointmentStatus.Done);
 
       this.auth.getAllUsers().valueChanges({idField: 'id'})
       .subscribe(users => {
         let arr = [...users] as User[];
-        this.appointments.forEach(ap => {
+        temp.forEach(ap => {
           let patient = arr.find(u => u.id == ap.patient || u.uid == ap.patient);
           let doctor = arr.find(u => u.id == ap.professional || u.uid == ap.professional);
 
@@ -50,6 +50,7 @@ export class AppointmentSearchComponent implements OnInit, OnChanges {
           ap.patient = patient;
         });
 
+        this.appointments = temp;
         this.loading = false;
       })
     })

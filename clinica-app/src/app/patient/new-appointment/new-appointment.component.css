@@ -10,3 +10,8 @@
   color: white;
   background-color: #0275d8;
 }
+
+.list{
+  max-height: 400px;
+  overflow-y: scroll;
+}

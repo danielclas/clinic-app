@@ -3,35 +3,45 @@ import { Appointment, AppointmentStatus } from './../../models/appointments';
 import { Schedule } from './../../models/staffschedule';
 import { AppointmentsService } from './../../services/appointments.service';
 import { NotifyService } from './../../services/notify.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Days } from '../../models/staffschedule';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/models/user';
+import Stepper from 'bs-stepper'
 
+interface Specialty{
+  label: string;
+}
 @Component({
   selector: 'app-new-appointment',
   templateUrl: './new-appointment.component.html',
   styleUrls: ['./new-appointment.component.css'],
-  animations: [AnimateGallery]
+  animations: [AnimateGallery],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class NewAppointmentComponent implements OnInit {
 
-  @ViewChild('select') select;
+  @ViewChild('select') select: ElementRef;
+  @ViewChild('stepper') stepperRef: ElementRef;
 
-  form: FormGroup;
+  stepper: Stepper;
 
+  nextDate: any;
+  nextHour: any;
+
+  specialtyFilter: string;
+  doctorFilter: string;
   days = Days;
   selectedDays = [];
 
   specialties = [];
   specialtySelected;
 
-  doctorSelected;
-  doctors = [];
+  doctorSelected: User;
+  doctors: User[] = [];
 
-  model: NgbDateStruct;
   today: NgbDateStruct;
   max: NgbDateStruct;
 
@@ -55,11 +65,11 @@ export class NewAppointmentComponent implements OnInit {
       }
     )
 
-    this.form = this.formBuilder.group({
-      staff: [''],
-      specialty: [''],
-      day: ['']
-    });
+    this.auth.getSpecialties().valueChanges().subscribe(
+      res => {
+        this.specialties = [...res] as Specialty[];
+      }
+    )
 
     let date = new Date();
 
@@ -80,14 +90,17 @@ export class NewAppointmentComponent implements OnInit {
     this.search();
   }
 
-  get staff() { return this.form.get('staff'); }
+  ngAfterViewInit(){
+    this.stepper = new Stepper(this.stepperRef.nativeElement, {linear: true, animation: true});
+  }
 
   onSlotClicked($event){
-    if($event != this.selectedSlot){
-      this.selectedSlot = $event;
-    }else{
-      this.selectedSlot = undefined;
-    }
+    this.selectedSlot = $event != this.selectedSlot ? $event : null;
+  }
+
+  translateDay(date: Date){
+    let d = date.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
+    return this.days.find(day => day.value == d);
   }
 
   onRegister(){
@@ -98,47 +111,38 @@ export class NewAppointmentComponent implements OnInit {
     this.selectedDate.setHours(hour);
     this.selectedDate.setMinutes(min);
 
-    let professional = this.doctorSelected.uid;
-    let patient = this.auth.currentUser.uid;
-    let status = AppointmentStatus.Pending;
-    let review = '';
-
     let obj = {
-      'professional':professional,
-      'patient':patient,
-      'status':status,
-      'review':review,
-      'date':this.selectedDate
+      'professional': this.doctorSelected.uid,
+      'patient': this.auth.currentUser.uid,
+      'status': AppointmentStatus.Pending,
+      'review': '',
+      'date': this.selectedDate
     }
 
-
     this.loading = true;
+
     this.apps.newAppointment(obj).then(res => {
       this.notify.toastNotify('Registro exitoso','El turno fue registrado exitosamente. Puede verlo en su lista de turnos futuros.');
       this.loading = false;
       this.selectedSlot = undefined;
-      this.getAvailableHours();
+      this.findNextAppointmentSlot(new Date());
     }, err => {
       this.notify.toastNotify('Error registrando turno','Hubo un error registrando el turno. In');
       this.loading = false;
       this.selectedSlot = undefined;
-      this.getAvailableHours();
     });
   }
 
   search(){
     this.loadingDoctors = true;
     this.apps.getStaffMembers().get().then(ref => {
-      let temp = [];
-      ref.docs.forEach(doc => {
 
-
-        if(doc.get('schedule')){
-          temp.push(doc.data() as User);
+      ref.docs.forEach(d => {
+        if(d.get('schedule')){
+          this.doctors.push(d.data() as User);
         }
-      });
+      })
 
-      this.doctors = temp;
       this.loadingDoctors = false;
     });
   }
@@ -148,63 +152,99 @@ export class NewAppointmentComponent implements OnInit {
 
     for(let d of this.days){
       if(schedule[d.value]){
-        let k = d.viewValue;
-        s+=' ' + k + ' |';
+        s+=' ' + d.viewValue + ' |';
       }
     }
 
-    return s.substring(0,s.length-2);
+    return s.substring(0, s.length-2);
   }
 
   onDayClicked(day){
+
     day.on = !day.on;
-    if(day.on){
-      this.selectedDays.push(day.value);
-    }else{
-      let arr = [];
 
-      this.selectedDays.forEach(d => {
-        if(d != day.value) arr.push(d);
-      });
-
-      this.selectedDays = arr;
-    }
+    if(day.on) this.selectedDays.push(day.value);
+    else this.selectedDays = this.selectedDays.filter(d => d != day.value);
   }
 
-  onDoctorSelected(doctor){
+  onDoctorSelected(doctor: User){
     this.doctorSelected = this.doctorSelected == doctor ? null : doctor;
     this.selectedDate = null;
+    this.findNextAppointmentSlot(new Date());
+    this.stepper.next();
   }
 
-  onSpecialtySelected(select){
-    this.specialtySelected = select.value;
+  onSpecialtySelected(label: string){
+    this.specialtySelected = label;
+    this.doctors = this.doctors.filter(doc => doc.specialties.includes(label));
+    this.stepper.next();
+  }
+
+  findNextAppointmentSlot(d: Date){
+
+    this.apps.getStaffAppointments(this.doctorSelected.uid).valueChanges().subscribe(
+      (ref: Appointment[]) => {
+        let temp = [];
+
+        ref.forEach(doc => {
+          let date = doc.date.toDate();
+          let month = date.getMonth();
+          let day = date.getDay();
+
+          if(day == d.getDay() && month == d.getMonth()){
+            temp.push(date.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit' }))
+          }
+        })
+
+        let b = d.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
+        let day = this.doctorSelected.schedule[b];
+        let from, to, arr, hour;
+
+        if(day){
+          from = +(day[0].substring(0, day[0].indexOf(':')));
+          to = +(day[1].substring(0, day[1].indexOf(':')));
+          arr = [];
+
+          for(let i: number = from ; i < to ; i++){
+
+            let a = i.toString().length == 1 ? '0' + i.toString() : i.toString();
+
+            arr.push({time: a + ':00', available: !temp.includes(a + ':00')});
+            if(i != to) arr.push({time: a + ':30', available: !temp.includes(a + ':30')});
+          }
+
+          hour =  arr.find(h => h.available);
+        }
+
+        if(hour){
+          this.nextDate = d;
+          this.nextHour = hour;
+
+          this.selectedDate = d;
+          this.selectedSlot = hour;
+        }else{
+          d.setDate(d.getDate() + 1);
+          this.findNextAppointmentSlot(d);
+        }
+      }
+    );
   }
 
   dateSelected(date: NgbDate){
 
     this.loadingHours = true;
+    this.selectedDate = new Date(date.year, date.month - 1, date.day);
 
-    let a = new Date();
-    a.setDate(date.day);
-    a.setMonth(date.month-1);
-    a.setFullYear(date.year);
+    let day = this.selectedDate.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
+    this.showHours = this.doctorSelected.schedule[day];
 
-    this.selectedDate = a;
-
-    let b = a.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
-
-    if(this.doctorSelected.schedule[b]){
-      this.showHours = true;
-    }else{
-      this.showHours = false;
-      this.hours = [];
-    }
+    if(!this.showHours) this.hours = [];
 
     this.getAvailableHours();
   }
 
   getAvailableHours(){
-    this.apps.getStaffAppointments(this.doctorSelected.uid).valueChanges().subscribe(
+    return this.apps.getStaffAppointments(this.doctorSelected.uid).valueChanges().subscribe(
       (ref: Appointment[]) => {
         let temp = [];
 
@@ -227,9 +267,12 @@ export class NewAppointmentComponent implements OnInit {
           to = +(day[1].substring(0, day[1].indexOf(':')));
           arr = [];
 
-          for(let i = from ; i < to ; i++){
-            arr.push({time:i+':00',available:!temp.includes(i+':00')});
-            if(i != to) arr.push({time:i+':30',available:!temp.includes(i+':30')});
+          for(let i: number = from ; i < to ; i++){
+
+            let a = i.toString().length == 1 ? '0' + i.toString() : i.toString();
+
+            arr.push({time: a + ':00', available: !temp.includes(a + ':00')});
+            if(i != to) arr.push({time: a + ':30', available: !temp.includes(a + ':30')});
           }
         }
 

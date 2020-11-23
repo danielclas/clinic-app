@@ -40,6 +40,9 @@ import { DataPipe } from './data.pipe';
 import { PatientReviewComponent } from './patient/patient-review/patient-review.component';
 import { ReportsComponent } from './shared/reports/reports.component';
 import { AppointmentSearchComponent } from './shared/appointment-search/appointment-search.component';
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+registerLocaleData(localeEsAr);
 
 @NgModule({
   declarations: [
