@@ -7,7 +7,8 @@ import { NotifyService } from 'src/app/services/notify.service';
 import { AnimateGallery } from 'src/app/animations';
 import { Appointment } from 'src/app/models/appointments';
 import {Days} from 'src/app/models/staffschedule';
-import jsPDF from 'jspdf';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-reports',
@@ -16,8 +17,6 @@ import jsPDF from 'jspdf';
   animations: [AnimateGallery]
 })
 export class ReportsComponent implements OnInit {
-
-  @ViewChild('content') content: ElementRef;
 
   keys: string[];
   values: any[];
@@ -40,21 +39,50 @@ export class ReportsComponent implements OnInit {
   }
 
   exportAsPDF(filename: string){
+    const doc = new jsPDF();
 
-    let doc = new jsPDF('p', 'pt', 'letter');
-    let html = this.content.nativeElement;
-    let handler = {
-      '#editor' : function(element, renderer) {
-          return true;
+    const specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
       }
     };
 
-    doc.fromHTML(html, 30, 50, {
-      'width' : 170,
-      'elementHandlers': handler
+    doc.fromHTML(this.makeTable(), 15, 15, {
+      width: 190,
+      'elementHandlers': specialElementHandlers
     });
 
     doc.save(filename + '.pdf');
+  }
+
+  makeTable(){
+    let table =
+      `<table class="table table-striped">
+        <thead>
+          <tr>`;
+
+    this.keys.forEach(key => table += `<th scope="col">${key}</th>`);
+
+    table +=
+      ` </tr>
+       </thead>
+       <tbody>`;
+
+    this.values.forEach(val => {
+      table += '<tr>';
+
+      this.keys.forEach(key => {
+        table += `<td> ${val[key]}</td>`;
+      });
+
+      table += '</tr>';
+    });
+
+    table +=
+    `</tbody>
+      </table>`;
+
+    return table;
   }
 
   downloadReport(type: string) {

@@ -40,7 +40,7 @@
                 <span *ngIf="!loadingThird"> Reporte días de semana </span>
               </button>
             </div>
-            <p class="text-secondary p-2 my-2 ml-2">Presione en cualquier las opciones para descargar reporetes en Excel y PDF</p>
+            <p class="text-secondary p-2 my-2 ml-2">Presione en cualquiera de las opciones para descargar reportes en Excel y PDF</p>
           </div>
           <hr>
 
@@ -55,24 +55,8 @@
                 <app-appointment-search></app-appointment-search>
             </div>
           </div>
-
         </form>
       </div>
     </div>
   </div>
-</div>
-
-<div class="container" id="content" #content>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th *ngFor="let key of keys" scope="col">{{key}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let v of values">
-        <td *ngFor="let k of keys">{{v[k]}}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
