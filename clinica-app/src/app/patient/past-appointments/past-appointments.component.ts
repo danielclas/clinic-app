@@ -17,6 +17,9 @@ import { AppointmentDetailsComponent } from 'src/app/shared/appointment-details/
 export class PastAppointmentsComponent implements OnInit {
 
   status = AppointmentStatus;
+  statusValues = [];
+  statusSelected = [];
+  filteredAppointments = [];
   appointments = [];
   selected;
   loading = true;
@@ -57,8 +60,29 @@ export class PastAppointmentsComponent implements OnInit {
         )
 
         this.loading = false;
+        this.filterAppointments();
       }
     )
+
+    this.statusValues = Object.values(this.status);
+  }
+
+  onStatusSelected(status){
+    if(this.statusSelected.some(s => s == status)){
+      this.statusSelected = this.statusSelected.filter(s => s != status);
+    }else{
+      this.statusSelected.push(status);
+    }
+
+    this.filterAppointments();
+  }
+
+  filterAppointments(){
+    if(this.statusSelected.length == 0){
+      this.filteredAppointments = this.appointments;
+    }else{
+      this.filteredAppointments = this.appointments.filter(a => this.statusSelected.includes(a.status));
+    }
   }
 
   onRowSelected(row){

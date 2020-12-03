@@ -1,13 +1,14 @@
 import { AnimateGallery } from './../../animations';
 import { Appointment, AppointmentStatus } from './../../models/appointments';
-import { Schedule } from './../../models/staffschedule';
+import { Schedule, Days } from './../../models/staffschedule';
 import { AppointmentsService } from './../../services/appointments.service';
 import { NotifyService } from './../../services/notify.service';
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Days } from '../../models/staffschedule';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { User } from 'src/app/models/user';
 import Stepper from 'bs-stepper'
 
@@ -25,6 +26,7 @@ export class NewAppointmentComponent implements OnInit {
 
   @ViewChild('select') select: ElementRef;
   @ViewChild('stepper') stepperRef: ElementRef;
+  @ViewChild('confirmation') confirmation: ElementRef;
 
   stepper: Stepper;
 
@@ -35,6 +37,7 @@ export class NewAppointmentComponent implements OnInit {
   doctorFilter: string;
   days = Days;
   selectedDays = [];
+  selectedDay;
 
   specialties = [];
   specialtySelected;
@@ -48,7 +51,7 @@ export class NewAppointmentComponent implements OnInit {
   showHours = false;
   hours = [];
   date: {year: number, month: number};
-  selectedDate;
+  selectedDate: Date;
 
   loading = false;
   loadingHours = false;
@@ -100,7 +103,8 @@ export class NewAppointmentComponent implements OnInit {
 
   translateDay(date: Date){
     let d = date.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
-    return this.days.find(day => day.value == d);
+    let v = this.days.find(day => day.value == d);
+    return !v ? '' : v.viewValue;
   }
 
   onRegister(){
@@ -124,14 +128,36 @@ export class NewAppointmentComponent implements OnInit {
     this.apps.newAppointment(obj).then(res => {
       this.notify.toastNotify('Registro exitoso','El turno fue registrado exitosamente. Puede verlo en su lista de turnos futuros.');
       this.loading = false;
-      this.selectedSlot = undefined;
-      this.findNextAppointmentSlot(new Date());
+      this.selectedSlot = null;
+      this.stepper.next();
     }, err => {
       this.notify.toastNotify('Error registrando turno','Hubo un error registrando el turno. In');
       this.loading = false;
-      this.selectedSlot = undefined;
+      this.selectedSlot = null;
     });
   }
+
+  onExportConfirmation(){
+    this.exportConfirmation('confirmacion-turno');
+  }
+
+  exportConfirmation(filename: string){
+    const doc = new jsPDF();
+
+    const specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+
+    doc.fromHTML(document.getElementById('confirmation').innerHTML, 15, 15, {
+      width: 190,
+      'elementHandlers': specialElementHandlers
+    });
+
+    doc.save(filename + '.pdf');
+  }
+
 
   search(){
     this.loadingDoctors = true;
@@ -171,10 +197,22 @@ export class NewAppointmentComponent implements OnInit {
 
   onDayClicked(day){
 
-    day.on = !day.on;
+    if(!this.doctorSelected.schedule[day.value]) return;
 
-    if(day.on) this.selectedDays.push(day.value);
-    else this.selectedDays = this.selectedDays.filter(d => d != day.value);
+    this.selectedDay = day == this.selectedDay ? null : day;
+
+    if(this.selectedDay){
+      this.selectedDate = new Date();
+
+      while(this.selectedDate.getDay() != this.selectedDay.number){
+        this.selectedDate.setDate(this.selectedDate.getDate() + 1);
+      }
+
+      while(this.selectedDate.getDate() < new Date().getDate()){
+        this.selectedDate.setDate(this.selectedDate.getDate() + 7);
+      }
+      this.getAvailableHours();
+    }
   }
 
   onDoctorSelected(doctor: User){
@@ -254,40 +292,53 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   getAvailableHours(){
+    this.loadingHours = true;
+
     return this.apps.getStaffAppointments(this.doctorSelected.uid).valueChanges().subscribe(
       (ref: Appointment[]) => {
-        let temp = [];
 
-        ref.forEach(doc => {
-          let date = doc.date.toDate();
-          let month = date.getMonth();
-          let day = date.getDay();
+        do{
+          let temp = [];
 
-          if(day == this.selectedDate.getDay() && month == this.selectedDate.getMonth()){
-            temp.push(date.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit' }))
+          ref.forEach(doc => {
+            let date = doc.date.toDate();
+            let month = date.getMonth();
+            let day = date.getDay();
+
+            if(day == this.selectedDate.getDay() && month == this.selectedDate.getMonth()){
+              temp.push(date.toLocaleTimeString([],{hour: '2-digit', minute: '2-digit' }))
+            }
+          })
+
+          let b = this.selectedDate.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
+          let day = this.doctorSelected.schedule[b];
+          let from, to, arr = [];
+
+          if(day){
+            from = +(day[0].substring(0, day[0].indexOf(':')));
+            to = +(day[1].substring(0, day[1].indexOf(':')));
+            arr = [];
+
+            for(let i: number = from ; i < to ; i++){
+
+              let a = i.toString().length == 1 ? '0' + i.toString() : i.toString();
+
+              arr.push({time: a + ':00', available: !temp.includes(a + ':00')});
+              if(i != to) arr.push({time: a + ':30', available: !temp.includes(a + ':30')});
+            }
           }
-        })
 
-        let b = this.selectedDate.toLocaleDateString('en-us',{weekday:'long'}).substring(0,2).toLowerCase();
-        let day = this.doctorSelected.schedule[b];
-        let from, to, arr;
-
-        if(day){
-          from = +(day[0].substring(0, day[0].indexOf(':')));
-          to = +(day[1].substring(0, day[1].indexOf(':')));
-          arr = [];
-
-          for(let i: number = from ; i < to ; i++){
-
-            let a = i.toString().length == 1 ? '0' + i.toString() : i.toString();
-
-            arr.push({time: a + ':00', available: !temp.includes(a + ':00')});
-            if(i != to) arr.push({time: a + ':30', available: !temp.includes(a + ':30')});
+          if(arr.some(d => d.available)){
+            this.hours = arr;
+            this.loadingHours = false;
+          }else{
+            this.selectedDate.setDate(this.selectedDate.getDate() + 7);
           }
-        }
+          console.log("while do");
+        }while(this.hours == null);
 
-        this.hours = arr;
         this.loadingHours = false;
+
       }
     );
   }

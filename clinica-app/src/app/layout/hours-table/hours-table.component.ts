@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-hours-table',
   templateUrl: './hours-table.component.html',
   styleUrls: ['./hours-table.component.css']
 })
-export class HoursTableComponent implements OnInit {
+export class HoursTableComponent implements OnInit, OnChanges {
 
   @Input() hours = [];
   @Output() hourClicked = new EventEmitter<string>();
@@ -16,6 +16,10 @@ export class HoursTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.makeTable();
+  }
+
+  ngOnChanges(){
     this.makeTable();
   }
 

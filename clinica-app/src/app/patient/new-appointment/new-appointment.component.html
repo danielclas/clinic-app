@@ -43,6 +43,13 @@
                       <span class="bs-stepper-label">Día y horario</span>
                     </button>
                   </div>
+                  <div class="line"></div>
+                  <div class="step" data-target="#confirmation">
+                    <button type="button" class="step-trigger" role="tab" (click)="stepTo(4)">
+                      <span class="bs-stepper-circle">4</span>
+                      <span class="bs-stepper-label">Confirmación</span>
+                    </button>
+                  </div>
                 </div>
 
                 <!-- Specialties list -->
@@ -50,13 +57,20 @@
                   <div id="specialty" class="content fade" role="tabpanel">
                     <h5>Filtrar especialidades</h5>
                     <input class="form-control my-2" name="specialtyFilter" type="text" [(ngModel)]="specialtyFilter" placeholder="Especialidad">
-                    <table class="table table-striped table-bordered table-hover">
+                    <!-- <table class="table table-striped table-bordered table-hover">
                       <tbody class="list">
                         <tr class="anchor" *ngFor="let sp of specialties | filter:specialtyFilter:'label'" (click)="onSpecialtySelected(sp.label)">
                           <td>{{sp.label}}</td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> -->
+                    <div style="display: flex; flex-direction: row; flex-wrap: wrap;" class="p-3 m-2">
+                      <div class="card anchor m-1" *ngFor="let sp of specialties | filter:specialtyFilter:'label'" (click)="onSpecialtySelected(sp.label)">
+                        <div class="card-body">
+                          <p class="card-text"><strong>{{sp.label}}</strong></p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <!-- Professionals list -->
@@ -82,7 +96,7 @@
                     <h5>Próximo turno disponible</h5>
                     <div class="row justify-content-center" *ngIf="nextDate && nextHour">
                       <div class="col-4 align-items-center my-2">
-                        <p style="font-size: 20px; text-align: center;"><strong>Día: </strong>{{translateDay(nextDate).viewValue}}</p>
+                        <p style="font-size: 20px; text-align: center;"><strong>Día: </strong>{{translateDay(nextDate)}}</p>
                       </div>
                       <div class="col-4 align-items-center my-2">
                         <p style="font-size: 20px; text-align: center;"><strong>Fecha: </strong>{{nextDate | date:'shortDate'}}</p>
@@ -102,7 +116,7 @@
                     <hr>
                     <h5>Seleccione otro dia y fecha para su turno</h5>
                     <div class="row" *ngIf="doctorSelected">
-                      <div class="col-4 p-4 align-self-start">
+                      <!-- <div class="col-4 p-4 align-self-start">
                         <ngb-datepicker #dp [displayMonths]="1" [minDate]="today" [maxDate]="max" (dateSelect)="dateSelected($event)" (navigate)="date = $event.next"></ngb-datepicker>
                       </div>
                       <div class="col-8 p-4" *ngIf="selectedDate">
@@ -123,6 +137,69 @@
                             </div>
                             <h6 class="p-4 mt-3" *ngIf="!showHours && !loadingHours">No hay turnos disponibles para el día seleccionado</h6>
                           </div>
+                        </div>
+                      </div> -->
+                      <div class="col">
+                        <div class="row justify-content-center">
+                          <div class="btn-group p-3 w-90" role="group">
+                            <button type="button" (click)="onDayClicked(day)" *ngFor="let day of days" [ngClass]="doctorSelected.schedule[day.value] ? (day == selectedDay ? 'btn-success' : 'btn-primary') : 'btn-secondary'"  class="btn">{{day.viewValue}}</button>
+                          </div>
+                        </div>
+                        <div class="row justify-content-center pt-2" *ngIf="selectedDay && !loadingHours">
+                          <h5 style="text-align: center;">
+                            El próximo turno disponible un {{selectedDay.viewValue}} es para la fecha {{selectedDate | date:'shortDate'}}
+                          </h5>
+                        </div>
+                        <div class="row justify-content-center">
+                          <div class="col-8 p-4" *ngIf="selectedDay">
+                            <div class="row justify-content-center">
+                              <div class="col aling-items-center p-4 mx-2">
+                                <h5 style="text-align: center;" *ngIf="!loadingHours">Seleccione un horario</h5>
+                                <div *ngIf="hours && hours.length > 0 && !loadingHours">
+                                  <app-hours-table (hourClicked)="onSlotClicked($event)" [hours]="hours"></app-hours-table>
+                                </div>
+                                <div class="row justify-content-center">
+                                  <span *ngIf="loadingHours" class="spinner-grow spinner-grow-md m-3 p-5 text-primary"></span>
+                                </div>
+                                <div class="row justify-content-center">
+                                  <button [disabled]="!selectedSlot" *ngIf="!loadingHours" class="btn btn-success align-self-center" (click)="onRegister()">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    <span *ngIf="!loading"> Registrar turno </span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        <!-- <span *ngIf="!doctorAvailableOnSelectedDay && selectedDay">
+                          <div class="row justify-content-center">
+                            <h5 style="text-align: center;">
+                              El doctor seleccionado no atiende los días {{selectedDay.viewValue}}
+                            </h5>
+                          </div>
+                        </span> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="confirmation" class="content" role="tabpanel">
+                    <div class="row justify-content-center p-4">
+                      <div class="col">
+                        <h4>¡Turno confirmado!</h4>
+                        <hr>
+                      </div>
+                    </div>
+                    <div class="row justify-content-center px-4" *ngIf="doctorSelected">
+                      <div class="col">
+                        <h5><strong>Doctor: </strong> {{doctorSelected.name + ' ' + doctorSelected.surname}}</h5>
+                        <br>
+                        <h5><strong>Fecha: </strong> {{selectedDate | date:'short'}}</h5>
+                        <p>Su turno ha sido confirmado. Presione en el botón debajo para descargar la constancia</p>
+                        <hr>
+                        <div class="row w-50 px-3">
+                          <button (click)="onExportConfirmation()" class="btn-primary btn-block btn">
+                            Descargar constancia
+                          </button>
                         </div>
                       </div>
                     </div>

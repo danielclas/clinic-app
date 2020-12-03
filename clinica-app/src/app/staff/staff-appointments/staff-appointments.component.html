@@ -17,27 +17,31 @@
             </div>
           </div>
 
+          <div class="row justify-content-start">
+            <h5 class="pl-3">Filtrar turnos por estados</h5>
+          </div>
+
+          <div class="row justify-content-start my-3">
+            <div class="btn-group pl-3 w-90" role="group">
+              <button type="button" (click)="onStatusSelected(s)" [ngClass]="statusSelected.includes(s) ? 'btn-primary' : 'btn-secondary'" class="btn" *ngFor="let s of statusValues">{{s}}</button>
+            </div>
+          </div>
+
           <div class="row justify-content-center">
-            <div class="col align-items-center">
-              <table *ngIf="appointments && appointments.length > 0" class="table table-hover" style="text-align: center;">
-                <thead>
-                  <tr>
-                    <th scope="col">Paciente</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Estado</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="cursor: pointer;" *ngFor="let item of appointments" (click)="onRowSelected(item)" [ngClass]="selected && selected == item ? 'table-primary' : ''">
-                    <td>{{item.patient}}</td>
-                    <td>{{item.date | date:'short'}}</td>
-                    <td><b>{{item.status}}</b></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="col align-items-center my-2" style="max-height: 500px; overflow-y: scroll;">
+              <div style="display: flex; flex-direction: row; flex-wrap: wrap;" class="p-3 m-2">
+                <div class="card m-2" style="width: 30%;" [ngClass]="selected == item ? 'border border-primary shadow shadow-lg' : ''" *ngFor="let item of filteredAppointments">
+                  <div class="card-body">
+                    <h5 class="card-title"><strong>Paciente: </strong>{{item.patient}}</h5>
+                    <p class="card-text"><strong>Fecha: </strong>{{item.date | date:'short'}}</p>
+                    <p class="card-text"><strong>Estado: </strong>{{item.status}}</p>
+                    <button class="btn btn-primary btn-sm" (click)="onRowSelected(item)" >Seleccionar</button>
+                  </div>
+                </div>
+              </div>
               <div class="row justify-content-center">
                 <span *ngIf="loading" class="spinner-grow spinner-grow-sm p-5 text-primary"></span>
-                <h5 *ngIf="appointments && appointments.length == 0" class="p-5" >Usted no tiene turnos pendientes para mostrar</h5>
+                <h5 *ngIf="appointments  && filteredAppointments && filteredAppointments.length == 0" class="p-5" >No hay turnos para mostrar</h5>
               </div>
             </div>
           </div>

@@ -17,9 +17,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class StaffAppointmentsComponent implements OnInit {
 
   status = AppointmentStatus;
+  statusValues = [];
+  statusSelected = [];
+  filteredAppointments = [];
   appointments: any[];
   selected;
   loading = false;
+
   constructor(
     private notify: NotifyService,
     private appoint: AppointmentsService,
@@ -53,8 +57,29 @@ export class StaffAppointmentsComponent implements OnInit {
           }
         )
         this.loading = false;
+        this.filterAppointments();
       }
     )
+
+    this.statusValues = Object.values(this.status);
+  }
+
+  onStatusSelected(status){
+    if(this.statusSelected.some(s => s == status)){
+      this.statusSelected = this.statusSelected.filter(s => s != status);
+    }else{
+      this.statusSelected.push(status);
+    }
+
+    this.filterAppointments();
+  }
+
+  filterAppointments(){
+    if(this.statusSelected.length == 0){
+      this.filteredAppointments = this.appointments;
+    }else{
+      this.filteredAppointments = this.appointments.filter(a => this.statusSelected.includes(a.status));
+    }
   }
 
   onUpdateStatus(status: AppointmentStatus){

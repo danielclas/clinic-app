@@ -16,12 +16,16 @@ export class PatientAppointmentsComponent implements OnInit {
 
   status = AppointmentStatus;
   appointments = [];
+  statusValues = [];
+  statusSelected = [];
+  filteredAppointments = [];
   selected;
   loading = true;
   constructor(private notify: NotifyService, private auth: AuthenticationService, private appoint: AppointmentsService) { }
 
   ngOnInit(): void {
     this.loading = true;
+    this.statusValues = Object.values(this.status);
     this.appoint.getPatientAppointments(this.auth.currentUser.uid)
     .snapshotChanges().subscribe(
       ref => {
@@ -50,8 +54,27 @@ export class PatientAppointmentsComponent implements OnInit {
         )
 
         this.loading = false;
+        this.filterAppointments();
       }
     )
+  }
+
+  onStatusSelected(status){
+    if(this.statusSelected.some(s => s == status)){
+      this.statusSelected = this.statusSelected.filter(s => s != status);
+    }else{
+      this.statusSelected.push(status);
+    }
+
+    this.filterAppointments();
+  }
+
+  filterAppointments(){
+    if(this.statusSelected.length == 0){
+      this.filteredAppointments = this.appointments;
+    }else{
+      this.filteredAppointments = this.appointments.filter(a => this.statusSelected.includes(a.status));
+    }
   }
 
   onRowSelected(selected){
