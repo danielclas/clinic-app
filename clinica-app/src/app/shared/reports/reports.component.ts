@@ -57,7 +57,8 @@ export class ReportsComponent implements OnInit {
 
   makeTable(){
     let table =
-      `<table class="table table-striped">
+    `<h2>Clínica online</h2>
+      <table class="table table-striped">
         <thead>
           <tr>`;
 

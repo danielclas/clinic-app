@@ -182,26 +182,31 @@
                     </div>
                   </div>
 
+
                   <div id="confirmation" class="content" role="tabpanel">
-                    <div class="row justify-content-center p-4">
-                      <div class="col">
-                        <h4>¡Turno confirmado!</h4>
-                        <hr>
-                      </div>
-                    </div>
-                    <div class="row justify-content-center px-4" *ngIf="doctorSelected">
-                      <div class="col">
-                        <h5><strong>Doctor: </strong> {{doctorSelected.name + ' ' + doctorSelected.surname}}</h5>
-                        <br>
-                        <h5><strong>Fecha: </strong> {{selectedDate | date:'short'}}</h5>
-                        <p>Su turno ha sido confirmado. Presione en el botón debajo para descargar la constancia</p>
-                        <hr>
-                        <div class="row w-50 px-3">
-                          <button (click)="onExportConfirmation()" class="btn-primary btn-block btn">
-                            Descargar constancia
-                          </button>
+                    <span id="print">
+                      <h2>Constancia de confirmación. Clínica online</h2>
+                      <div class="row justify-content-center p-4">
+                        <div class="col">
+                          <h4>¡Turno confirmado!</h4>
+                          <hr>
                         </div>
                       </div>
+                      <div class="row justify-content-center px-4" *ngIf="doctorSelected">
+                        <div class="col">
+                          <h5><strong>Doctor: </strong> {{doctorSelected.name + ' ' + doctorSelected.surname}}</h5>
+                          <br>
+                          <h5><strong>Fecha: </strong> {{selectedDate | date:'short'}}</h5>
+                          <hr>
+                        </div>
+                      </div>
+                    </span>
+                    <div class="row w-50 px-3">
+                      <p>Su turno ha sido confirmado. Presione en el botón debajo para descargar la constancia</p>
+                      <button (click)="onExportConfirmation()" class="btn-primary btn-block btn">
+                        <span *ngIf="loading" class="spinner-grow spinner-grow-sm p-5 text-primary"></span>
+                        <span *ngIf="!loading" >Descargar constancia</span>
+                      </button>
                     </div>
                   </div>
                 </div>

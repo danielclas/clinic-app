@@ -11,6 +11,7 @@ import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { User } from 'src/app/models/user';
 import Stepper from 'bs-stepper'
+import { faStethoscope, IconDefinition, IconDefinition, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 interface Specialty{
   label: string;
@@ -56,6 +57,7 @@ export class NewAppointmentComponent implements OnInit {
   loading = false;
   loadingHours = false;
   loadingDoctors = false;
+  loadingConfirmation = false;
 
   selectedSlot;
   constructor(private apps: AppointmentsService, private auth: AuthenticationService, private formBuilder: FormBuilder, private notify: NotifyService) { }
@@ -138,10 +140,13 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onExportConfirmation(){
+    this.loadingConfirmation = true;
     this.exportConfirmation('confirmacion-turno');
   }
 
   exportConfirmation(filename: string){
+
+    let icon = faStethoscope;
     const doc = new jsPDF();
 
     const specialElementHandlers = {
@@ -150,12 +155,15 @@ export class NewAppointmentComponent implements OnInit {
       }
     };
 
-    doc.fromHTML(document.getElementById('confirmation').innerHTML, 15, 15, {
+    let html = '<fa-icon type="button"  class="px-3" [icon]="icon" [size]="lg" ngbDropdownToggle></fa-icon>'.concat(document.getElementById('print').innerHTML);
+
+    doc.fromHTML(html, 15, 15, {
       width: 190,
       'elementHandlers': specialElementHandlers
     });
 
     doc.save(filename + '.pdf');
+    this.loadingConfirmation = false;
   }
 
 
