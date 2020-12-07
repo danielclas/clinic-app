@@ -6,9 +6,10 @@ import {spanish, english, portuguese} from './translations';
 })
 export class TranslationService {
 
-  languages = ['sp', 'en'];
+  languages = ['sp', 'en', 'po'];
   languageSelected = 'sp';
   index = 0;
+
   constructor() { }
 
   translate(value: string): string {
@@ -33,7 +34,7 @@ export class TranslationService {
   get selected() { return this.languageSelected;}
 
   switchLanguages(){
-    this.index = this.index == 1 ? 0 : this.index + 1;
+    this.index = this.index == 2 ? 0 : this.index + 1;
 
     this.languageSelected = this.languages[this.index];
   }

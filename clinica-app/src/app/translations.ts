@@ -344,14 +344,173 @@ export const english = {
 }
 
 export const portuguese = {
-  welcome: 'Bienvenido',
-  enabled: 'Usted se encuentra habilitado para utilizar el sitio',
-  registeredAs: 'Usted está registrado como',
-  newAppointmentTitle: 'Solicitar un turno',
-  newAppointmentContent: 'Solicitar un nuevo turno con un profesional',
-  pendingAppointmentsTitle: 'Ver turnos pendientes',
-  pendingAppointmentsContent: 'Ver todos los turnos pendientes',
-  pastAppointmentsTitle: 'Ver turnos pasados',
-  pastAppointmentsContent: 'Ver todos los turnos anteriores al día de la fecha',
-  notifications: 'No hay notificaciones para mostrar',
+  // User card
+  welcome: 'Bem-vinda',
+  enabled: 'Você está autorizado a usar o site',
+  pendingApproval: 'Você ainda não foi aprovado por um administrador',
+  pendingVerification: 'Você ainda não verificou seu e-mail',
+  registeredAs: 'Você está registrado como',
+
+  // User types (from enum)
+  Staff: 'médico',
+  Patient: 'paciente',
+  Admin: 'admin',
+
+  // Cards
+  navigate: 'Navegar',
+
+  // Patient home cards
+  newAppointmentTitle: 'Solicite um turno',
+  newAppointmentContent: 'Solicite uma nova consulta com um profissional',
+  pendingAppointmentsTitle: 'Turnos pendentes',
+  pendingAppointmentsContent: 'Veja todos os turnos pendentes',
+  pastAppointmentsTitle: 'Turnos anteriores',
+  pastAppointmentsContent: 'Veja todos os turnos anteriores à data de hoje',
+
+  // Staff home cards
+  specialtyAddTitle: 'Adicionar especialidade',
+  specialtyAddContent: 'Adicione uma especialidade médica',
+  workingHoursTitle: 'Definir horário comercial',
+  workingHoursContent: 'Visualize e modifique os dias e horários de funcionamento',
+  staffAppointmentsTitle: 'Ver turnos',
+  staffAppointmentsContent: 'Ver turnos anteriores, aceitar ou recusar turnos pendentes',
+  attendAppointmentTitle: 'Atender paciente',
+  attendAppointmentContent: 'Sirva um paciente, adicione uma revisão e preencha a pesquisa',
+  reportsTitle: 'Relatórios',
+  reportsContent: 'Gere relatórios de turnos e atividades. Pesquise informações de turno.',
+
+  // Admin home cards
+  staffApprovalTitle: 'Aprovar profissionais',
+  staffApprovalContent: 'Veja a lista de profissionais com aprovação pendente',
+  adminAddTitle: 'Adicionar administrador',
+  adminAddContent: 'Adicionar um administrador ao sistema',
+
+  // Navbar
+  notifications: 'Não há notificações para exibir',
+
+  // Login
+  login: 'Entrada',
+  loginButton: 'Entrar',
+  email: 'Correio eletrônico',
+  password: 'Senha',
+  forgotPassword: 'esqueceu sua senha?',
+  register: 'Registrar',
+  testUsers: 'Usuários de teste',
+
+  // Register
+  registerAsUser: 'Cadastre-se como usuário',
+  registerAsStaff: 'Cadastre-se como profissional',
+  name: 'Nome',
+  surname: 'Sobrenome',
+  profilePictures: 'Selecione as fotos do perfil',
+  specialties: 'Selecione as especialidades',
+
+  // Staff approval
+  approve: 'Aprovar',
+  noPendingApprovals: 'Não há profissionais não aprovados',
+
+  // Specialty add
+  existingSpecialties: 'Especialidades existentes',
+  addSpecialty: 'Adicionar especialidade',
+  specialty: 'Especialidade',
+
+  // Reports
+  loginReport: 'Relatório de registro',
+  specialtyReport: 'Relatório de especialidades',
+  weekdaysReport: 'Relatório de dias da semana',
+  reportsHelp: 'Clique em qualquer uma das opções para baixar relatórios em Excel e PDF',
+  appointmentDataSearch: 'Busca de informação',
+  searchHelp: 'Apenas turnos concluídos. Clique em um para ver os detalhes.',
+
+  // Appointment search
+  patient: 'Paciente',
+  doctor: 'Doctor',
+  date: 'Encontro',
+  clinicalData: 'Dados clínicos',
+
+  // Patient past appointments
+  filterByState: 'Filtrar mudanças por status',
+  state: 'Estado',
+  select: 'Selecionar',
+  emptyList: 'Sem turnos para mostrar',
+  seeDetails: 'Veja detalhes',
+  leaveReview: 'Deixe um comentário',
+
+  //Appointment states, from enum
+  Aceptado: 'Aceitaram',
+  Cancelado: 'Cancelado',
+  Rechazado: 'Rejeitado',
+  Pendiente: 'Pendente',
+  Hecho: 'Feito',
+
+  // Patient future appointments
+  futureAppointments: 'Próximos turnos',
+  cancelAppointment: 'Cancelar turno',
+
+  // New appointment
+  dateTime: 'Dia e hora',
+  confirmation: 'Confirmação',
+  filterSpecialties: 'Filtrar especialidades',
+  filterDoctors: 'Filtrar doutores',
+  daysAvailable: 'Dias disponíveis',
+  nextAvailableSlot: 'Próximo turno disponível',
+  day: 'Dia',
+  hour: 'Tempo',
+  registerAppointment: 'Mudança de registro',
+  selectAnotherDay: 'Selecione outro dia e data para o seu turno',
+  selectHour: 'Selecione uma programação',
+  nextAvailableLabel: 'O próximo turno disponível a',
+  nextAvailableLabelSecond: 'é para o encontro',
+  confirmationTitle: 'Certificado de confirmação. Clínica Online',
+  confirmationLabel: 'Turno confirmado!',
+  confirmationHelp: 'Sua vez foi confirmada. Clique no botão abaixo para baixar o certificado',
+  downloadConfirmation: 'Baixar certificado',
+
+  // Days (from enum)
+  Lunes: 'Segunda-feira',
+  Martes: 'Terça-feira',
+  Miercoles: 'Quarta feira',
+  Jueves: 'Quinta feira',
+  Viernes: 'Sexta-feira',
+  Sabado: 'Sábado',
+
+  // Staff schedule
+  from: 'Desde a',
+  to: 'Até',
+  submit: 'Atualizar',
+
+  // Staff appointments
+  accept: 'Aceitar',
+  reject: 'Recusar',
+  cancel: 'Cancelar',
+
+  // Attend appointment
+  notesOnPatient: 'Nota sobre o paciente',
+  questionsOnPatient: 'Pesquisa de paciente',
+  firstQuestion: 'De 1 a 10, qual a frequência do paciente em suas consultas?',
+  secondQuestion: 'De 1 a 10, quão pontual é o paciente?',
+  age: 'Era',
+  bloodPressure: 'Pressão sanguínea',
+  temperature: 'Temperatura',
+  additionalData: 'Informação adicional',
+  itemName: 'Facto',
+  itemValue: 'Observação',
+  endAppointment: 'Turno final',
+
+  // Appointment details
+  detailsTitle: 'Detalhes de turno',
+  doctorsReview: 'Revisão do médico',
+  doctorsQuestions: 'Pesquisa médica',
+  patientQuestions: 'Pesquisa de paciente',
+  firstPatientQuestion: 'De 1 a 10, que nota você daria para a comunicação do médico?',
+  secondPatientQuestion: 'De 1 a 10, quão pontual é o médico?',
+  pendingPatientQuestions: 'O paciente ainda não fez upload da pesquisa de satisfação',
+  patientComments: 'Comentário do paciente',
+  pendingPatientComments: 'Não há comentários sobre esta mudança',
+
+  // Patient's review
+  patientReviewTitle: 'Deixe um comentário',
+  patientReview: 'Visão geral do paciente',
+  questionsLabel: 'Pesquisa sobre o profissional',
+  registerReview: 'Registrar pesquisa'
 }
