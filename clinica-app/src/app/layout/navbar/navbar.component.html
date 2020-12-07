@@ -6,14 +6,10 @@
     </b>
   </a>
 
-  <button (click)="ts.switchLanguages()" class="btn btn-primary">
-    Switch
-  </button>
-
-  <a>
-    <div class="mr-5 d-flex" *ngIf="auth.currentUser && auth.currentUser.name">
+  <a class="d-flex">
+    <div class="d-flex" *ngIf="auth.currentUser && auth.currentUser.name">
       <div ngbDropdown  #bell (click)="onBellClick(bell)" [ngClass]="notifications.length != 0 ? ['text-danger','shake'] : ''">
-        <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'lg'" ngbDropdownToggle></fa-icon>
+        <fa-icon type="button"  class="px-3" [icon]="alert" [size]="'2x'" ngbDropdownToggle></fa-icon>
         <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
           <ul class="list-group"  style="max-height: 300px; overflow-y: scroll;">
             <li ngbDropdownItem  class="list-group-item" *ngFor="let item of notifications">
@@ -24,15 +20,16 @@
             </li>
           </ul>
           <div class="row justify-content-center">
-            <h5 class="p-4" style="text-align: center;" *ngIf="notifications.length == 0">{{ts.translate('notifications')}}</h5>
+            <h5 class="p-4" style="text-align: center;" *ngIf="notifications.length == 0">No hay notificaciones para mostrar</h5>
           </div>
         </div>
       </div>
       <div class="grow">
         <a role="button" class="grow" (click)="onLogOutClicked()">
-          <fa-icon class="px-3" [icon]="exit" [size]="'lg'"></fa-icon>
+          <fa-icon class="px-3" [icon]="exit" [size]="'2x'"></fa-icon>
         </a>
       </div>
     </div>
+    <app-language-switch class="mx-3"></app-language-switch>
   </a>
 </nav>

@@ -7,26 +7,26 @@
 
           <div class="row justify-content-center px-4 pt-4 pb-2">
             <h4>
-              Atender un turno
+              {{ts.translate('attendAppointmentTitle')}}
             </h4>
           </div>
 
           <!-- Review -->
           <div class="row mb-3 mt-1 p-2">
-            <h5>Reseña del paciente <span style="color: lightgray; font-size: 15px;"> {{review.value.length+'/200'}}</span></h5>
+            <h5>{{ts.translate('notesOnPatient')}}<span style="color: lightgray; font-size: 15px;"> {{review.value.length+'/200'}}</span></h5>
             <textarea maxlength="200" formControlName="review" #review></textarea>
           </div>
 
           <hr>
-          <h5 class="my-3">Encuesta sobre el paciente</h5>
+          <h5 class="my-3">{{ts.translate('questionsOnPatient')}}</h5>
           <div class="row">
-            <p class="label pl-3" style="font-size: large;">Del 1 al 10, ¿qué tan frecuente es el paciente en sus visitas?</p>
+            <p class="label pl-3" style="font-size: large;">{{ts.translate('firstQuestion')}}</p>
           </div>
           <div class="row">
             <ngb-rating formControlName="frequency" class="pl-3 pb-3" [(rate)]="frequency"></ngb-rating>
           </div>
           <div class="row">
-            <p class="label pl-3" style="font-size: large;">Del 1 al 10, ¿qué tan puntual es el paciente?</p>
+            <p class="label pl-3" style="font-size: large;">{{ts.translate('secondQuestion')}}</p>
           </div>
           <div class="row">
             <ngb-rating class="pl-3" formControlName="puntuality" [(rate)]="puntuality"></ngb-rating>
@@ -34,44 +34,44 @@
 
           <!-- Generic data -->
           <hr>
-          <h5 class="my-3">Datos del paciente</h5>
+          <h5 class="my-3">{{ts.translate('clinicalData')}}</h5>
           <div class="row px-2 my-3">
-            <div class="col-2"><p class="label">Edad: </p></div>
+            <div class="col-2"><p class="label">{{ts.translate('age')}}: </p></div>
             <div class="col-3"><input type="number" [formControlName]="'age'" class="form-control" [ngClass]="age.invalid && age.touched ? 'error' : ''"></div>
           </div>
 
           <div class="row px-2 my-3">
-            <div class="col-2"><p class="label">Presión: </p></div>
+            <div class="col-2"><p class="label">{{ts.translate('bloodPressure')}}: </p></div>
             <div class="col-3"><input type="number" [formControlName]="'bloodPressure'" class="form-control" [ngClass]="bloodPressure.invalid && bloodPressure.touched ? 'error' : ''"></div>
           </div>
 
           <div class="row px-2 my-3">
-            <div class="col-2"><p class="label">Temperatura: </p></div>
+            <div class="col-2"><p class="label">{{ts.translate('temperature')}}: </p></div>
             <div class="col-3"><input type="number" [formControlName]="'bodyTemp'" class="form-control" [ngClass]="bodyTemp.invalid && bodyTemp.touched ? 'error' : ''"></div>
           </div>
 
 
           <!-- Additional data -->
           <hr>
-          <h5 class="my-3">Datos adicionales</h5>
+          <h5 class="my-3">{{ts.translate('additionalData')}}</h5>
           <div class="row px-2 my-3">
-            <div class="col-1"><p class="label">Dato: </p></div>
+            <div class="col-1"><p class="label">{{ts.translate('itemName')}}: </p></div>
             <div class="col-3"><input type="text" [formControlName]="'firstKey'" class="form-control" [ngClass]="firstKey.invalid && firstValue.touched ? 'error' : ''"></div>
-            <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
+            <div class="col-2 align-items-center"><p class="label pt-1">{{ts.translate('itemValue')}}: </p></div>
             <div class="col-5"><input type="text" [formControlName]="'firstValue'" class="form-control" [ngClass]="firstValue.invalid && firstKey.touched ? 'error' : ''"></div>
           </div>
 
           <div class="row px-2 my-3">
-            <div class="col-1"><p class="label">Dato: </p></div>
+            <div class="col-1"><p class="label">{{ts.translate('itemName')}}: </p></div>
             <div class="col-3"><input type="text" [formControlName]="'secondKey'" class="form-control" [ngClass]="secondKey.invalid && secondValue.touched ? 'error' : ''"></div>
-            <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
+            <div class="col-2 align-items-center"><p class="label pt-1">{{ts.translate('itemValue')}}: </p></div>
             <div class="col-5"><input type="text" [formControlName]="'secondValue'" class="form-control" [ngClass]="secondValue.invalid && secondKey.touched ? 'error' : ''"></div>
           </div>
 
           <div class="row px-2 my-3">
-            <div class="col-1"><p class="label">Dato: </p></div>
+            <div class="col-1"><p class="label">{{ts.translate('itemName')}}: </p></div>
             <div class="col-3"><input type="text" [formControlName]="'thirdKey'" class="form-control" [ngClass]="thirdKey.invalid && thirdValue.touched ? 'error' : ''"></div>
-            <div class="col-2 align-items-center"><p class="label pt-1">Observación: </p></div>
+            <div class="col-2 align-items-center"><p class="label pt-1">{{ts.translate('itemValue')}}: </p></div>
             <div class="col-5"><input type="text" [formControlName]="'thirdValue'" class="form-control" [ngClass]="thirdValue.invalid && thirdKey.touched ? 'error' : ''"></div>
           </div>
 
@@ -79,7 +79,7 @@
           <div class="row justify-content-center">
             <button (click)="update()" [disabled]="form.invalid || loading" class="btn btn-success my-3 px-3 btn-lg">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-              <span *ngIf="!loading">Finalizar turno</span>
+              <span *ngIf="!loading">{{ts.translate('endAppointment')}}</span>
             </button>
           </div>
         </form>

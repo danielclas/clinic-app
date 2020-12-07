@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { UserType } from '../../models/user';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -25,6 +26,7 @@ export class AppointmentDetailsComponent implements OnInit {
   loading = false;
 
   constructor(
+    public ts: TranslationService,
     private ap: AppointmentsService,
     public auth: AuthenticationService,
     private activeModal: NgbModal

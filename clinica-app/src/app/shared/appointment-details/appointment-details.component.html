@@ -12,46 +12,46 @@
             <div class="col d-flex enabled" style="height: 80px;">
               <div style="margin: auto;">
                 <h4>
-                  Detalles del turno
+                  {{ts.translate('detailsTitle')}}
                 </h4>
               </div>
             </div>
 
 
-            <h5>Fecha del turno </h5>
+            <h5>{{ts.translate('date')}} </h5>
             <p>{{date | date:'short'}}</p>
             <hr>
 
-            <h5>Reseña del doctor </h5>
+            <h5>{{ts.translate('doctorsReview')}}</h5>
             <p>{{review}}</p>
             <hr>
 
-            <h5>Paciente </h5>
+            <h5>{{ts.translate('patient')}}</h5>
             <p>{{patient}}</p>
             <hr>
 
             <span *ngIf="auth.currentUser.type == types.Staff || auth.currentUser.type == types.Admin">
-              <h5>Datos clínicos</h5>
+              <h5>{{ts.translate('clinicalData')}}</h5>
                 {{data | data:props}}
               <hr>
             </span>
 
             <span *ngIf="auth.currentUser.type == types.Patient || auth.currentUser.type == types.Admin">
-              <h5>Encuesta del doctor</h5>
-              <p *ngIf="poll">Del 1 al 10, ¿qué tan frecuente es el paciente en sus visitas? <b> {{poll[0] > 10 ? poll[0]/10 : poll[0]}} </b></p>
-              <p *ngIf="poll">Del 1 al 10, ¿qué tan puntual es el paciente? <b> {{poll[1] > 10 ? poll[1]/10 : poll[1]}} </b></p>
+              <h5>{{ts.translate('doctorsQuestions')}}</h5>
+              <p *ngIf="poll">{{ts.translate('firstQuestion')}}<b> {{poll[0] > 10 ? poll[0]/10 : poll[0]}} </b></p>
+              <p *ngIf="poll">{{ts.translate('secondQuestion')}}<b> {{poll[1] > 10 ? poll[1]/10 : poll[1]}} </b></p>
               <hr>
             </span>
 
             <span *ngIf="auth.currentUser.type == types.Staff || auth.currentUser.type == types.Admin">
-              <h5>Encuesta del paciente</h5>
-              <p *ngIf="poll">Del 1 al 10, ¿qué puntaje le daría a la comunicación del doctor? <b> {{poll[0] > 10 ? poll[0]/10 : poll[0]}} </b></p>
-              <p *ngIf="poll">Del 1 al 10, ¿qué tan puntual es el doctor? <b> {{poll[1] > 10 ? poll[1]/10 : poll[1]}} </b></p>
-              <p *ngIf="!poll">El paciente aún no ha cargado la encuesta de satisfacción</p>
+              <h5>{{ts.translate('patientQuestions')}}</h5>
+              <p *ngIf="poll">{{ts.translate('firstPatientQuestion')}}<b> {{poll[0] > 10 ? poll[0]/10 : poll[0]}} </b></p>
+              <p *ngIf="poll">{{ts.translate('secondPatientQuestion')}}<b> {{poll[1] > 10 ? poll[1]/10 : poll[1]}} </b></p>
+              <p *ngIf="!poll">{{ts.translate('pendingPatientQuestions')}}</p>
               <hr>
 
-              <h5>Comentario del paciente</h5>
-              <p> {{patientComment ? patientComment : 'No hay un comentario sobre este turno'}} </p>
+              <h5>{{ts.translate('patientComments')}}</h5>
+              <p> {{patientComment ? patientComment : ts.translate('pendingPatientComments')}} </p>
               <hr>
             </span>
           </span>

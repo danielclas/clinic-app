@@ -11,7 +11,7 @@ export class TranslationService {
   index = 0;
   constructor() { }
 
-  translate(value: string): unknown {
+  translate(value: string): string {
 
     let text = '';
 
@@ -29,6 +29,8 @@ export class TranslationService {
 
     return text;
   }
+
+  get selected() { return this.languageSelected;}
 
   switchLanguages(){
     this.index = this.index == 1 ? 0 : this.index + 1;

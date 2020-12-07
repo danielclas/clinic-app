@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { AppointmentDetailsComponent } from '../../shared/appointment-details/appointment-details.component';
 import { Notification } from './../../models/notification';
@@ -25,6 +26,7 @@ export class StaffAppointmentsComponent implements OnInit {
   loading = false;
 
   constructor(
+    public ts: TranslationService,
     private notify: NotifyService,
     private appoint: AppointmentsService,
     private auth: AuthenticationService,

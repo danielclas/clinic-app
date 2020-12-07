@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AppointmentStatus } from './../../models/appointments';
 import { AppointmentsService } from './../../services/appointments.service';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
@@ -29,6 +30,7 @@ export class AppointmentComponent implements OnInit {
   puntuality: number;
 
   constructor(
+    public ts: TranslationService,
     private notify: NotifyService,
     private auth: AuthenticationService,
     private formBuilder: FormBuilder,

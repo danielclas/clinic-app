@@ -16,7 +16,7 @@ export class UserCardComponent implements OnInit {
 
   icon: IconDefinition = faUser;
   userType: UserType = UserType.Patient;
-  typeTranslation: string = 'paciente';
+
   profilePictures: string[] = [];
   enabled: boolean = true;
   loading = true;
@@ -53,14 +53,12 @@ export class UserCardComponent implements OnInit {
 
     if(this.userType == UserType.Admin){
       this.icon = faUserCog;
-      this.typeTranslation = 'administrador';
-      this.loading = false;
       this.enabled = true;
     }else if(this.userType == UserType.Staff){
       this.icon = faUserMd;
-      this.typeTranslation = 'profesional';
-      this.loading = false;
     }
+
+    this.loading = false;
   }
 
   getUserPictures(){

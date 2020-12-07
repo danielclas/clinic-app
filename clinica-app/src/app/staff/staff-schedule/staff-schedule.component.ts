@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
 import { faCheckCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AnimateGallery } from 'src/app/animations';
+import { TranslationService } from 'src/app/translation.service';
 
 @Component({
   selector: 'app-staff-schedule',
@@ -22,7 +23,10 @@ export class StaffScheduleComponent implements OnInit {
   schedule = {};
   loading: boolean = false;
 
-  constructor(private auth: AuthenticationService, private appointments: AppointmentsService) { }
+  constructor(
+    public ts: TranslationService,
+    private auth: AuthenticationService,
+    private appointments: AppointmentsService) { }
 
   ngOnInit(): void {
     this.auth.userAsigned.subscribe(

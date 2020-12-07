@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +21,12 @@ export class AttendAppointmentComponent implements OnInit {
   selected;
   loading = false;
 
-  constructor(private notify: NotifyService, private appoint: AppointmentsService, private auth: AuthenticationService, private modal: NgbModal) { }
+  constructor(
+    public ts: TranslationService,
+    private notify: NotifyService,
+    private appoint: AppointmentsService,
+    private auth: AuthenticationService,
+    private modal: NgbModal) { }
 
   ngOnInit(): void {
     this.loading = true;

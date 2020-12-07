@@ -42,7 +42,7 @@ import { ReportsComponent } from './shared/reports/reports.component';
 import { AppointmentSearchComponent } from './shared/appointment-search/appointment-search.component';
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
-import { TranslatePipe } from './translate.pipe';
+import { LanguageSwitchComponent } from './shared/language-switch/language-switch.component';
 registerLocaleData(localeEsAr);
 
 @NgModule({
@@ -74,7 +74,7 @@ registerLocaleData(localeEsAr);
     PatientReviewComponent,
     ReportsComponent,
     AppointmentSearchComponent,
-    TranslatePipe
+    LanguageSwitchComponent
   ],
   imports: [
     BrowserModule,

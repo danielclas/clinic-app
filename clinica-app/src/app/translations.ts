@@ -6,6 +6,11 @@ export const spanish = {
   pendingVerification: ' Usted aún no ha verificado su correo',
   registeredAs: 'Usted está registrado como',
 
+  // User types (from enum)
+  Staff: 'doctor',
+  Patient: 'paciente',
+  Admin: 'admin',
+
   // Cards
   navigate: 'Navegar',
 
@@ -122,8 +127,47 @@ export const spanish = {
   Miercoles: 'Miercoles',
   Jueves: 'Jueves',
   Viernes: 'Viernes',
-  Sabado: 'Sabado'
+  Sabado: 'Sabado',
 
+  // Staff schedule
+  from: 'Desde',
+  to: 'Hasta',
+  submit: 'Actualizar',
+
+  // Staff appointments
+  accept: 'Aceptar',
+  reject: 'Rechazar',
+  cancel: 'Cancelar',
+
+  // Attend appointment
+  notesOnPatient: 'Nota sobre el paciente',
+  questionsOnPatient: 'Encuesta sobre el paciente',
+  firstQuestion: 'Del 1 al 10, ¿qué tan frecuente es el paciente en sus visitas?',
+  secondQuestion: 'Del 1 al 10, ¿qué tan puntual es el paciente?',
+  age: 'Edad',
+  bloodPressure: 'Presión sanguínea',
+  temperature: 'Temperatura',
+  additionalData: 'Información adicional',
+  itemName: 'Dato',
+  itemValue: 'Observación',
+  endAppointment: 'Finalizar turno',
+
+  // Appointment details
+  detailsTitle: 'Detalles del turno',
+  doctorsReview: 'Reseña del doctor',
+  doctorsQuestions: 'Encuesta del doctor',
+  patientQuestions: 'Encuesta del paciente',
+  firstPatientQuestion: 'Del 1 al 10, ¿qué puntaje le daría a la comunicación del doctor? ',
+  secondPatientQuestion: 'Del 1 al 10, ¿qué tan puntual es el doctor?',
+  pendingPatientQuestions: 'El paciente aún no ha cargado la encuesta de satisfacción',
+  patientComments: 'Comentario del paciente',
+  pendingPatientComments: 'No hay un comentario sobre este turno',
+
+  // Patient's review
+  patientReviewTitle: 'Dejar una reseña',
+  patientReview: 'Reseña del paciente',
+  questionsLabel: 'Encuesta sobre el profesional',
+  registerReview: 'Registrar encuesta'
 }
 
 export const english = {
@@ -133,6 +177,11 @@ export const english = {
   pendingApproval: 'You have not yet been approved by an admin',
   pendingVerification: 'You have not yet verified your email address',
   registeredAs: 'You are registered as',
+
+  // User types (from enum)
+  Staff: 'staff',
+  Patient: 'patient',
+  Admin: 'admin',
 
   // Cards
   navigate: 'Navigate',
@@ -250,8 +299,47 @@ export const english = {
   Miercoles: 'Wednesday',
   Jueves: 'Thursday',
   Viernes: 'Friday',
-  Sabado: 'Saturday'
+  Sabado: 'Saturday',
 
+  // Staff schedule
+  from: 'From',
+  to: 'To',
+  submit: 'Update',
+
+  // Staff appointments
+  accept: 'Accept',
+  reject: 'Reject',
+  cancel: 'Cancel',
+
+  // Attend appointment
+  notesOnPatient: 'Note on the patient',
+  questionsOnPatient: 'Questions on the patient',
+  firstQuestion: 'From 1 to 10, how frequent are the patient\'s visits?',
+  secondQuestion: 'From 1 to 10, how punctual is the patient?',
+  age: 'Age',
+  bloodPressure: 'Blood pressure',
+  temperature: 'Temperature',
+  additionalData: 'Additional data',
+  itemName: 'Data',
+  itemValue: 'Observation',
+  endAppointment: 'End appointment',
+
+  // Appointment details
+  detailsTitle: 'Appointment details',
+  doctorsReview: 'Doctor\'s review',
+  doctorsQuestions: 'Doctor\'s questions',
+  patientQuestions: 'Patient\'s questions',
+  firstPatientQuestion: 'From 1 to 10, how would you rate the doctor\'s communication skills?',
+  secondPatientQuestion: 'From 1 to 10, how punctual is the doctor?',
+  pendingPatientQuestions: 'The patient has not yet answered the questions',
+  patientComments: 'Patient comments',
+  pendingPatientComments: 'There are no comments on this appointment',
+
+  // Patient's review
+  patientReviewTitle: 'Leave a review',
+  patientReview: 'Patient\'s review',
+  questionsLabel: 'Questions about the doctor',
+  registerReview: 'Register review'
 
 }
 

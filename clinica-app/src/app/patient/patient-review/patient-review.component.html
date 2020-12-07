@@ -7,26 +7,26 @@
 
           <div class="row justify-content-center px-4 pt-4 pb-2">
             <h4>
-              Dejar una reseña
+              {{ts.translate('patientReviewTitle')}}
             </h4>
           </div>
 
           <!-- Review -->
           <div class="row mb-3 mt-1 p-2">
-            <h5>Reseña del paciente <span style="color: lightgray; font-size: 15px;"> {{review.value.length+'/200'}}</span></h5>
+            <h5>{{ts.translate('patientReview')}}<span style="color: lightgray; font-size: 15px;"> {{review.value.length+'/200'}}</span></h5>
             <textarea maxlength="200" formControlName="review" #review></textarea>
           </div>
 
           <hr>
-          <h5 class="my-3">Encuesta sobre el profesional</h5>
+          <h5 class="my-3">{{ts.translate('questionsLabel')}}</h5>
           <div class="row">
-            <p class="label pl-3" style="font-size: large;">Del 1 al 10, ¿qué puntaje le daría a la comunicación del doctor?</p>
+            <p class="label pl-3" style="font-size: large;">{{ts.translate('firstPatientQuestion')}}</p>
           </div>
           <div class="row">
             <ngb-rating formControlName="communication" class="pl-3 pb-3" [(rate)]="communication"></ngb-rating>
           </div>
           <div class="row">
-            <p class="label pl-3" style="font-size: large;">Del 1 al 10, ¿qué tan puntual es el doctor?</p>
+            <p class="label pl-3" style="font-size: large;">{{ts.translate('secondPatientQuestion')}}</p>
           </div>
           <div class="row">
             <ngb-rating class="pl-3" formControlName="puntuality" [(rate)]="puntuality"></ngb-rating>
@@ -36,7 +36,7 @@
           <div class="row justify-content-center">
             <button (click)="update()" [disabled]="form.invalid || loading || !fCommunication.value || !fPuntuality.value" class="btn btn-success my-3 px-3 btn-lg">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-              <span *ngIf="!loading">Registrar encuesta</span>
+              <span *ngIf="!loading">{{ts.translate('registerReview')}}</span>
             </button>
           </div>
         </form>

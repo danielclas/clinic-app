@@ -11,7 +11,7 @@
             <div class="col d-flex enabled" style="height: 80px;">
               <div style="margin: auto;">
                 <h4>
-                  Seleccionar horarios de atención
+                  {{ts.translate('workingHoursTitle')}}
                 </h4>
               </div>
             </div>
@@ -23,13 +23,13 @@
                 <li *ngFor="let day of days" class="list-group-item d-flex justify-content-between align-items-center">
                   <fa-icon (click)="onActivateClick(day.value, from, to)" [icon]="icon" [size]="'2x'" [ngClass]="schedule[day.value] ? 'text-success' : 'text-secondary'"></fa-icon>
                   <div class="justify-content-start">
-                    <p><b>{{day.viewValue == 'Miercoles' ? 'Mierc.' : day.viewValue}}</b></p>
+                    <p><b>{{ts.translate(day.viewValue).substring(0, 3)}}</b></p>
                   </div>
-                  <p>Desde</p>
+                  <p>{{ts.translate('from')}}</p>
                   <select (change)="onHourSelected(day.value, from.value, to.value)" #from class="form-control" style="width: 15%;">
                     <option *ngFor="let hour of printHours(day.value)" [selected]="schedule[day.value] && schedule[day.value][0] == hour">{{hour}}</option>
                   </select>
-                  <p>Hasta</p>
+                  <p>{{ts.translate('to')}}</p>
                   <select (change)="onHourSelected(day.value, from.value, to.value)" #to class="form-control" style="width: 15%;">
                     <ng-container *ngFor="let hour of (day.value == 'sa' ? toHoursSat : toHours)" >
                       <option *ngIf="compareHours(hour, from)" [selected]="schedule[day.value] && schedule[day.value][1] == hour">{{hour}}</option>
@@ -43,7 +43,7 @@
           <div class="form-group">
             <button [disabled]="loading" (click)="onUpdateClick()" class="btn btn-primary btn-block my-3">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-              <span *ngIf="!loading">Actualizar</span>
+              <span *ngIf="!loading">{{ts.translate('submit')}}</span>
               </button>
           </div>
         </form>

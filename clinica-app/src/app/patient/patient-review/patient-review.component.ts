@@ -1,3 +1,4 @@
+import { TranslationService } from './../../translation.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faTimesCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -24,6 +25,7 @@ export class PatientReviewComponent implements OnInit {
   puntuality: number;
 
   constructor(
+    public ts: TranslationService,
     private notify: NotifyService,
     private auth: AuthenticationService,
     private formBuilder: FormBuilder,
