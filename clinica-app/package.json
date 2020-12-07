@@ -34,6 +34,7 @@
     "angular-fontawesome": "^1.0.0",
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.5.3",
+    "bootstrap-slider": "^11.0.2",
     "bs-stepper": "^1.7.0",
     "file-save": "^0.2.0",
     "file-saver": "^2.0.2",

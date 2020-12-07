@@ -54,25 +54,33 @@
           <!-- Additional data -->
           <hr>
           <h5 class="my-3">{{ts.translate('additionalData')}}</h5>
+
+
           <div class="row px-2 my-3">
             <div class="col-1"><p class="label">{{ts.translate('itemName')}}: </p></div>
             <div class="col-3"><input type="text" [formControlName]="'firstKey'" class="form-control" [ngClass]="firstKey.invalid && firstValue.touched ? 'error' : ''"></div>
             <div class="col-2 align-items-center"><p class="label pt-1">{{ts.translate('itemValue')}}: </p></div>
-            <div class="col-5"><input type="text" [formControlName]="'firstValue'" class="form-control" [ngClass]="firstValue.invalid && firstKey.touched ? 'error' : ''"></div>
+            <div class="col-5 align-items-center"><input type="range" #range class="w-100" [ngClass]="firstValue.invalid && firstKey.touched ? 'error' : ''" [formControlName]="'firstValue'" min="0" max="100"></div>
+            <div class="col-1">{{range.value}}</div>
           </div>
 
           <div class="row px-2 my-3">
             <div class="col-1"><p class="label">{{ts.translate('itemName')}}: </p></div>
             <div class="col-3"><input type="text" [formControlName]="'secondKey'" class="form-control" [ngClass]="secondKey.invalid && secondValue.touched ? 'error' : ''"></div>
             <div class="col-2 align-items-center"><p class="label pt-1">{{ts.translate('itemValue')}}: </p></div>
-            <div class="col-5"><input type="text" [formControlName]="'secondValue'" class="form-control" [ngClass]="secondValue.invalid && secondKey.touched ? 'error' : ''"></div>
+            <div class="col-5"><input type="number" [formControlName]="'secondValue'" class="form-control" [ngClass]="secondValue.invalid && secondKey.touched ? 'error' : ''"></div>
           </div>
 
           <div class="row px-2 my-3">
             <div class="col-1"><p class="label">{{ts.translate('itemName')}}: </p></div>
             <div class="col-3"><input type="text" [formControlName]="'thirdKey'" class="form-control" [ngClass]="thirdKey.invalid && thirdValue.touched ? 'error' : ''"></div>
             <div class="col-2 align-items-center"><p class="label pt-1">{{ts.translate('itemValue')}}: </p></div>
-            <div class="col-5"><input type="text" [formControlName]="'thirdValue'" class="form-control" [ngClass]="thirdValue.invalid && thirdKey.touched ? 'error' : ''"></div>
+            <div class="col-5">
+              <select class="form-control" [ngClass]="thirdValue.invalid && thirdKey.touched ? 'error' : ''" class="form-control" [formControlName]="'thirdValue'">
+                <option selected value="Sí">Sí</option>
+                <option value="No">No</option>
+              </select>
+            </div>
           </div>
 
           <!-- Register -->
