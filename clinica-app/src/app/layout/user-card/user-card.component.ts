@@ -4,6 +4,7 @@ import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { faUserCog, faUserMd, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { UserType } from '../../models/user';
+import { TranslationService } from 'src/app/translation.service';
 
 @Component({
   selector: 'app-user-card',
@@ -21,7 +22,9 @@ export class UserCardComponent implements OnInit {
   loading = true;
   types = UserType;
 
-  constructor(public auth: AuthenticationService) { }
+  constructor(
+    public auth: AuthenticationService,
+    public ts: TranslationService) { }
 
   ngOnInit(): void {
     this.auth.userAsigned.subscribe((user: User) => {

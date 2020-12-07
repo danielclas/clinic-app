@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
 import { User, UserType } from './../../models/user';
@@ -41,7 +42,8 @@ export class RegisterComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private auth: AuthenticationService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      public ts: TranslationService
   )  { }
 
   ngOnInit() {

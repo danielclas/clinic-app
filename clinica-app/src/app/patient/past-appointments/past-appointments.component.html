@@ -11,19 +11,19 @@
             <div class="col d-flex enabled" style="height: 80px;">
               <div style="margin: auto;">
                 <h4>
-                  Turnos pasados
+                  {{ts.translate('pastAppointmentsTitle')}}
                 </h4>
               </div>
             </div>
           </div>
 
           <div class="row justify-content-start">
-            <h5 class="pl-3">Filtrar turnos por estados</h5>
+            <h5 class="pl-3">{{ts.translate('filterByState')}}</h5>
           </div>
 
           <div class="row justify-content-start my-3">
             <div class="btn-group pl-3 w-90" role="group">
-              <button type="button" (click)="onStatusSelected(s)" [ngClass]="statusSelected.includes(s) ? 'btn-primary' : 'btn-secondary'" class="btn" *ngFor="let s of statusValues">{{s}}</button>
+              <button type="button" (click)="onStatusSelected(s)" [ngClass]="statusSelected.includes(s) ? 'btn-primary' : 'btn-secondary'" class="btn" *ngFor="let s of statusValues">{{ts.translate(s)}}</button>
             </div>
           </div>
 
@@ -32,16 +32,16 @@
               <div style="display: flex; flex-direction: row; flex-wrap: wrap;" class="p-3 m-2">
                 <div class="card m-2" style="width: 30%;" [ngClass]="selected == item ? 'border border-primary shadow shadow-lg' : ''" *ngFor="let item of filteredAppointments">
                   <div class="card-body">
-                    <h5 class="card-title"><strong>Paciente: </strong>{{item.professional}}</h5>
-                    <p class="card-text"><strong>Fecha: </strong>{{item.date | date:'short'}}</p>
-                    <p class="card-text"><strong>Estado: </strong>{{item.status}}</p>
-                    <button class="btn btn-primary btn-sm" (click)="onRowSelected(item)" >Seleccionar</button>
+                    <h5 class="card-title"><strong>{{ts.translate('doctor')}}: </strong>{{item.professional}}</h5>
+                    <p class="card-text"><strong>{{ts.translate('date')}}: </strong>{{item.date | date:'short'}}</p>
+                    <p class="card-text"><strong>{{ts.translate('state')}}: </strong>{{ts.translate(item.status)}}</p>
+                    <button class="btn btn-primary btn-sm" (click)="onRowSelected(item)" >{{ts.translate('select')}}</button>
                   </div>
                 </div>
               </div>
               <div class="row justify-content-center">
                 <span *ngIf="loading" class="spinner-grow spinner-grow-sm p-5 text-primary"></span>
-                <h5 *ngIf="appointments  && filteredAppointments && filteredAppointments.length == 0" class="p-5" >No hay turnos para mostrar</h5>
+                <h5 *ngIf="appointments  && filteredAppointments && filteredAppointments.length == 0" class="p-5" >{{ts.translate('emptyList')}}</h5>
               </div>
             </div>
           </div>
@@ -50,8 +50,8 @@
 
           <div *ngIf="appointments && appointments.length > 0" class="row align-items-center justify-content-center d-flex">
             <div class="col-8 align-items-center justify-content-center d-flex">
-              <button (click)="viewDetails()" [disabled]="!selected || selected.status != status.Done" class="btn btn-success mx-2">Ver detalle</button>
-              <button (click)="putReview()" [disabled]="!selected || selected.status != status.Done || selected.patientReview" class="btn btn-primary mx-2">Dejar reseña</button>
+              <button (click)="viewDetails()" [disabled]="!selected || selected.status != status.Done" class="btn btn-success mx-2">{{ts.translate('seeDetails')}}</button>
+              <button (click)="putReview()" [disabled]="!selected || selected.status != status.Done || selected.patientReview" class="btn btn-primary mx-2">{{ts.translate('leaveReview')}}</button>
             </div>
           </div>
         </form>

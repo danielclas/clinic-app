@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { User } from './../../models/user';
 import { Component, Input, OnInit } from '@angular/core';
@@ -13,16 +14,17 @@ import { Router } from '@angular/router';
 })
 export class CardComponent implements OnInit {
 
-  @Input() description: String;
-  @Input() label: String;
-  @Input() link: String;
+  @Input() description: string;
+  @Input() label: string;
+  @Input() link: string;
 
   disabled: boolean = false;
   state = '';
 
   constructor(
     private auth: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public ts: TranslationService
     ) { }
 
   ngOnInit(): void {

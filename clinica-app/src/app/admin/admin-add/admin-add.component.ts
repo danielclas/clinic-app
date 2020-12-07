@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { NotifyService } from './../../services/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,6 +20,7 @@ export class AdminAddComponent implements OnInit {
 
   constructor(
     private notify: NotifyService,
+    public ts: TranslationService,
     private auth: AuthenticationService,
     private formBuilder: FormBuilder) { }
 

@@ -11,7 +11,7 @@
             <div class="col d-flex enabled" style="height: 80px;">
               <div style="margin: auto;">
                 <h4>
-                  Aprobar un profesional
+                  {{ts.translate('staffApprovalTitle')}}
                 </h4>
               </div>
             </div>
@@ -27,19 +27,18 @@
                   </span>
                   <button [disabled]="loading" (click)="onApprove(user)" class="btn btn-success btn-sm">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    <span *ngIf="!loading">Aprobar</span>
+                    <span *ngIf="!loading">{{ts.translate('approve')}}</span>
                   </button>
                 </li>
               </ul>
               <div class="row justify-content-center align-items-center m-5">
                 <h5 *ngIf="users.length == 0 && !loading">
-                  No quedan profesionales sin aprobar
+                  {{ts.translate('noPendingApprovals')}}
                 </h5>
               </div>
               <span *ngIf="users.length == 0 && loading" class="spinner-border spinner-border-sm mr-1" style="margin: auto;"></span>
             </div>
           </div>
-
         </form>
       </div>
     </div>

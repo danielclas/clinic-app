@@ -11,7 +11,7 @@
             <div class="col d-flex enabled" style="height: 80px;">
               <div style="margin: auto;">
                 <h4>
-                  Informes
+                  {{ts.translate('reportsTitle')}}
                 </h4>
               </div>
             </div>
@@ -22,13 +22,13 @@
             <div class="col-6">
               <button [disabled]="loadingFirst || loadingSecond || loadingThird" (click)="downloadReport('log')" class="btn btn-primary btn-block">
                 <span *ngIf="loadingFirst" class="spinner-border spinner-border-sm mr-1"></span>
-                <span *ngIf="!loadingFirst"> Reporte de logeos </span>
+                <span *ngIf="!loadingFirst">{{ts.translate('loginReport')}}</span>
               </button>
             </div>
             <div class="col-6">
               <button [disabled]="loadingFirst || loadingSecond || loadingThird" (click)="downloadReport('sp')" class="btn btn-primary btn-block">
                 <span *ngIf="loadingSecond" class="spinner-border spinner-border-sm mr-1"></span>
-                <span *ngIf="!loadingSecond"> Reporte de especialidades </span>
+                <span *ngIf="!loadingSecond">{{ts.translate('specialtyReport')}}</span>
               </button>
             </div>
           </div>
@@ -37,20 +37,20 @@
             <div class="col-6">
               <button [disabled]="loadingFirst || loadingSecond || loadingThird" (click)="downloadReport('wk')" class="btn btn-primary btn-block">
                 <span *ngIf="loadingThird" class="spinner-border spinner-border-sm mr-1"></span>
-                <span *ngIf="!loadingThird"> Reporte días de semana </span>
+                <span *ngIf="!loadingThird">{{ts.translate('weekdaysReport')}}</span>
               </button>
             </div>
-            <p class="text-secondary p-2 my-2 ml-2">Presione en cualquiera de las opciones para descargar reportes en Excel y PDF</p>
+            <p class="text-secondary p-2 my-2 ml-2">{{ts.translate('reportsHelp')}}</p>
           </div>
           <hr>
 
           <div class="row">
             <div class="col align-items-start">
                 <h5>
-                  Búsqueda de información
+                  {{ts.translate('appointmentDataSearch')}}
                 </h5>
                 <p class="text-secondary py-2 my-1">
-                  Sólo turnos completados. Presione sobre uno para ver el detalle.
+                  {{ts.translate('searchHelp')}}
                 </p>
                 <app-appointment-search></app-appointment-search>
             </div>

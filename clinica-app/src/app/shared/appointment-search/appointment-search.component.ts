@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Appointment, AppointmentStatus } from './../../models/appointments';
 import { AppointmentsService } from './../../services/appointments.service';
@@ -18,6 +19,7 @@ export class AppointmentSearchComponent implements OnInit, OnChanges {
   loading = false;
 
   constructor(
+    public ts: TranslationService,
     private apps: AppointmentsService,
     private auth: AuthenticationService,
     private modal: NgbModal

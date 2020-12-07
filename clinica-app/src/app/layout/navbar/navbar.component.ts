@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { Notification } from './../../models/notification';
 import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
@@ -20,7 +21,11 @@ export class NavbarComponent implements OnInit {
   exit = faDoorOpen;
   notifications: Notification[] = [];
 
-  constructor(private notify: NotifyService, public auth: AuthenticationService, private router: Router){}
+  constructor(
+    private notify: NotifyService,
+    public auth: AuthenticationService,
+    public ts: TranslationService,
+    private router: Router){}
 
   ngOnInit(): void {
     this.auth.userAsigned.subscribe(res => this.getNotifications());

@@ -2,7 +2,7 @@
   <div class="card shadow-lg" *ngIf="this.auth.currentUser">
     <div class="card-header" style="text-align: center;">
       <h6>
-        {{'¡Bienvenido, ' + auth.currentUser.name + '!'}}
+        {{'¡' + ts.translate('welcome') + ', ' + auth.currentUser.name + '!'}}
       </h6>
     </div>
     <div class="card-body">
@@ -19,6 +19,9 @@
           <img [src]="profilePictures[1]" alt="Profile picture" style="width: auto; height: 60px;">
         </div>
 
+        <button (click)="ts.switchLanguages()" class="btn btn-primary">
+          Switch
+        </button>
       </div>
       <div class="row justify-content-center">
         <h4>
@@ -27,20 +30,20 @@
       </div>
       <div class="row justify-content-center">
         <h6 *ngIf="!enabled && userType == types.Staff" class="text-danger" style="text-align: center;">
-          Usted aún no ha sido aprobado por un administrador
+          {{ts.translate('pendingApproval')}}
         </h6>
 
         <h6 *ngIf="!enabled && userType == types.Patient" class="text-danger" style="text-align: center;">
-          Usted aún no ha verificado su correo
+          {{ts.translate('pendingVerification')}}
         </h6>
 
         <h6 *ngIf="enabled && userType != types.Admin" class="text-success" style="text-align: center;">
-          Usted se encuentra habilitado para utilizar el sitio
+          {{ts.translate('enabled')}}
         </h6>
       </div>
     </div>
     <div class="card-footer text-muted">
-      {{'Usted está registrado como ' + typeTranslation}}
+      {{ts.translate('registeredAs') + ' ' + typeTranslation}}
     </div>
   </div>
 </div>

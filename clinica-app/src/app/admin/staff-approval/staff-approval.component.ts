@@ -1,6 +1,7 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/user';
+import { TranslationService } from 'src/app/translation.service';
 
 @Component({
   selector: 'app-staff-approval',
@@ -11,7 +12,9 @@ export class StaffApprovalComponent implements OnInit {
 
   users: User[] = [];
   loading: boolean = false;
-  constructor(private auth: AuthenticationService) { }
+  constructor(
+    private auth: AuthenticationService,
+    public ts: TranslationService) { }
 
   ngOnInit(): void {
     this.getPendingApprovalList();

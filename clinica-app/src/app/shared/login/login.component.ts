@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { NotifyService } from './../../services/notify.service';
 import { AuthenticationService } from './../../services/authentication.service';
@@ -27,7 +28,8 @@ export class LoginComponent implements OnInit {
       private notify: NotifyService,
       private formBuilder: FormBuilder,
       private router: Router,
-      private auth: AuthenticationService
+      private auth: AuthenticationService,
+      public ts: TranslationService
   ) {
   }
 

@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { PatientReviewComponent } from './../patient-review/patient-review.component';
 import { Component, OnInit } from '@angular/core';
@@ -24,6 +25,7 @@ export class PastAppointmentsComponent implements OnInit {
   selected;
   loading = true;
   constructor(
+    public ts: TranslationService,
     private notify: NotifyService,
     private auth: AuthenticationService,
     private appoint: AppointmentsService,

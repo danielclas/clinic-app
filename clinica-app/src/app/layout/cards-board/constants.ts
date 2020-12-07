@@ -1,51 +1,51 @@
 export const admin = [
   {
     'link': '/home/staffapproval',
-    'description': 'Ver la lista de profesionales pendientes de aprobación',
-    'label': 'Aprobar profesionales'
+    'description': 'staffApprovalContent',
+    'label': 'staffApprovalTitle'
   },
   {
     'link': '/home/adminadd',
-    'description': 'Agregar un administrador al sistema',
-    'label': 'Agregar administrador'
+    'description': 'adminAddContent',
+    'label': 'adminAddTitle'
   },
   {
     'link': '/home/specialtyadd',
-    'description': 'Agregar una especialidad médica',
-    'label': 'Agregar especialidad'
+    'description': 'specialtyAddContent',
+    'label': 'specialtyAddTitle'
   },
   {
     'link': '/home/reports',
-    'description': 'Generar informes de los turnos y actividades. Buscar información de los turnos.',
-    'label': 'Informes'
+    'description': 'reportsContent',
+    'label': 'reportsTitle'
   }
 ];
 
 export const staff = [
   {
     'link': '/home/specialtyadd',
-    'description': 'Agregar una especialidad médica',
-    'label': 'Agregar especialidad'
+    'description': 'specialtyAddContent',
+    'label': 'specialtyAddTitle'
   },
   {
     'link': '/home/staffschedule',
-    'description': 'Ver y modificar los días y horarios de atención',
-    'label': 'Configurar horarios de atención'
+    'description': 'workingHoursContent',
+    'label': 'workingHoursTitle'
   },
   {
     'link': '/home/staffappointments',
-    'description': 'Ver turnos pasados, aceptar o rechazar turnos pendientes',
-    'label': 'Ver turnos'
+    'description': 'staffAppointmentsContent',
+    'label': 'staffAppointmentsTitle'
   },
   {
     'link': '/home/attendappointment',
-    'description': 'Atender a un paciente, agregar una reseña y completar la encuesta',
-    'label': 'Atender paciente'
+    'description': 'attendAppointmentContent',
+    'label': 'attendAppointmentTitle'
   },
   {
     'link': '/home/reports',
-    'description': 'Generar informes de los turnos y actividades. Buscar información de los turnos.',
-    'label': 'Informes'
+    'description': 'reportsContent',
+    'label': 'reportsTitle'
   }
 ];
 
@@ -53,18 +53,18 @@ export const staff = [
 export const patient = [
   {
     'link': '/home/newappointment',
-    'description': 'Solicitar un nuevo turno con un profesional',
-    'label': 'Solicitar un turno'
+    'description': 'newAppointmentContent',
+    'label': 'newAppointmentTitle'
   },
   {
     'link': '/home/patientappointments',
-    'description': 'Ver todos los turnos pendientes',
-    'label': 'Ver turnos pedientes'
+    'description': 'pendingAppointmentsContent',
+    'label': 'pendingAppointmentsTitle'
   },
   {
     'link': '/home/pastappointments',
-    'description': 'Ver todos los turnos anteriores al día de la fecha',
-    'label': 'Ver turnos pasados'
+    'description': 'pastAppointmentsContent',
+    'label': 'pastAppointmentsTitle'
   }
 
 ]

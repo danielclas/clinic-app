@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { NotifyService } from './../../services/notify.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ export class SpecialtyAddComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
+    public ts: TranslationService,
     private notify: NotifyService,
     private auth: AuthenticationService,
     private formBuilder: FormBuilder) { }

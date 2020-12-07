@@ -9,11 +9,11 @@
   <table class="table table-striped table-bordered table-hover" *ngIf="appointments && appointments.length != 0" >
     <thead>
       <tr>
-        <th scope="col">Paciente</th>
-        <th scope="col">Médico</th>
-        <th scope="col">Especialidad</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Datos clínicos</th>
+        <th scope="col">{{ts.translate('patient')}}</th>
+        <th scope="col">{{ts.translate('doctor')}}</th>
+        <th scope="col">{{ts.translate('specialty')}}</th>
+        <th scope="col">{{ts.translate('date')}}</th>
+        <th scope="col">{{ts.translate('clinicalData')}}</th>
       </tr>
     </thead>
     <tbody>

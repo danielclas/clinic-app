@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { Notification } from './../../models/notification';
 import { NotifyService } from './../../services/notify.service';
@@ -21,7 +22,12 @@ export class PatientAppointmentsComponent implements OnInit {
   filteredAppointments = [];
   selected;
   loading = true;
-  constructor(private notify: NotifyService, private auth: AuthenticationService, private appoint: AppointmentsService) { }
+
+  constructor(
+    public ts: TranslationService,
+    private notify: NotifyService,
+    private auth: AuthenticationService,
+    private appoint: AppointmentsService) { }
 
   ngOnInit(): void {
     this.loading = true;

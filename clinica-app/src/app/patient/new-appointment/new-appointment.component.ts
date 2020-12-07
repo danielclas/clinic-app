@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { AnimateGallery } from './../../animations';
 import { Appointment, AppointmentStatus } from './../../models/appointments';
 import { Schedule, Days } from './../../models/staffschedule';
@@ -11,7 +12,8 @@ import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { User } from 'src/app/models/user';
 import Stepper from 'bs-stepper'
-import { faStethoscope, IconDefinition, IconDefinition, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faStethoscope } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 interface Specialty{
   label: string;
@@ -53,14 +55,22 @@ export class NewAppointmentComponent implements OnInit {
   hours = [];
   date: {year: number, month: number};
   selectedDate: Date;
+  confirmationDate: Date;
 
   loading = false;
   loadingHours = false;
   loadingDoctors = false;
   loadingConfirmation = false;
+  confirmationExported = false;
 
   selectedSlot;
-  constructor(private apps: AppointmentsService, private auth: AuthenticationService, private formBuilder: FormBuilder, private notify: NotifyService) { }
+  constructor(
+    public ts: TranslationService,
+    private apps: AppointmentsService,
+    private auth: AuthenticationService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private notify: NotifyService) { }
 
   ngOnInit(): void {
     this.auth.getSpecialties().snapshotChanges().subscribe(
@@ -109,20 +119,30 @@ export class NewAppointmentComponent implements OnInit {
     return !v ? '' : v.viewValue;
   }
 
-  onRegister(){
+  onRegister(next?: boolean){
 
-    let hour = this.selectedSlot.time.substring(0, this.selectedSlot.time.indexOf(':'));
-    let min = this.selectedSlot.time.substring(this.selectedSlot.time.indexOf(':')+1);
+    let hour, min, obj;
 
-    this.selectedDate.setHours(hour);
-    this.selectedDate.setMinutes(min);
+    if(next){
+      hour = this.nextHour.time.substring(0, this.selectedSlot.time.indexOf(':'));
+      min = this.nextHour.time.substring(this.selectedSlot.time.indexOf(':')+1);
+      this.nextDate.setHours(hour);
+      this.nextDate.setMinutes(min);
+      this.selectedDate = this.nextDate;
+      this.confirmationDate = this.nextDate;
+    }else{
+      hour = this.selectedSlot.time.substring(0, this.selectedSlot.time.indexOf(':'));
+      min = this.selectedSlot.time.substring(this.selectedSlot.time.indexOf(':')+1);
+      this.selectedDate.setHours(hour);
+      this.selectedDate.setMinutes(min);
+    }
 
-    let obj = {
+    obj = {
       'professional': this.doctorSelected.uid,
       'patient': this.auth.currentUser.uid,
       'status': AppointmentStatus.Pending,
       'review': '',
-      'date': this.selectedDate
+      'date': next ? this.nextDate  : this.selectedDate
     }
 
     this.loading = true;
@@ -142,6 +162,10 @@ export class NewAppointmentComponent implements OnInit {
   onExportConfirmation(){
     this.loadingConfirmation = true;
     this.exportConfirmation('confirmacion-turno');
+    this.confirmationExported = true;
+    setTimeout(() => {
+      this.router.navigateByUrl('/home');
+    }, 2000);
   }
 
   exportConfirmation(filename: string){
@@ -342,7 +366,6 @@ export class NewAppointmentComponent implements OnInit {
           }else{
             this.selectedDate.setDate(this.selectedDate.getDate() + 7);
           }
-          console.log("while do");
         }while(this.hours == null);
 
         this.loadingHours = false;

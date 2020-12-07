@@ -1,3 +1,4 @@
+import { TranslationService } from 'src/app/translation.service';
 import { ReportsService } from './../../services/reports.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -27,6 +28,7 @@ export class ReportsComponent implements OnInit {
   loadingThird = false;
 
   constructor(
+    public ts: TranslationService,
     private apps: AppointmentsService,
     private formBuilder: FormBuilder,
     private reports: ReportsService) { }
