@@ -360,16 +360,16 @@ export class NewAppointmentComponent implements OnInit {
             }
           }
 
-          if(arr.some(d => d.available)){
+          if(arr.length > 0 && arr.some(d => d.available)){
             this.hours = arr;
             this.loadingHours = false;
+            console.log(arr);
           }else{
             this.selectedDate.setDate(this.selectedDate.getDate() + 7);
           }
-        }while(this.hours == null);
+        }while(this.hours == null || this.hours.length == 0);
 
         this.loadingHours = false;
-
       }
     );
   }
