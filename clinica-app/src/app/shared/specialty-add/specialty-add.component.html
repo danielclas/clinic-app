@@ -44,7 +44,7 @@
 
           <!-- Submit button -->
           <div class="form-group">
-            <button [disabled]="form.invalid || loading" (click)="onAddSpecialty()" class="btn btn-primary btn-block my-3">
+            <button [disabled]="form.invalid || loading || !captcha" (click)="onAddSpecialty()" class="btn btn-primary btn-block my-3">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               <span *ngIf="!loading">{{ts.translate('addSpecialty')}}</span>
               </button>
