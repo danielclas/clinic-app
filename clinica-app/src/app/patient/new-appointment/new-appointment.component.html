@@ -100,7 +100,7 @@
                     </div>
                     <div class="row justify-content-center" *ngIf="nextDate && nextHour">
                       <div class="col-6 align-items-center">
-                        <button [disabled]="loading" class="btn btn-success btn-block" (click)="onRegister(true)">
+                        <button [disabled]="loading || !captcha" class="btn btn-success btn-block" (click)="onRegister(true)">
                           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                           <span *ngIf="!loading">{{ts.translate('registerAppointment')}}</span>
                         </button>
@@ -132,7 +132,7 @@
                                   <span *ngIf="loadingHours" class="spinner-grow spinner-grow-md m-3 p-5 text-primary"></span>
                                 </div>
                                 <div class="row justify-content-center">
-                                  <button [disabled]="!selectedSlot" *ngIf="!loadingHours" class="btn btn-success align-self-center" (click)="onRegister()">
+                                  <button [disabled]="!selectedSlot || !captcha" *ngIf="!loadingHours" class="btn btn-success align-self-center" (click)="onRegister()">
                                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                     <span *ngIf="!loading">{{ts.translate('registerAppointment')}}</span>
                                   </button>
@@ -143,6 +143,8 @@
                           </div>
                       </div>
                     </div>
+                    <hr>
+                    <app-captcha (resolved)="onCaptchaResolved($event)"></app-captcha>
                   </div>
 
 

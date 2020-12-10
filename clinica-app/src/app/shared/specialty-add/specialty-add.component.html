@@ -39,6 +39,9 @@
             </div>
           </div>
 
+          <!-- Captcha  -->
+          <app-captcha (resolved)="onCaptchaResolved($event)"></app-captcha>
+
           <!-- Submit button -->
           <div class="form-group">
             <button [disabled]="form.invalid || loading" (click)="onAddSpecialty()" class="btn btn-primary btn-block my-3">

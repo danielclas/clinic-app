@@ -62,6 +62,7 @@ export class NewAppointmentComponent implements OnInit {
   loadingDoctors = false;
   loadingConfirmation = false;
   confirmationExported = false;
+  captcha = false;
 
   selectedSlot;
   constructor(
@@ -258,6 +259,10 @@ export class NewAppointmentComponent implements OnInit {
     this.specialtySelected = label;
     this.doctors = this.doctors.filter(doc => doc.specialties.includes(label));
     this.stepper.next();
+  }
+
+  onCaptchaResolved(data: boolean){
+    this.captcha = data;
   }
 
   findNextAppointmentSlot(d: Date){

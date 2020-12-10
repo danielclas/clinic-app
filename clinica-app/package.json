@@ -44,6 +44,7 @@
     "html2canvas": "^1.0.0-rc.7",
     "jspdf": "^1.5.3",
     "lodash": "^4.17.20",
+    "ng-recaptcha": "^6.1.0",
     "ngx-stepper": "^1.1.6",
     "pdfmake": "^0.1.68",
     "pdfmake-wrapper": "^2.0.0",

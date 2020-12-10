@@ -17,6 +17,7 @@ export class SpecialtyAddComponent implements OnInit {
   form: FormGroup;
   specialties: string[] = [];
   loading: boolean = false;
+  captcha = false;
 
   constructor(
     public ts: TranslationService,
@@ -53,6 +54,10 @@ export class SpecialtyAddComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  onCaptchaResolved(data: boolean){
+    this.captcha = data;
   }
 
   subscribeToSpecialties(){

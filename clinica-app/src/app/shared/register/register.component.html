@@ -97,10 +97,12 @@
             </div>
           </div>
 
+          <!-- Captcha -->
+          <app-captcha (resolved)="onCaptchaResolved($event)"></app-captcha>
 
           <!-- Sign up button -->
           <div class="form-group">
-            <button [disabled]="form.invalid || loading || (userType == 'Usuario' && (!picture1 || !picture2))" (click)="onRegister()" class="btn btn-primary btn-block my-3">
+            <button [disabled]="form.invalid || loading || (userType == 'Usuario' && (!picture1 || !picture2)) || !captcha" (click)="onRegister()" class="btn btn-primary btn-block my-3">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               <span *ngIf="!loading">{{ts.translate('register')}}</span>
               </button>

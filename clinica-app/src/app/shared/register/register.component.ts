@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   types: string[];
   loading = false;
   submitted = false;
+  captcha = false;
   returnUrl: string;
 
   userType: string = 'Usuario';
@@ -69,6 +70,10 @@ export class RegisterComponent implements OnInit {
 
   navigateToRegister(){
     this.router.navigateByUrl('/register');
+  }
+
+  onCaptchaResolved(data: boolean){
+    this.captcha = data;
   }
 
   onFileChange(event, picture){

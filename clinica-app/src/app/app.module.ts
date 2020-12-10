@@ -1,7 +1,7 @@
 import { LoginComponent } from './shared/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RecaptchaModule, RecaptchaFormsModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,6 +43,7 @@ import { AppointmentSearchComponent } from './shared/appointment-search/appointm
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { LanguageSwitchComponent } from './shared/language-switch/language-switch.component';
+import { CaptchaComponent } from './layout/captcha/captcha.component';
 registerLocaleData(localeEsAr);
 
 @NgModule({
@@ -74,7 +75,8 @@ registerLocaleData(localeEsAr);
     PatientReviewComponent,
     ReportsComponent,
     AppointmentSearchComponent,
-    LanguageSwitchComponent
+    LanguageSwitchComponent,
+    CaptchaComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ registerLocaleData(localeEsAr);
     AngularFirestoreModule, // Only required for database features
     AngularFireAuthModule, // Only required for auth features,
     AngularFireStorageModule, // Only required for storage features
-    AngularBootstrapToastsModule, NgbModule
+    AngularBootstrapToastsModule, NgbModule,
+    RecaptchaModule
   ],
   providers: [],
   bootstrap: [AppComponent],
