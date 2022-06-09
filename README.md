@@ -6,7 +6,7 @@
 
 Made as a project for a class, this app allows a clinic to give its patients, doctors and administrators a place to schedule and manage appointments, consult professionals by specialization or availability, receive notifications, and leave reviews.
 
-Deployed using Firebase hosting [here](https://clinica-app-6f2b7.web.app/home)
+Deployed using Firebase hosting [here](https://clinica-app-6f2b7.web.app/login)
 
 ## Features
 * SPA built with Angular, Firebase Authentication and Firestore
